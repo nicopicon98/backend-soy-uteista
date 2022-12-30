@@ -10,7 +10,7 @@ production.use((req, res, next) => {
       data: {},
       error: "Token invalido",
     });
-  } else if (!req.query.correo) {
+  } else if (!req.query.email) {
     return res.json({
       result: 2,
       data: {},
