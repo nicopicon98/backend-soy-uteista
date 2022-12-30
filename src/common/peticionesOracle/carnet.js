@@ -18,9 +18,9 @@ const carnet = async (email) => {
   if (getDomain == "uts.edu.co") {
     const resp = result.rows;
     if (resp.length > 0) {
-      return({ result: 1, data: resp[0], error: ERROR_3 });
+      return({ result: 1, data: resp[0], error: "" });
     } else {
-      return({ result: 3, data: {}, error: "" });
+      return({ result: 3, data: {}, error: ERROR_3 });
     }
   } else if (getDomain == "correo.uts.edu.co") {
     return({ result: 0, data: {}, error: ERROR_0 });
