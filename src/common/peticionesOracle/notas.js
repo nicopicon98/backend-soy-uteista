@@ -1,4 +1,5 @@
 const { run } = require("../conexiones/conexionOracle");
+const { obtainDomainName } = require("../obtainDomain");
 
 const notas = async (email) => {
   const conn = await run();

@@ -1,4 +1,5 @@
 const { run } = require("../conexiones/conexionOracle");
+const { obtainDomainName } = require("../obtainDomain");
 
 const ERROR_0 =
   "Hemos detectado que no eres estudiante, pero eres uteísta, así que podrás ver las últimas noticias, la agenda de eventos UTS y nuestra revista";
