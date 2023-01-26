@@ -1,14 +1,13 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
-const { production } = require('./production/production.controller');
-//const { calendarios } = require('./calendarios/calendarios.controller');
+const { soyUteistaVersion, soyuteista } = require('./api/v1/production/soyuteista');
+const { bienestarVersion, bienestar } = require('./api/v1/production/bienestar');
 const app = express();
 
 app.use(cors())
    .use(express.json())
-   .use('/endpoint/production', production)
-   //.use('/citas')
-   //.use('/calendarios', calendarios)
+   .use(soyUteistaVersion(), soyuteista)
+   .use(bienestarVersion(), bienestar)
    .use(express.static(path.join(__dirname, 'public')))
    .listen(9091)
