@@ -1,8 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
-const { soyUteistaVersion } = require('./api/v1/production/soyuteista/soyuteista.module');
-const { soyuteista } = require('./api/v1/production/soyuteista/soyuteista.controller');
+const { soyUteistaVersion, soyuteista } = require('./api/v1/production/soyuteista/');
 
 const app = express();
 
