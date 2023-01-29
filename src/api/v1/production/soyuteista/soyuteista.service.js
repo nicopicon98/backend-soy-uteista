@@ -2,6 +2,7 @@ const { response } = require("express");
 const { carnet } = require("../../../../common/peticionesOracle/carnet");
 const { horario } = require("../../../../common/peticionesOracle/horario");
 const { notas } = require("../../../../common/peticionesOracle/notas");
+const { executeQuery } = require("../../../../common/conexiones/conexionMysql");
 
 const carnetEntrada = async (req, res = response) => {
   const correo = req.query.email;
@@ -21,8 +22,15 @@ const scheduleEntrada = async (req, res = response) => {
   res.json(resp);
 };
 
+const professionalsByFieldEntrada = async (req, res = response) => {
+  const field = req.query.field; //psicologia
+  const resp = await executeQuery("SELECT * FROM areas INNER JOIN usuarios ON usuarios.id_area = areas.id_area WHERE areas.nombre = ?", [field])
+  res.json(resp);
+};
+
 module.exports = {
   carnetEntrada,
   qualificationEntrada,
   scheduleEntrada,
+  professionalsByFieldEntrada
 };

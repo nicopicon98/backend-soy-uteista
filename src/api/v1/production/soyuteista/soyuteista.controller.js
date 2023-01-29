@@ -1,6 +1,6 @@
 const express = require("express");
 const soyuteista = express.Router();
-const { carnetEntrada, qualificationEntrada, scheduleEntrada } = require("./soyuteista.service");
+const { carnetEntrada, qualificationEntrada, scheduleEntrada, professionalsByFieldEntrada } = require("./soyuteista.service");
 
 const KEY = "JSPHPWORKS4everandever!";
 soyuteista.use((req, res, next) => {
@@ -26,6 +26,8 @@ soyuteista.get("/carnet", carnetEntrada);
 soyuteista.get("/qualification", qualificationEntrada);
 
 soyuteista.get("/schedule", scheduleEntrada);
+
+soyuteista.get("/professionalsByField", professionalsByFieldEntrada);
 
 module.exports = {
   soyuteista,
