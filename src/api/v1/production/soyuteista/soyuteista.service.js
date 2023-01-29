@@ -4,7 +4,7 @@ const { horario } = require("../../../../common/peticionesOracle/horario");
 const { notas } = require("../../../../common/peticionesOracle/notas");
 const { mysqlConnection } = require("../../../../common/conexiones/conexionMysql");
 
-const con = new mysqlConnection()
+
 
 const carnetEntrada = async (req, res = response) => {
   const correo = req.query.email;
@@ -26,6 +26,7 @@ const scheduleEntrada = async (req, res = response) => {
 
 const professionalsByFieldEntrada = async (req, res = response) => {
   const field = req.query.field;
+  const con = new mysqlConnection()
   const resp = await con.executeQuery("SELECT * FROM areas INNER JOIN usuarios ON usuarios.id_area = areas.id_area WHERE areas.nombre = ?", [field])
   res.json(resp);
 };
