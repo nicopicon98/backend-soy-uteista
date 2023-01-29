@@ -10,7 +10,9 @@ const connection = mysql.createConnection({
 /** Ejecutar un query, no es obligatorio pasar parametros */
 const executeQuery = (query, parameters = []) => {
   try {
-    connection.connect();
+    connection.connect((error) => {
+      console.log(error)
+    });
 
     connection.query("SELECT * FROM areas",[], function (error, results, fields) {
       
