@@ -9,16 +9,16 @@ const connection = mysql.createConnection({
 
 /** Ejecutar un query, no es obligatorio pasar parametros */
 const executeQuery = (query, parameters = []) => {
-  connection.connect((error) => {
-    console.log(error)
+
+  return new Promise((resolve, reject) => {
+    connection.connect();
+
+    connection.query(query, parameters, function (error, results, fields) {
+      resolve(results);
+      reject(error);
+    });
+
   });
-
-  connection.query("SELECT * FROM areas", [], function (error, results, fields) {
-
-  });
-
-  connection.end();
-
 };
 
 module.exports = {
