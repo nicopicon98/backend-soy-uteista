@@ -25,6 +25,7 @@ const scheduleEntrada = async (req, res = response) => {
 const professionalsByFieldEntrada = async (req, res = response) => {
   const field = req.query.field;
   const resp = await executeQuery("SELECT * FROM areas INNER JOIN usuarios ON usuarios.id_area = areas.id_area WHERE areas.nombre = ?", [field])
+  console.log(resp);
   res.json(resp);
 };
 
