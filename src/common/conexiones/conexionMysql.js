@@ -1,22 +1,16 @@
 const mysql = require('mysql');
 class mysqlConnection {
   constructor() {
-    this.host = "localhost",
-      this.user = "root",
-      this.password = "06f60ff6f",
-      this.database = "bienestar",
-      this.port = 3306
   }
 
   connectedDB() {
     this.connection = mysql.createConnection({
-      host: this.host,
-      user: this.user,
-      password: this.password,
-      database: this.dbname,
-      port: this.port
+      host: "localhost",
+      user: "root",
+      password: "06f60ff6f",
+      database: "bienestar",
+      port: 3306
     });
-    this.connection.connect()
   }
 
   disconnectedDB() {
