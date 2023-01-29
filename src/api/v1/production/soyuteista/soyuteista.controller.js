@@ -27,7 +27,7 @@ soyuteista.get("/qualification", qualificationEntrada);
 
 soyuteista.get("/schedule", scheduleEntrada);
 
-soyuteista.get("/bienestar/professionalsByField", professionalsByFieldEntrada);
+soyuteista.get("/bienestar/professionals-by-field", professionalsByFieldEntrada);
 
 module.exports = {
   soyuteista,
