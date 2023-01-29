@@ -16,6 +16,7 @@ class mysqlConnection {
       database: this.dbname,
       port: this.port
     });
+    this.connection.connect()
   }
 
   disconnectedDB() {
