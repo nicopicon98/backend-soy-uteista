@@ -45,7 +45,7 @@ const insertAppointment = async (req, res = response) => {
   const { id_horario, correo, telefono } = req.body;
   const con = new mysqlConnection()
   try {
-    resp = await con.executeQuery("INSERT INTO `citas` (`id_cita`, `id_horario`, `tomado_por`, `asistido`, `rechazado`, `rechazado_por`, `rechazado_razon`, `telefono`, `fecha_registro`) VALUES (NULL, ?, ?, '', '', '', '', ?, CURRENT_TIMESTAMP)", [id_horario, correo, telefono])
+    resp = await con.executeQuery("INSERT INTO citas (id_horario, tomado_por, telefono) VALUES (?, ?, ?)", [id_horario, correo, telefono])
   console.log(resp)
   } catch (error) {
     resp = error
