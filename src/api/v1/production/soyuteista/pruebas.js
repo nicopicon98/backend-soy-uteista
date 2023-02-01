@@ -30,4 +30,5 @@ con.executeQuery("select usuarios.nombre, usuarios.id_usuario as usuariosIdUsuar
           });
     }
     console.log(materias3)
+    console.log(array2)
 })
