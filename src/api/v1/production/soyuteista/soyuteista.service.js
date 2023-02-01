@@ -43,7 +43,7 @@ const scheduleByProfessional = async (req, res = response) => {
 const insertAppointment = async (req, res = response) => {
   let resp;
   const { id_horario, correo, telefono } = req.body;
-  console.log(id_horario, correo, telefono)
+  console.log(typeof id_horario, correo, telefono)
   const con = new mysqlConnection()
   try {
     resp = await con.executeQuery("INSERT INTO citas (id_horario, tomado_por, telefono) VALUES (?, ?, ?)", [id_horario, correo, telefono])
