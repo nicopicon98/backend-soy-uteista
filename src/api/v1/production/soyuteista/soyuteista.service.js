@@ -39,14 +39,26 @@ const scheduleByProfessional = async (req, res = response) => {
   res.json({ data: organizar });
 };
 
-scheduleByProfessional().then(e => {
-  console.log(e);
-})
+
+const insertAppointment = async (req, res = response) => {
+  let resp;
+  const { id_horario, correo, telefono } = req.body;
+  const con = new mysqlConnection()
+  try {
+    resp = await con.executeQuery("INSERT INTO `citas` (`id_cita`, `id_horario`, `tomado_por`, `asistido`, `rechazado`, `rechazado_por`, `rechazado_razon`, `telefono`, `fecha_registro`) VALUES (NULL, ?, ?, '', '', '', '', ?, CURRENT_TIMESTAMP)", [id_horario, correo, telefono])
+  } catch (error) {
+    resp = error
+  }
+  res.json({ data: error });
+};
+
+
 
 module.exports = {
   carnetEntrada,
   qualificationEntrada,
   scheduleEntrada,
   professionalsByFieldEntrada,
-  scheduleByProfessional
+  scheduleByProfessional,
+  insertAppointment
 };
