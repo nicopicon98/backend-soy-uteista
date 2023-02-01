@@ -42,16 +42,25 @@ const scheduleByProfessional = async (req, res = response) => {
 
 const insertAppointment = async (req, res = response) => {
   let resp;
+  let data;
   const { id_horario, correo, telefono } = req.body;
   console.log(id_horario, correo, telefono)
   const con = new mysqlConnection()
-  try {
-    resp = await con.executeQuery("INSERT INTO citas (id_horario, tomado_por, telefono) VALUES (?, ?, ?)", [id_horario, correo, telefono])
-  console.log(resp)
-  } catch (error) {
-    resp = error
+
+  resp = await con.executeQuery("INSERT INTO citas (id_horario, tomado_por, telefono) VALUES (?, ?, ?)", [id_horario, correo, telefono])
+  if (resp.data.affectedRows) {
+    data = {
+      code: 201,
+      msg: "Cita creada con éxito"
+    }
+  } else {
+    data = {
+      code: 409,
+      msg: "Esta cita ya fue tomada"
+
+    }
   }
-  res.json({ data: resp });
+  res.json({ data });
 };
 
 
