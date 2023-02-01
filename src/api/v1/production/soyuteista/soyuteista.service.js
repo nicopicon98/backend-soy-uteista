@@ -49,7 +49,7 @@ const insertAppointment = async (req, res = response) => {
 
   resp = await con.executeQuery("INSERT INTO citas (id_horario, tomado_por, telefono) VALUES (?, ?, ?)", [id_horario, correo, telefono])
   console.log(resp)
-  if (resp.data.affectedRows) {
+  if (resp != undefined) {
     data = {
       code: 201,
       msg: "Cita creada con éxito"
