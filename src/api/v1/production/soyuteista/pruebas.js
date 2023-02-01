@@ -40,7 +40,7 @@ con.executeQuery("select usuarios.nombre, usuarios.id_usuario as usuariosIdUsuar
         console.log(cortes);
         for (const key in cortes) {
             array3.push({
-                id_franja: key,
+                id_horario: key,
                 nombre: cortes[key],
             });
         }
