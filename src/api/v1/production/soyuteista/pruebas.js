@@ -40,8 +40,8 @@ con.executeQuery("select usuarios.nombre, usuarios.id_usuario as usuariosIdUsuar
         console.log(cortes);
         for (const key in cortes) {
             array3.push({
-                corte: key,
-                infoCorte: cortes[key],
+                id_franja: key,
+                nombre: cortes[key],
             });
         }
         array2[index].franjas = [...array3];
