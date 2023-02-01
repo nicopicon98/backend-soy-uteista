@@ -29,5 +29,5 @@ con.executeQuery("select usuarios.nombre, usuarios.id_usuario as usuariosIdUsuar
             franjas: value,
           });
     }
-    console.log(array2)
+    console.log(JSON.stringify(array2, null, 2))
 })
