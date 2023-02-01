@@ -24,8 +24,10 @@ con.executeQuery("select usuarios.nombre, usuarios.id_usuario as usuariosIdUsuar
         let key = x;
         let value = materias3[x];
 
-        console.log(key, "key")
-        console.log(value, "value")
+        array2.push({
+            materia: key,
+            infoMateria: value,
+          });
     }
     console.log(materias3)
 })
