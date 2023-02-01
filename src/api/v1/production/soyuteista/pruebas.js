@@ -27,7 +27,7 @@ con.executeQuery("select usuarios.nombre, usuarios.id_usuario as usuariosIdUsuar
         let value = materias3[x];
 
         array2.push({
-            date: key,
+            date: key.format("yyyy/mm/dd"),
             franjas: value,
         });
     }
