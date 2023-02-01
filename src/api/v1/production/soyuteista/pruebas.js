@@ -24,7 +24,6 @@ con.executeQuery("select usuarios.nombre, usuarios.id_usuario as usuariosIdUsuar
     for (const x in materias3) {
         let key = x;
         let value = materias3[x];
-        console.log(key)
         array2.push({
             date: key,
             franjas: value,
