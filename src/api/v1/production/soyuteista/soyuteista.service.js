@@ -44,11 +44,9 @@ const insertAppointment = async (req, res = response) => {
   let resp;
   let data;
   const { id_horario, correo, telefono } = req.body;
-  console.log(id_horario, correo, telefono)
   const con = new mysqlConnection()
 
   resp = await con.executeQuery("INSERT INTO citas (id_horario, tomado_por, telefono) VALUES (?, ?, ?)", [id_horario, correo, telefono])
-  console.log(resp)
   if (resp != undefined) {
     data = {
       code: 201,
