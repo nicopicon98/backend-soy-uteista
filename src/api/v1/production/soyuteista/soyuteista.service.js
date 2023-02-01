@@ -63,6 +63,14 @@ const insertAppointment = async (req, res = response) => {
 };
 
 
+const deleteAppointments = async (req, res = response) => {
+  const con = new mysqlConnection()
+
+  const resp = await con.executeQuery("TRUNCATE TABLE citas", [])
+
+  res.json({ resp });
+}
+
 
 module.exports = {
   carnetEntrada,
@@ -70,5 +78,6 @@ module.exports = {
   scheduleEntrada,
   professionalsByFieldEntrada,
   scheduleByProfessional,
-  insertAppointment
+  insertAppointment,
+  deleteAppointments
 };
