@@ -39,7 +39,7 @@ con.executeQuery("select usuarios.nombre, usuarios.id_usuario as usuariosIdUsuar
         cortes = groupBy(e.franjas, "franjasIdFranja");
         
         for (const key in cortes) {
-            console.log(cortes[key].nombreFranja);
+            console.log(cortes[key]);
             array3.push({
                 id_horario: key,
                 nombre: cortes[key].nombreFranja,
