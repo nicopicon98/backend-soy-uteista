@@ -10,6 +10,8 @@ const groupBy = (input, key) => {
         return acc;
     }, {});
 };
+
+
 const array2 = [];
 
 
@@ -27,7 +29,20 @@ con.executeQuery("select usuarios.nombre, usuarios.id_usuario as usuariosIdUsuar
         array2.push({
             date: key,
             franjas: value,
-          });
+        });
     }
-    console.log(JSON.stringify(array2, null, 2))
+    let cortes = null;
+    let array3 = [];
+    array2.forEach((e, index) => {
+        cortes = groupBy(e.infoMateria, "franjasIdFranja");
+        for (const key in cortes) {
+            array3.push({
+                corte: key,
+                infoCorte: cortes[key],
+            });
+        }
+        array2[index].franjas = [...array3];
+        array3 = [];
+    })
+    console.log(JSON.stringify(array3, null, 2))
 })
