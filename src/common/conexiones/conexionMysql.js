@@ -21,11 +21,16 @@ class mysqlConnection {
   executeQuery(query, params = []) {
     return new Promise((resolve, reject) => {
       this.connectedDB()
-      this.connection.query(query, params,
-        function (error, results, fields) {
-          resolve(results)
-          reject(error)
-        })
+      try {
+        this.connection.query(query, params,
+          function (error, results, fields) {
+            resolve(results)
+            reject(error)
+          })
+        
+      } catch (error) {
+        console.log(error)
+      }
 
       this.disconnectedDB()
     });
