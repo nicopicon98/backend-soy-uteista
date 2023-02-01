@@ -3,8 +3,7 @@ const { carnet } = require("../../../../common/peticionesOracle/carnet");
 const { horario } = require("../../../../common/peticionesOracle/horario");
 const { notas } = require("../../../../common/peticionesOracle/notas");
 const { mysqlConnection } = require("../../../../common/conexiones/conexionMysql");
-
-
+const { organizarHorarioBienestar } = require("../../../../common/utils/organizarHorarioBienestar");
 
 const carnetEntrada = async (req, res = response) => {
   const correo = req.query.email;
@@ -31,10 +30,12 @@ const professionalsByFieldEntrada = async (req, res = response) => {
   res.json({data: resp});
 };
 
+
 const scheduleByProfessional = async (req, res = response) => {
   const con = new mysqlConnection()
   const resp = await con.executeQuery("select usuarios.nombre, usuarios.id_usuario as usuariosIdUsuario,horario.id_horario, horario.fecha, horario.id_usuario, horario.id_franja as horarioIdFranja, franjas.id_franja as franjasIdFranja, franjas.nombre as nombreFranja from horario left join citas on citas.id_horario = horario.id_horario inner join usuarios ON usuarios.id_usuario = horario.id_usuario inner join franjas ON franjas.id_franja = horario.id_franja WHERE horario.id_horario not in (select id_horario from citas)", [])
-  res.json({data: resp});
+  const organizar = organizarHorarioBienestar(resp);
+  res.json({data: organizar});
 };
 
 scheduleByProfessional().then(e => {
