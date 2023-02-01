@@ -37,6 +37,7 @@ con.executeQuery("select usuarios.nombre, usuarios.id_usuario as usuariosIdUsuar
 
     array2.forEach((e, index) => {
         cortes = groupBy(e.franjas, "franjasIdFranja");
+        console.log(cortes);
         for (const key in cortes) {
             array3.push({
                 corte: key,
@@ -46,5 +47,6 @@ con.executeQuery("select usuarios.nombre, usuarios.id_usuario as usuariosIdUsuar
         array2[index].franjas = [...array3];
         array3 = [];
     })
-    console.log(JSON.stringify(array3, null, 2))
+    
+    console.log(JSON.stringify(array2, null, 2))
 })
