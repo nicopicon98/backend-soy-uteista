@@ -1,6 +1,17 @@
 
 const organizarHorarioBienestar = (e) => {
-    let array2 = [];
+    const groupBy = (input, key) => {
+        return input.reduce((acc, currentValue) => {
+            let groupKey = currentValue[key];
+            if (!acc[groupKey]) {
+                acc[groupKey] = [];
+            }
+            acc[groupKey].push(currentValue);
+            return acc;
+        }, {});
+    };
+
+    const array2 = [];
     const materias3 = groupBy(e, "fecha");
     for (const x in materias3) {
         let key = x;
