@@ -26,12 +26,8 @@ con.executeQuery("select usuarios.nombre, usuarios.id_usuario as usuariosIdUsuar
         let key = x;
         let value = materias3[x];
         console.log(key)
-        key = new Date.parse(key);
-        var date = key.getDate();
-        var month = key.getMonth() + 1; // Since getMonth() returns month from 0-11 not 1-12
-        var year = key.getFullYear();
         array2.push({
-            date: date + "/" + month + "/" + year,
+            date: key,
             franjas: value,
         });
     }
