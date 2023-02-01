@@ -27,15 +27,16 @@ const professionalsByFieldEntrada = async (req, res = response) => {
   const field = req.query.field;
   const con = new mysqlConnection()
   const resp = await con.executeQuery("SELECT * FROM areas INNER JOIN usuarios ON usuarios.id_area = areas.id_area WHERE areas.nombre = ?", [field])
-  res.json({data: resp});
+  res.json({ data: resp });
 };
 
 
 const scheduleByProfessional = async (req, res = response) => {
+  const { id_usuario } = req.query;
   const con = new mysqlConnection()
-  const resp = await con.executeQuery("select usuarios.nombre, usuarios.id_usuario as usuariosIdUsuario,horario.id_horario, DATE_FORMAT(horario.fecha,\'%d-%m-%Y\') as fecha, horario.id_usuario, horario.id_franja as horarioIdFranja, franjas.id_franja as franjasIdFranja, franjas.nombre as nombreFranja from horario left join citas on citas.id_horario = horario.id_horario inner join usuarios ON usuarios.id_usuario = horario.id_usuario inner join franjas ON franjas.id_franja = horario.id_franja WHERE horario.id_horario not in (select id_horario from citas)", [])
+  const resp = await con.executeQuery("select usuarios.nombre, usuarios.id_usuario as usuariosIdUsuario,horario.id_horario, DATE_FORMAT(horario.fecha,\'%d-%m-%Y\') as fecha, horario.id_usuario, horario.id_franja as horarioIdFranja, franjas.id_franja as franjasIdFranja, franjas.nombre as nombreFranja from horario left join citas on citas.id_horario = horario.id_horario inner join usuarios ON usuarios.id_usuario = horario.id_usuario inner join franjas ON franjas.id_franja = horario.id_franja WHERE horario.id_horario not in (select id_horario from citas) AND usuarios.id_usuario = ?", [id_usuario])
   const organizar = organizarHorarioBienestar(resp);
-  res.json({data: organizar});
+  res.json({ data: organizar });
 };
 
 scheduleByProfessional().then(e => {
