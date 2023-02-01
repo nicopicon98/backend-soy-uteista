@@ -33,8 +33,10 @@ con.executeQuery("select usuarios.nombre, usuarios.id_usuario as usuariosIdUsuar
     }
     let cortes = null;
     let array3 = [];
+
+
     array2.forEach((e, index) => {
-        cortes = groupBy(e.infoMateria, "franjasIdFranja");
+        cortes = groupBy(e.franjas, "franjasIdFranja");
         for (const key in cortes) {
             array3.push({
                 corte: key,
