@@ -48,7 +48,7 @@ const insertAppointment = async (req, res = response) => {
   const con = new mysqlConnection()
 
   resp = await con.executeQuery("INSERT INTO citas (id_horario, tomado_por, telefono) VALUES (?, ?, ?)", [id_horario, correo, telefono])
-  if (resp.data.affectedRows) {
+  if (resp.affectedRows) {
     data = {
       code: 201,
       msg: "Cita creada con éxito"
