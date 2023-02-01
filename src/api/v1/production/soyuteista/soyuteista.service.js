@@ -50,7 +50,7 @@ const insertAppointment = async (req, res = response) => {
     console.log(error)
     resp = error
   }
-  res.json({ data: error });
+  res.json({ data: resp });
 };
 
 
