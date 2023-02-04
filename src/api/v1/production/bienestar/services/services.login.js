@@ -11,7 +11,7 @@ const loginService = async (usuario, clave) => {
 
 const registerService = async (usuario, clave) => {
     const password = await hashPassword(clave);
-    const query = await executeQuery("INSERT INTO usuarios (usuario, clave) VALUES (?, ?)", [usuario, password]);
+    const query = await executeQuery("INSERT INTO usuarios (correo, clave) VALUES (?, ?)", [usuario, password]);
     return query.length == 0 ? { error: GENERAL_ERROR } : query
 }
 
