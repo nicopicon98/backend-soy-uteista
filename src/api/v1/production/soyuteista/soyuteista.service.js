@@ -71,6 +71,14 @@ const deleteAppointments = async (req, res = response) => {
   res.json({ resp });
 }
 
+const enabledModulesEntrada = async (req, res = response) => {
+  const con = new mysqlConnection()
+
+  const resp = await con.executeQuery("SELECT * FROM modulos WHERE habilitado = ?", [1])
+
+  res.json({ resp });
+}
+
 
 module.exports = {
   carnetEntrada,
@@ -79,5 +87,6 @@ module.exports = {
   professionalsByFieldEntrada,
   scheduleByProfessional,
   insertAppointment,
-  deleteAppointments
+  deleteAppointments,
+  enabledModulesEntrada
 };

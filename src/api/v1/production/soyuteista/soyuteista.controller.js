@@ -1,6 +1,15 @@
 const express = require("express");
 const soyuteista = express.Router();
-const { carnetEntrada, qualificationEntrada, scheduleEntrada, professionalsByFieldEntrada, scheduleByProfessional, insertAppointment, deleteAppointments } = require("./soyuteista.service");
+const {
+  carnetEntrada,
+  qualificationEntrada,
+  scheduleEntrada,
+  professionalsByFieldEntrada,
+  scheduleByProfessional,
+  insertAppointment,
+  deleteAppointments,
+  enabledModulesEntrada,
+} = require("./soyuteista.service");
 
 const KEY = "JSPHPWORKS4everandever!";
 soyuteista.use((req, res, next) => {
@@ -26,6 +35,8 @@ soyuteista.get("/carnet", carnetEntrada);
 soyuteista.get("/qualification", qualificationEntrada);
 
 soyuteista.get("/schedule", scheduleEntrada);
+
+soyuteista.get("/enabled-modules", enabledModulesEntrada);
 
 soyuteista.get("/bienestar/professionals-by-field", professionalsByFieldEntrada);
 
