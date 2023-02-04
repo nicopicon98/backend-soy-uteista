@@ -79,6 +79,22 @@ const enabledModulesEntrada = async (req, res = response) => {
   res.json({ resp });
 }
 
+const podcastEntrada = async (req, res = response) => {
+  const con = new mysqlConnection()
+
+  const resp = await con.executeQuery("SELECT * FROM podcast")
+
+  res.json({ resp });
+}
+
+const exitoEscolarEntrada = async (req, res = response) => {
+  const con = new mysqlConnection()
+
+  const resp = await con.executeQuery("SELECT * FROM exito_escolar")
+
+  res.json({ resp });
+}
+
 
 module.exports = {
   carnetEntrada,
@@ -88,5 +104,7 @@ module.exports = {
   scheduleByProfessional,
   insertAppointment,
   deleteAppointments,
-  enabledModulesEntrada
+  enabledModulesEntrada,
+  podcastEntrada,
+  exitoEscolarEntrada
 };

@@ -9,6 +9,8 @@ const {
   insertAppointment,
   deleteAppointments,
   enabledModulesEntrada,
+  podcastEntrada,
+  exitoEscolarEntrada,
 } = require("./soyuteista.service");
 
 const KEY = "JSPHPWORKS4everandever!";
@@ -37,6 +39,10 @@ soyuteista.get("/qualification", qualificationEntrada);
 soyuteista.get("/schedule", scheduleEntrada);
 
 soyuteista.get("/enabled-modules", enabledModulesEntrada);
+
+soyuteista.get("/podcast", podcastEntrada);
+
+soyuteista.get("/exito-escolar", exitoEscolarEntrada);
 
 soyuteista.get("/bienestar/professionals-by-field", professionalsByFieldEntrada);
 
