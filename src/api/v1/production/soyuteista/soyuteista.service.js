@@ -68,7 +68,7 @@ const deleteAppointments = async (req, res = response) => {
 
   const resp = await con.executeQuery("TRUNCATE TABLE citas", [])
 
-  res.json({ resp });
+  res.json({ data: resp });
 }
 
 const enabledModulesEntrada = async (req, res = response) => {
@@ -76,7 +76,7 @@ const enabledModulesEntrada = async (req, res = response) => {
 
   const resp = await con.executeQuery("SELECT * FROM modulos WHERE habilitado = ?", [1])
 
-  res.json({ resp });
+  res.json({ data: resp });
 }
 
 const podcastEntrada = async (req, res = response) => {
@@ -84,7 +84,7 @@ const podcastEntrada = async (req, res = response) => {
 
   const resp = await con.executeQuery("SELECT * FROM podcast")
 
-  res.json({ resp });
+  res.json({ data: resp });
 }
 
 const exitoEscolarEntrada = async (req, res = response) => {
@@ -92,7 +92,7 @@ const exitoEscolarEntrada = async (req, res = response) => {
 
   const resp = await con.executeQuery("SELECT * FROM exito_escolar")
 
-  res.json({ resp });
+  res.json({ data: resp });
 }
 
 
