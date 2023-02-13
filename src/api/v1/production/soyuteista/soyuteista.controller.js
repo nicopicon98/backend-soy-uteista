@@ -11,6 +11,12 @@ const {
   enabledModulesEntrada,
   podcastEntrada,
   exitoEscolarEntrada,
+  find,
+  create,
+  remove,
+  findDependencia,
+  createDependencia,
+  removeDependencia
 } = require("./soyuteista.service");
 
 const KEY = "JSPHPWORKS4everandever!";
@@ -48,9 +54,21 @@ soyuteista.get("/bienestar/professionals-by-field", professionalsByFieldEntrada)
 
 soyuteista.get("/bienestar/schedule-by-professional", scheduleByProfessional);
 
+soyuteista.get("/convocatorias", find);
+
+soyuteista.post("/convocatorias", create);
+
+soyuteista.get("/dependencias", findDependencia);
+
+soyuteista.post("/dependencias", createDependencia);
+
 soyuteista.post("/bienestar/insert-appointment", insertAppointment);
 
+soyuteista.delete("/convocatorias/:idConvocatoria", remove);
+
 soyuteista.delete("/bienestar/delete-appointments", deleteAppointments);
+
+soyuteista.delete("/dependencias/:idDependencia", removeDependencia);
 
 module.exports = {
   soyuteista,

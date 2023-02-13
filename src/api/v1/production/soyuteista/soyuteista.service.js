@@ -2,8 +2,50 @@ const { response } = require("express");
 const { carnet } = require("../../../../common/peticionesOracle/carnet");
 const { horario } = require("../../../../common/peticionesOracle/horario");
 const { notas } = require("../../../../common/peticionesOracle/notas");
-const { mysqlConnection } = require("../../../../common/conexiones/conexionMysql");
-const { organizarHorarioBienestar } = require("../../../../common/utils/organizarHorarioBienestar");
+const {
+  mysqlConnection,
+} = require("../../../../common/conexiones/conexionMysql");
+const {
+  organizarHorarioBienestar,
+} = require("../../../../common/utils/organizarHorarioBienestar");
+
+const find = (req, res = response) => {
+  //hacer query para buscar todos
+  connection.query(
+    `
+    SELECT * FROM convocatorias
+    `,
+    [],
+    function (err, result, fields) {
+      err ? res.json(err) : res.json(result);
+    }
+  );
+};
+
+const create = (req, res = response) => {
+  connection.query(
+    `
+  INSERT INTO convocatorias  
+  (titulo, descripcion, foto, url)
+  values (?, ?, ?, ?)`,
+    [req.body.titulo, req.params.descripcion, req.body.foto, req.body.url],
+    function (err, result, fields) {
+      err ? res.json(err) : res.json(result);
+    }
+  );
+};
+
+const remove = (req, res = response) => {
+  connection.query(
+    `
+  DELETE FROM convocatorias 
+  WHERE idConvocatoria = ?`,
+    [req.params.idConvocatoria],
+    function (err, result, fields) {
+      err ? res.json(err) : res.json(result);
+    }
+  );
+};
 
 const carnetEntrada = async (req, res = response) => {
   const correo = req.query.email;
@@ -25,76 +67,147 @@ const scheduleEntrada = async (req, res = response) => {
 
 const professionalsByFieldEntrada = async (req, res = response) => {
   const field = req.query.field;
-  const con = new mysqlConnection()
-  const resp = await con.executeQuery("SELECT * FROM areas INNER JOIN usuarios ON usuarios.id_area = areas.id_area WHERE areas.nombre = ?", [field])
+  const con = new mysqlConnection();
+  const resp = await con.executeQuery(
+    "SELECT * FROM areas INNER JOIN usuarios ON usuarios.id_area = areas.id_area WHERE areas.nombre = ?",
+    [field]
+  );
   res.json({ data: resp });
 };
 
-
 const scheduleByProfessional = async (req, res = response) => {
   const { id_usuario } = req.query;
-  const con = new mysqlConnection()
-  const resp = await con.executeQuery("select usuarios.nombre, usuarios.id_usuario as usuariosIdUsuario,horario.id_horario, DATE_FORMAT(horario.fecha,\'%d-%m-%Y\') as fecha, horario.id_usuario, horario.id_franja as horarioIdFranja, franjas.id_franja as franjasIdFranja, franjas.nombre as nombreFranja from horario left join citas on citas.id_horario = horario.id_horario inner join usuarios ON usuarios.id_usuario = horario.id_usuario inner join franjas ON franjas.id_franja = horario.id_franja WHERE horario.id_horario not in (select id_horario from citas) AND usuarios.id_usuario = ?", [id_usuario])
+  const con = new mysqlConnection();
+  const resp = await con.executeQuery(
+    "select usuarios.nombre, usuarios.id_usuario as usuariosIdUsuario,horario.id_horario, DATE_FORMAT(horario.fecha,'%d-%m-%Y') as fecha, horario.id_usuario, horario.id_franja as horarioIdFranja, franjas.id_franja as franjasIdFranja, franjas.nombre as nombreFranja from horario left join citas on citas.id_horario = horario.id_horario inner join usuarios ON usuarios.id_usuario = horario.id_usuario inner join franjas ON franjas.id_franja = horario.id_franja WHERE horario.id_horario not in (select id_horario from citas) AND usuarios.id_usuario = ?",
+    [id_usuario]
+  );
   const organizar = organizarHorarioBienestar(resp);
   res.json({ data: organizar });
 };
-
 
 const insertAppointment = async (req, res = response) => {
   let resp;
   let data;
   const { id_horario, correo, telefono } = req.body;
-  const con = new mysqlConnection()
+  const con = new mysqlConnection();
 
-  resp = await con.executeQuery("INSERT INTO citas (id_horario, tomado_por, telefono) VALUES (?, ?, ?)", [id_horario, correo, telefono])
+  resp = await con.executeQuery(
+    "INSERT INTO citas (id_horario, tomado_por, telefono) VALUES (?, ?, ?)",
+    [id_horario, correo, telefono]
+  );
   if (resp != undefined) {
     data = {
       code: 201,
-      msg: "Cita creada con éxito"
-    }
+      msg: "Cita creada con éxito",
+    };
   } else {
     data = {
       code: 409,
-      msg: "Esta cita ya fue tomada"
-
-    }
+      msg: "Esta cita ya fue tomada",
+    };
   }
   res.json({ data });
 };
 
-
 const deleteAppointments = async (req, res = response) => {
-  const con = new mysqlConnection()
+  const con = new mysqlConnection();
 
-  const resp = await con.executeQuery("TRUNCATE TABLE citas", [])
+  const resp = await con.executeQuery("TRUNCATE TABLE citas", []);
 
   res.json({ data: resp });
-}
+};
 
 const enabledModulesEntrada = async (req, res = response) => {
-  const con = new mysqlConnection()
+  const con = new mysqlConnection();
 
-  const resp = await con.executeQuery("SELECT * FROM modulos WHERE habilitado = ?", [1])
+  const resp = await con.executeQuery(
+    "SELECT * FROM modulos WHERE habilitado = ?",
+    [1]
+  );
 
   res.json({ data: resp });
-}
+};
 
 const podcastEntrada = async (req, res = response) => {
-  const con = new mysqlConnection()
+  const con = new mysqlConnection();
 
-  const resp = await con.executeQuery("SELECT * FROM podcast")
+  const resp = await con.executeQuery("SELECT * FROM podcast");
 
   res.json({ data: resp });
-}
+};
 
 const exitoEscolarEntrada = async (req, res = response) => {
-  const con = new mysqlConnection()
+  const con = new mysqlConnection();
 
-  const resp = await con.executeQuery("SELECT * FROM exito_escolar")
+  const resp = await con.executeQuery("SELECT * FROM exito_escolar");
 
   res.json({ data: resp });
-}
+};
 
+const findDependencia = (req, res = response) => {
+  //hacer query para buscar todos
+  connection.query(
+    `
+    SELECT dependencias.nombre as dependenciaNombre, contactosDependencia.*
+    FROM dependencias 
+    INNER JOIN contactosDependencia ON contactosDependencia.idDependencia = dependencias.idDependencia
+    `,
+    [],
+    function (err, result, fields) {
+      const groupBy = (input, key) => {
+        return input.reduce((acc, currentValue) => {
+          let groupKey = currentValue[key];
+          if (!acc[groupKey]) {
+            acc[groupKey] = [];
+          }
+          acc[groupKey].push(currentValue);
+          return acc;
+        }, {});
+      };
+
+      const materias3 = groupBy(result, "dependenciaNombre");
+
+      const array2 = [];
+      //organizar por materias
+      for (const x in materias3) {
+        let key = x;
+        let value = materias3[x];
+
+        array2.push({
+          dependencia: key,
+          infoDependencia: value,
+        });
+      }
+      err ? res.json(err) : res.json(array2);
+    }
+  );
+};
+
+const createDependencia = (req, res = response) => {
+  connection.query(
+    `
+  INSERT INTO carrito  
+  (correo_estudiante, id_idea)
+  values (?,?)`,
+    [req.params.email, req.params.id_idea],
+    function (err, result, fields) {
+      err ? res.json(err) : res.json(result);
+    }
+  );
+};
+
+const removeDependencia = (req, res = response) => {
+  connection.query(
+    `
+  DELETE FROM carrito 
+  WHERE id_carrito = ?`,
+    [req.params.id_cart],
+    function (err, result, fields) {
+      err ? res.json(err) : res.json(result);
+    }
+  );
+};
 
 module.exports = {
   carnetEntrada,
@@ -106,5 +219,11 @@ module.exports = {
   deleteAppointments,
   enabledModulesEntrada,
   podcastEntrada,
-  exitoEscolarEntrada
+  exitoEscolarEntrada,
+  find,
+  create,
+  remove,
+  findDependencia,
+  createDependencia,
+  removeDependencia,
 };
