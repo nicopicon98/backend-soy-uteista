@@ -119,45 +119,43 @@ const exitoEscolarEntrada = async (req, res = response) => {
 
   res.json({ data: resp });
 };
+const groupBy = (input, key) => {
+  return input.reduce((acc, currentValue) => {
+    let groupKey = currentValue[key];
+    if (!acc[groupKey]) {
+      acc[groupKey] = [];
+    }
+    acc[groupKey].push(currentValue);
+    return acc;
+  }, {});
+};
 
-const findDependencia = (req, res = response) => {
+const findDependencia = async (req, res = response) => {
   //hacer query para buscar todos
   const con = new mysqlConnection();
-  con.executeQuery(
+  const dependencias = await con.executeQuery(
     `
     SELECT dependencias.nombre as dependenciaNombre, contactosDependencia.*
     FROM dependencias 
     INNER JOIN contactosDependencia ON contactosDependencia.idDependencia = dependencias.idDependencia
     `,
-    [],
-    function (err, result, fields) {
-      const groupBy = (input, key) => {
-        return input.reduce((acc, currentValue) => {
-          let groupKey = currentValue[key];
-          if (!acc[groupKey]) {
-            acc[groupKey] = [];
-          }
-          acc[groupKey].push(currentValue);
-          return acc;
-        }, {});
-      };
-
-      const materias3 = groupBy(result, "dependenciaNombre");
-
-      const array2 = [];
-      //organizar por materias
-      for (const x in materias3) {
-        let key = x;
-        let value = materias3[x];
-
-        array2.push({
-          dependencia: key,
-          infoDependencia: value,
-        });
-      }
-      err ? res.json(err) : res.json(array2);
-    }
+    []
   );
+
+  const materias3 = groupBy(dependencias, "dependenciaNombre");
+
+  const array2 = [];
+  //organizar por materias
+  for (const x in materias3) {
+    let key = x;
+    let value = materias3[x];
+
+    array2.push({
+      dependencia: key,
+      infoDependencia: value,
+    });
+  }
+  res.json(array2);
 };
 
 const createDependencia = (req, res = response) => {};
