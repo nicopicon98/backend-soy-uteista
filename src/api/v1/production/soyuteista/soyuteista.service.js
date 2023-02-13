@@ -9,43 +9,18 @@ const {
   organizarHorarioBienestar,
 } = require("../../../../common/utils/organizarHorarioBienestar");
 
-const find = (req, res = response) => {
-  //hacer query para buscar todos
-  connection.query(
-    `
-    SELECT * FROM convocatorias
-    `,
-    [],
-    function (err, result, fields) {
-      err ? res.json(err) : res.json(result);
-    }
+const find = async (req, res = response) => {
+  const con = new mysqlConnection();
+  const convocatoria = await con.executeQuery(
+    `SELECT * FROM convocatorias`,
+    []
   );
+  res.json(convocatoria);
 };
 
-const create = (req, res = response) => {
-  connection.query(
-    `
-  INSERT INTO convocatorias  
-  (titulo, descripcion, foto, url)
-  values (?, ?, ?, ?)`,
-    [req.body.titulo, req.params.descripcion, req.body.foto, req.body.url],
-    function (err, result, fields) {
-      err ? res.json(err) : res.json(result);
-    }
-  );
-};
+const create = (req, res = response) => {};
 
-const remove = (req, res = response) => {
-  connection.query(
-    `
-  DELETE FROM convocatorias 
-  WHERE idConvocatoria = ?`,
-    [req.params.idConvocatoria],
-    function (err, result, fields) {
-      err ? res.json(err) : res.json(result);
-    }
-  );
-};
+const remove = (req, res = response) => {};
 
 const carnetEntrada = async (req, res = response) => {
   const correo = req.query.email;
@@ -147,7 +122,8 @@ const exitoEscolarEntrada = async (req, res = response) => {
 
 const findDependencia = (req, res = response) => {
   //hacer query para buscar todos
-  connection.query(
+  const con = new mysqlConnection();
+  con.executeQuery(
     `
     SELECT dependencias.nombre as dependenciaNombre, contactosDependencia.*
     FROM dependencias 
@@ -184,30 +160,9 @@ const findDependencia = (req, res = response) => {
   );
 };
 
-const createDependencia = (req, res = response) => {
-  connection.query(
-    `
-  INSERT INTO carrito  
-  (correo_estudiante, id_idea)
-  values (?,?)`,
-    [req.params.email, req.params.id_idea],
-    function (err, result, fields) {
-      err ? res.json(err) : res.json(result);
-    }
-  );
-};
+const createDependencia = (req, res = response) => {};
 
-const removeDependencia = (req, res = response) => {
-  connection.query(
-    `
-  DELETE FROM carrito 
-  WHERE id_carrito = ?`,
-    [req.params.id_cart],
-    function (err, result, fields) {
-      err ? res.json(err) : res.json(result);
-    }
-  );
-};
+const removeDependencia = (req, res = response) => {};
 
 module.exports = {
   carnetEntrada,
