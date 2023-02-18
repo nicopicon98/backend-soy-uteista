@@ -97,8 +97,8 @@ const enabledModulesEntrada = async (req, res = response) => {
   const con = new mysqlConnection();
 
   const resp = await con.executeQuery(
-    "SELECT * FROM modulos WHERE habilitado = ?",
-    [1]
+    "SELECT * FROM modulos",
+    []
   );
 
   res.json({ data: resp });
