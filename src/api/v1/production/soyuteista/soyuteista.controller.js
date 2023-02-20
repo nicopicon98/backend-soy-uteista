@@ -16,16 +16,22 @@ const {
   remove,
   findDependencia,
   createDependencia,
-  removeDependencia
+  removeDependencia,
 } = require("./soyuteista.service");
 
-const KEY = "JSPHPWORKS4everandever!";
+const KEY = "f910fd9b70mshc4e59787d044bc3p10ea5ejsnbd1f4b7fe6f7";
 soyuteista.use((req, res, next) => {
-  if (req.query.key != KEY) {
+  if (req.header("X-WebServiceUTSAPI-Key") != KEY) {
     return res.json({
-      result: 69,
-      data: {},
-      error: "Token invalido",
+      error: {
+        code: "InvalidAuthenticationToken",
+        message: "Access token is Invalid",
+        innerError: {
+          date: new Date(),
+          "request-id": "1",
+          "client-request-id": "1"
+        }
+      }
     });
   } else if (!req.query.email) {
     return res.json({
@@ -50,7 +56,7 @@ soyuteista.get("/podcast", podcastEntrada);
 
 soyuteista.get("/exito-escolar", exitoEscolarEntrada);
 
-soyuteista.get("/bienestar/professionals-by-field", professionalsByFieldEntrada);
+soyuteista.get("/bienestar/professionals-by-field",professionalsByFieldEntrada);
 
 soyuteista.get("/bienestar/schedule-by-professional", scheduleByProfessional);
 
