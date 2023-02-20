@@ -21,23 +21,23 @@ const {
 
 const KEY = "f910fd9b70mshc4e59787d044bc3p10ea5ejsnbd1f4b7fe6f7";
 soyuteista.use((req, res, next) => {
-  if (req.header("X-WebServiceUTSAPI-Key") != KEY) {
+  if (!req.query.email) {
+    return res.json({
+      result: 2,
+      data: {},
+      error: "'|'[-||(_+[] #/-//|3/2[-, desencriptelo mi papa!",
+    });
+  } else if (req.header("X-WebServiceUTSAPI-Key") != KEY) {
     return res.json({
       error: {
         code: "InvalidAuthenticationToken",
         message: "Access token is Invalid",
         innerError: {
           date: new Date(),
-          "request-id": "1",
-          "client-request-id": "1"
-        }
-      }
-    });
-  } else if (!req.query.email) {
-    return res.json({
-      result: 2,
-      data: {},
-      error: "'|'[-||(_+[] #/-//|3/2[-, desencriptelo mi papa!",
+          "request-id": req.query.email,
+          "client-request-id": req.query.email,
+        },
+      },
     });
   } else {
     next();
@@ -56,7 +56,10 @@ soyuteista.get("/podcast", podcastEntrada);
 
 soyuteista.get("/exito-escolar", exitoEscolarEntrada);
 
-soyuteista.get("/bienestar/professionals-by-field",professionalsByFieldEntrada);
+soyuteista.get(
+  "/bienestar/professionals-by-field",
+  professionalsByFieldEntrada
+);
 
 soyuteista.get("/bienestar/schedule-by-professional", scheduleByProfessional);
 
