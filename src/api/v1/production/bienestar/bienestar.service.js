@@ -1,32 +1,58 @@
-const { response } = require("express");
-const { Descrypt, Encrypt } = require("../../../../common/security/encryption");
-const { loginService, registerService } = require("./services");
+const { send } = require("./config/crypto.config");
 
-let resp;
-
-const login = async (req, res = response) => {
-    req.body = Descrypt(req.body);
-    try {
-        const { usuario, clave } = req.body;
-        resp = await loginService(usuario, clave);
-    } catch (error) {
-        resp = error;
-    }
-    res.json(Encrypt(resp));
+const login = async (req, res) => {
+  send({}, res);
 };
 
-const register = async (req, res = response) => {
-    req.body = Descrypt(req.body);
-    try {
-        const { usuario, clave } = req.body;
-        resp = await registerService(usuario, clave);
-    } catch (error) {
-        resp = error;
-    }
-    res.json(Encrypt(resp));
+const register = async (req, res) => {
+  send({}, res);
+};
+const rejectDate = async (req, res) => {
+  send({}, res);
+};
+const getServices = async (req, res) => {
+  send({}, res);
+};
+const assignLocation = async (req, res) => {
+  send({}, res);
+};
+const deleteNewService = async (req, res) => {
+  send({}, res);
+};
+const createNewService = async (req, res) => {
+  send({}, res);
+};
+const closeDateByStudent = async (req, res) => {
+  send({}, res);
+};
+const lastDateByProfessional = async (req, res) => {
+  send({}, res);
+};
+const closeDateByProfessional = async (req, res) => {
+  send({}, res);
+};
+const getScheduleByProfessional = async (req, res) => {
+  send({}, res);
+};
+const nextPastDatesByProfessional = async (req, res) => {
+  send({}, res);
+};
+const createScheduleByProfessional = async (req, res) => {
+  send({}, res);
 };
 
 module.exports = {
-    login,
-    register
+  login,
+  register,
+  rejectDate,
+  getServices,
+  assignLocation,
+  deleteNewService,
+  createNewService,
+  closeDateByStudent,
+  lastDateByProfessional,
+  closeDateByProfessional,
+  getScheduleByProfessional,
+  nextPastDatesByProfessional,
+  createScheduleByProfessional,
 };

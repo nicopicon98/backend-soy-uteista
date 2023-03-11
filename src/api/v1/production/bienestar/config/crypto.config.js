@@ -17,7 +17,7 @@ const decrypt = (json) => {
     const originalText = JSON.parse(bytes.toString(crypto.enc.Utf8));
     return originalText;
   } catch (error) {
-    console.log(error, "Error descrypting");
+    console.log(error, "Error decrypting");
     return {};
   }
 };
