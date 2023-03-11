@@ -37,6 +37,8 @@ class mysqlConnection {
   }
 }
 
+const mysql = new mysqlConnection()
+
 module.exports = {
-  mysqlConnection
+  mysql
 }
