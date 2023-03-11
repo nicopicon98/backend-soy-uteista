@@ -21,7 +21,7 @@ bienestar.use((req, res, next) => {
 
 bienestar.post("/login", login);
 bienestar.post("/register", register);
-bienestar.post("/assign-location", assignLocation);
+bienestar.post("/assign-location-by-professional", assignLocation);
 bienestar.post("/create-schedule-by-professional", createScheduleByProfessional);
 bienestar.post("/get-schedule-by-professional", getScheduleByProfessional);
 bienestar.post("/create-new-service", createNewService);
