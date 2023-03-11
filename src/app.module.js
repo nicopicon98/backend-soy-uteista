@@ -1,6 +1,7 @@
 const express = require('express');
 const cluster = require('cluster');
 const os = require('os');
+const fs = require('fs');
 const cors = require('cors');
 const path = require('path');
 const { decryptMiddleware } = require('./api/v1/production/bienestar/middlewares/decrypt.middleware');
@@ -15,6 +16,23 @@ app.use(cors())
    .use(decryptMiddleware)
    .use(bienestarVersion(), bienestar)
    .use(express.static(path.join(__dirname, 'public')))
+
+app.use((req, res, next) => {
+   const timestamp = new Date().toISOString();
+   console.log(`[${timestamp}] ${req.method} ${req.url}`);
+   next();
+});
+
+app.use((req, res, next) => {
+   const timestamp = new Date().toISOString();
+   const logMessage = `[${timestamp}] ${req.method} ${req.url}`;
+   fs.appendFile('traffic.log', logMessage + '\n', (err) => {
+     if (err) {
+       console.error(`Error al escribir en el archivo de registro: ${err}`);
+     }
+   });
+   next();
+});
 
 if (cluster.isWorker) {
    // Iniciar el servidor Express
