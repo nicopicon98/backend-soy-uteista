@@ -72,7 +72,12 @@ const createNewService = async (req, res) => {
     : send({ error: GENERAL_ERROR }, res);
 };
 const closeDateByStudent = async (req, res) => {
-  send({}, res);
+  const { tomado_por } = req.body;
+  const closeDateByStudent = await mysql.executeQuery(
+    "SELECT * FROM citas WHERE tomado_por = ? AND fecha_registro > NOW() ORDER BY fecha_registro ASC LIMIT 1",
+    [tomado_por]
+  );
+  send({ closeDateByStudent }, res);
 };
 const lastDateByProfessional = async (req, res) => {
   send({}, res);
