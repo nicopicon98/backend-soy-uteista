@@ -15,4 +15,6 @@ const decryptMiddleware = (req, res, next) => {
   }
 };
 
-export { decryptMiddleware };
+module.exports = {
+  decryptMiddleware,
+};
