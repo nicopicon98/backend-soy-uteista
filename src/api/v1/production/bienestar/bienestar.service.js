@@ -52,7 +52,14 @@ const assignLocation = async (req, res) => {
   send({}, res);
 };
 const deleteNewService = async (req, res) => {
-  send({}, res);
+  const { id_area } = req.body;
+  const deleteNewService = await mysql.executeQuery(
+    "DELETE FROM areas WHERE id_area = ?",
+    [id_area]
+  );
+  deleteNewService
+    ? send({ deleteNewService }, res)
+    : send({ error: GENERAL_ERROR }, res);
 };
 const createNewService = async (req, res) => {
   const { nombre } = req.body;
