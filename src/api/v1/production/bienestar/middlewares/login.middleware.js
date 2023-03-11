@@ -21,7 +21,6 @@ const validateLogin = (req, res, next) => {
   if (errors.isEmpty()) {
     return next();
   }
-
   return send({ errors: errors.array() }, res);
 };
 

@@ -1,4 +1,5 @@
 const { body, validationResult } = require("express-validator");
+const { send } = require("../config/crypto.config");
 
 const assignLocationByProfessionalValidationRules = () => {
   return [
@@ -20,8 +21,7 @@ const validateAssignLocationByProfessional = (req, res, next) => {
   if (errors.isEmpty()) {
     return next();
   }
-
-  return res.status(422).json({ errors: errors.array() });
+  return send({ errors: errors.array() }, res);
 };
 
 module.exports = {
