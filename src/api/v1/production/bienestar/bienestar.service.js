@@ -41,6 +41,14 @@ const getServices = async (req, res) => {
   send({ services }, res);
 };
 const assignLocation = async (req, res) => {
+  const { id_usuario, ubicacion } = req.body;
+  const assignLocation = await mysql.executeQuery(
+    "UPDATE usuarios SET ubicacion = ? WHERE id_usuario = ?",
+    [ubicacion, id_usuario]
+  );
+  assignLocation
+    ? send({ assignLocation }, res)
+    : send({ error: GENERAL_ERROR }, res);
   send({}, res);
 };
 const deleteNewService = async (req, res) => {
