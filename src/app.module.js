@@ -18,7 +18,7 @@ app.use(cors())
 
 if (cluster.isWorker) {
    // Iniciar el servidor Express
-   app.listen(9091, () => {
+   const server = app.listen(9091, () => {
       console.log(`Worker ${process.pid} iniciado en el puerto ${server.address().port}`);
    });
 }
