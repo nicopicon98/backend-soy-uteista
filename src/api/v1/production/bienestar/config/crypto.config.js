@@ -1,13 +1,6 @@
-import "dotenv/config";
-import crypto from "crypto-js";
-import { Response } from "express";
-import cryptoA from "crypto";
+const crypto = require("crypto-js");
 
-const secretKey = process.env.ENCRYPTION_KEY;
-
-// deprecated
-const secretKeyA = "2kBFK1ZQI6YoXrKtNBxCzSINV33xlXuh";
-const algorithm = "aes-256-cbc";
+const secretKey = "REACTANDNODEWORKS4EVER!";
 
 const encrypt = (data) => {
   const ciphertext = crypto.AES.encrypt(data, secretKey).toString();
@@ -24,6 +17,7 @@ const decrypt = (json) => {
     const originalText = JSON.parse(bytes.toString(crypto.enc.Utf8));
     return originalText;
   } catch (error) {
+    console.log(error, "Error descrypting");
     return {};
   }
 };
