@@ -37,7 +37,8 @@ const rejectDate = async (req, res) => {
   send({}, res);
 };
 const getServices = async (req, res) => {
-  send({}, res);
+  const services = await mysql.executeQuery("SELECT * FROM areas");
+  send({ services }, res);
 };
 const assignLocation = async (req, res) => {
   send({}, res);
