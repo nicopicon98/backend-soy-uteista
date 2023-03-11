@@ -55,7 +55,14 @@ const deleteNewService = async (req, res) => {
   send({}, res);
 };
 const createNewService = async (req, res) => {
-  send({}, res);
+  const { nombre } = req.body;
+  const createNewService = await mysql.executeQuery(
+    "INSERT INTO areas (nombre) VALUES (?)",
+    [nombre]
+  );
+  createNewService
+    ? send({ createNewService }, res)
+    : send({ error: GENERAL_ERROR }, res);
 };
 const closeDateByStudent = async (req, res) => {
   send({}, res);
