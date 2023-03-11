@@ -1,5 +1,7 @@
 const { mysql } = require("../../../../common/conexiones/conexionMysql");
-const { comparePassword } = require("../../../../common/security/bcrypt_encryption");
+const {
+  comparePassword,
+} = require("../../../../common/security/bcrypt_encryption");
 const { send } = require("./config/crypto.config");
 
 const GENERAL_ERROR = "Contacta con el administrador";
@@ -21,8 +23,15 @@ const login = async (req, res) => {
 };
 
 const register = async (req, res) => {
-  const { nombre, correo, clave, ubicacion, id_campus, id_area, id_rol } = req.body;
-  send({}, res);
+  const { nombre, correo, clave, ubicacion, id_campus, id_area, id_rol } =
+    req.body;
+  const createUser = await mysql.executeQuery(
+    "INSERT INTO usuarios (nombre, correo, clave, ubicacion, id_campus, id_area, id_rol) VALUES (?, ?, ?, ?, ?, ?, ?)",
+    [nombre, correo, clave, ubicacion, id_campus, id_area, id_rol]
+  );
+  createUser
+    ? send({ user: createUser }, res)
+    : send({ error: GENERAL_ERROR }, res);
 };
 const rejectDate = async (req, res) => {
   send({}, res);
