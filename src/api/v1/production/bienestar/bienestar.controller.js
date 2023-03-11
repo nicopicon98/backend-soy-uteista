@@ -15,13 +15,15 @@ const {
   nextPastDatesByProfessional,
   createScheduleByProfessional,
 } = require("./bienestar.service");
+const { loginValidationRules, validateLogin } = require("./middlewares/login.middleware");
+const { registerValidationRules, validateRegister } = require("./middlewares/register.middleware");
 
 bienestar.use((req, res, next) => {
   next();
 });
 
-bienestar.post("/login", login);
-bienestar.post("/register", register);
+bienestar.post("/login", loginValidationRules(), validateLogin, login);
+bienestar.post("/register", registerValidationRules(), validateRegister, register);
 bienestar.post("/reject-date", rejectDate);
 bienestar.post("/get-services", getServices);
 bienestar.post("/delete-new-service", deleteNewService);
