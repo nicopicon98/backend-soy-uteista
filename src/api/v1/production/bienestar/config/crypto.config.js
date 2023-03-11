@@ -32,4 +32,4 @@ const sendService = (json, res) => {
   res.json(json);
 };
 
-export { decrypt, send, sendService };
+module.exports = { decrypt, send, sendService };

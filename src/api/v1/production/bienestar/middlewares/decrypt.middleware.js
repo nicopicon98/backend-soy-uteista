@@ -1,4 +1,4 @@
-import { send, decrypt } from "../config/crypto.config";
+const { decrypt, send } = require("../config/crypto.config");
 
 const decryptMiddleware = (req, res, next) => {
   if (req.body.content !== undefined) {
