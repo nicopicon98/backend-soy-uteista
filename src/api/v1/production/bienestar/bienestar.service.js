@@ -127,7 +127,30 @@ LIMIT 1
   send({ closeDateByProfessional }, res);
 };
 const getScheduleByProfessional = async (req, res) => {
-  send({}, res);
+  const { id_usuario } = req.body;
+  const getScheduleByProfessional = await mysql.executeQuery(
+    `
+  SELECT c.*
+FROM citas c
+JOIN (
+  SELECT h.id_horario
+  FROM horario h
+  WHERE h.id_usuario = ?
+  AND h.fecha >= CURDATE()
+  AND NOT EXISTS (
+    SELECT 1
+    FROM citas c2
+    WHERE c2.id_horario = h.id_horario
+    AND c2.asistido = 1
+  )
+  ORDER BY h.fecha ASC
+) AS proximos_horarios ON proximos_horarios.id_horario = c.id_horario
+ORDER BY c.fecha_registro DESC
+
+  `,
+    [id_usuario]
+  );
+  send({ getScheduleByProfessional }, res);
 };
 const nextPastDatesByProfessional = async (req, res) => {
   send({}, res);
