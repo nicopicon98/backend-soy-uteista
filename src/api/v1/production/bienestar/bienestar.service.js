@@ -76,14 +76,55 @@ const closeDateByStudent = async (req, res) => {
   const closeDateByStudent = await mysql.executeQuery(
     "SELECT * FROM citas WHERE tomado_por = ? AND fecha_registro > NOW() ORDER BY fecha_registro ASC LIMIT 1",
     [tomado_por]
-  );
+  )[0];
   send({ closeDateByStudent }, res);
 };
 const lastDateByProfessional = async (req, res) => {
-  send({}, res);
+  const { id_usuario } = req.body;
+  const lastDateByProfessional = await mysql.executeQuery(
+    `SELECT c.*
+    FROM citas c
+    JOIN (
+      SELECT h.id_horario, MAX(h.fecha) AS max_fecha
+      FROM horario h
+      WHERE h.id_usuario = ?
+      GROUP BY h.id_horario
+      ORDER BY max_fecha DESC
+      LIMIT 1
+    ) AS ultima_horario ON ultima_horario.id_horario = c.id_horario
+    ORDER BY c.fecha_registro DESC
+    LIMIT 1`,
+    [id_usuario]
+  )[0];
+  send({ lastDateByProfessional }, res);
 };
 const closeDateByProfessional = async (req, res) => {
-  send({}, res);
+  const { id_usuario } = req.body;
+  const closeDateByProfessional = await mysql.executeQuery(
+    `
+  SELECT c.*
+FROM citas c
+JOIN (
+  SELECT h.id_horario, MIN(h.fecha) AS min_fecha
+  FROM horario h
+  WHERE h.id_usuario = ?
+  AND h.fecha >= CURDATE()
+  AND NOT EXISTS (
+    SELECT 1
+    FROM citas c2
+    WHERE c2.id_horario = h.id_horario
+    AND c2.asistido = 1
+  )
+  GROUP BY h.id_horario
+  ORDER BY min_fecha ASC
+  LIMIT 1
+) AS proxima_horario ON proxima_horario.id_horario = c.id_horario
+ORDER BY c.fecha_registro DESC
+LIMIT 1
+`,
+    [id_usuario]
+  )[0];
+  send({ closeDateByProfessional }, res);
 };
 const getScheduleByProfessional = async (req, res) => {
   send({}, res);
