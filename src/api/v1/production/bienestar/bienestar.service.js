@@ -34,7 +34,16 @@ const register = async (req, res) => {
     : send({ error: GENERAL_ERROR }, res);
 };
 const rejectDate = async (req, res) => {
-  send({}, res);
+  const { rechazado_por, rechazado_correo, razon_rechazo, id_cita } = req.body;
+  const sql =
+    "UPDATE citas SET rechazado = 1, rechazado_por = ?, rechazado_correo = ?, rechazado_razon = ? WHERE id_cita = ?";
+  const rejectDate = await mysql.executeQuery(sql, [
+    rechazado_por,
+    rechazado_correo,
+    razon_rechazo,
+    id_cita,
+  ]);
+  send({ rejectDate }, res);
 };
 const getServices = async (req, res) => {
   const services = await mysql.executeQuery("SELECT * FROM areas");
