@@ -153,7 +153,19 @@ ORDER BY c.fecha_registro DESC
   send({ getScheduleByProfessional }, res);
 };
 const nextPastDatesByProfessional = async (req, res) => {
-  send({}, res);
+  const { id_usuario } = req.body;
+  const nextPastDatesByProfessional = await mysql.executeQuery(
+    `
+  SELECT h.*, c.*
+FROM horario h
+LEFT JOIN citas c ON h.id_horario = c.id_horario
+WHERE h.id_usuario = 1
+AND h.fecha <= CURDATE()
+ORDER BY h.fecha DESC
+  `,
+    [id_usuario]
+  );
+  send({ nextPastDatesByProfessional }, res);
 };
 const createScheduleByProfessional = async (req, res) => {
   send({}, res);
