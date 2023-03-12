@@ -168,7 +168,27 @@ ORDER BY h.fecha DESC
   send({ nextPastDatesByProfessional }, res);
 };
 const createScheduleByProfessional = async (req, res) => {
-  send({}, res);
+  const { id_usuario, schedule } = req.body;
+  const { startDate, endDate, franjas } = schedule;
+  let sql = "INSERT INTO horario (id_usuario, id_franja, fecha) VALUES ";
+  const values = [];
+
+  const fechaInicial = new Date(startDate);
+  const fechaFinal = new Date(endDate);
+
+  for (
+    let fecha = fechaInicial;
+    fecha <= fechaFinal;
+    fecha.setDate(fecha.getDate() + 1)
+  ) {
+    for (const franja of franjas) {
+      values.push([id_usuario, franja, fecha]);
+      sql += "(?, ?, ?), ";
+    }
+  }
+  sql = sql.slice(0, -2);
+  const createScheduleByProfessional = await mysql.executeQuery(sql, values);
+  send({ createScheduleByProfessional }, res);
 };
 
 module.exports = {
