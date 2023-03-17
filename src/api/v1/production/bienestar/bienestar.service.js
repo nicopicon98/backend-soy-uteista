@@ -24,7 +24,7 @@ const login = async (req, res) => {
     return;
   }
   const passwordCompare = await comparePassword(clave, user[0].clave);
-  user = { ...user, clave: "" };
+  user = { ...user[0], clave: "" };
   send(passwordCompare ? { user } : { error: GENERAL_ERROR }, res);
 };
 
