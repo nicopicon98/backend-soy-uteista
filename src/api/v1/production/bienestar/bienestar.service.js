@@ -16,7 +16,7 @@ const deco = (req, res) => {
 const login = async (req, res) => {
   let { correo, clave } = req.body;
   let user = await mysql.executeQuery(
-    "SELECT * FROM usuarios INNER JOIN areas on areas.id_area = usuarios.id_area INNER JOIN campus on campus.id_campus = usuarios.id_campus INNER JOIN roles on roles.id_rol = usuarios.id_rol WHERE correo = ? ",
+    "SELECT usuarios.id, usuarios.nombre, areas.nombre AS nombre_area, campus.nombre AS nombre_campus FROM usuarios INNER JOIN areas ON areas.id_area = usuarios.id_area INNER JOIN campus ON campus.id_campus = usuarios.id_campus INNER JOIN roles on roles.id_rol = usuarios.id_rol WHERE correo = ? ",
     [correo]
   );
   if (!user) {
