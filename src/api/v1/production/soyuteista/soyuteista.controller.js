@@ -48,6 +48,7 @@ soyuteista.use((req, res, next) => {
 
 soyuteista.post("/enco", (req, res) => {
   const data = req.body
+  console.log(data)
   const encryptedContent = encrypt(JSON.stringify(data));
   res.json({ content: encryptedContent });
 });
