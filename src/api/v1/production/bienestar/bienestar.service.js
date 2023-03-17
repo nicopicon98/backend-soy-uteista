@@ -9,8 +9,7 @@ const BAD_SERVICE = "Información errónea";
 
 const deco = (req, res) => {
   const { content } = req.body;
-  const decryptedContent = decrypt(content);
-  sendService(decryptedContent, res);
+  sendService(content, res);
 };
 
 const login = async (req, res) => {
