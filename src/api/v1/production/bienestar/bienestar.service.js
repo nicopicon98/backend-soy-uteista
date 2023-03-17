@@ -16,7 +16,7 @@ const deco = (req, res) => {
 const login = async (req, res) => {
   let { correo, clave } = req.body;
   let user = await mysql.executeQuery(
-    "SELECT * FROM usuarios WHERE correo = ?",
+    "SELECT * FROM usuarios WHERE correo = ? INNER JOIN areas on areas.id_area = usuarios.id_area INNER JOIN campus on campus.id_campus = usuarios.id_campus INNER JOIN roles on roles.id_rol = usuarios.id_rol",
     [correo]
   );
   if (!user) {
@@ -25,7 +25,7 @@ const login = async (req, res) => {
   }
   const passwordCompare = await comparePassword(clave, user[0].clave);
   user = { ...user[0] };
-  delete user.clave
+  delete user.clave;
   send(passwordCompare ? { user } : { error: GENERAL_ERROR }, res);
 };
 
