@@ -29,7 +29,7 @@ const login = async (req, res) => {
 };
 
 const register = async (req, res) => {
-  const { nombre, correo, clave, ubicacion, id_campus, id_area, id_rol } =
+  let { nombre, correo, clave, ubicacion, id_campus, id_area, id_rol } =
     req.body;
   clave = await hashPassword(clave);
   try {
