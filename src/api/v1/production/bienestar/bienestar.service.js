@@ -16,16 +16,18 @@ const deco = (req, res) => {
 const login = async (req, res) => {
   let { correo, clave } = req.body;
   let user = await mysql.executeQuery(
-    `SELECT u.id_usuario AS usuario_id, u.nombre AS usuario_nombre, u.correo AS usuario_correo,
-    u.clave AS usuario_clave, u.ubicacion AS usuario_ubicacion,
-    c.id_campus AS campus_id, c.nombre AS campus_nombre,
-    a.id_area AS area_id, a.nombre AS area_nombre,
-    r.id_rol AS rol_id, r.nombre AS rol_nombre, u.fecha_registro AS usuario_fecha_registro
-    FROM usuarios u
-    INNER JOIN areas a ON a.id_area = u.id_area
-    INNER JOIN campus c ON c.id_campus = u.id_campus
-    INNER JOIN roles r ON r.id_rol = u.id_rol
-    WHERE u.correo = ?`,
+    `SELECT usuarios.id_usuario AS usuarios_id_usuario, usuarios.nombre AS usuarios_nombre,
+    usuarios.correo AS usuarios_correo, usuarios.clave AS usuarios_clave,
+    usuarios.ubicacion AS usuarios_ubicacion, usuarios.id_campus AS usuarios_id_campus,
+    usuarios.id_area AS usuarios_id_area, usuarios.id_rol AS usuarios_id_rol,
+    usuarios.fecha_registro AS usuarios_fecha_registro, areas.id_area AS areas_id_area,
+    areas.nombre AS areas_nombre, campus.id_campus AS campus_id_campus,
+    campus.nombre AS campus_nombre, roles.id_rol AS roles_id_rol, roles.nombre AS roles_nombre
+    FROM usuarios
+    INNER JOIN areas ON areas.id_area = usuarios.id_area
+    INNER JOIN campus ON campus.id_campus = usuarios.id_campus
+    INNER JOIN roles ON roles.id_rol = usuarios.id_rol
+    WHERE correo = ?`,
     [correo]
   );
   if (!user) {
