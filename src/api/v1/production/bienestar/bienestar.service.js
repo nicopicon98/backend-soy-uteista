@@ -19,6 +19,7 @@ const login = async (req, res) => {
     "SELECT * FROM usuarios WHERE correo = ?",
     [correo]
   )[0];
+  console.log(user)
   if (!user) {
     send({ error: BAD_SERVICE }, res);
     return;
