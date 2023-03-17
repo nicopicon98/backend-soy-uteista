@@ -1,6 +1,7 @@
 const { mysql } = require("../../../../common/conexiones/conexionMysql");
 const {
   comparePassword,
+  hashPassword,
 } = require("../../../../common/security/bcrypt_encryption");
 const { send, decrypt, sendService } = require("./config/crypto.config");
 
@@ -30,6 +31,7 @@ const login = async (req, res) => {
 const register = async (req, res) => {
   const { nombre, correo, clave, ubicacion, id_campus, id_area, id_rol } =
     req.body;
+  clave = await hashPassword(clave);
   try {
     const createUser = await mysql.executeQuery(
       "INSERT INTO usuarios (nombre, correo, clave, ubicacion, id_campus, id_area, id_rol) VALUES (?, ?, ?, ?, ?, ?, ?)",
