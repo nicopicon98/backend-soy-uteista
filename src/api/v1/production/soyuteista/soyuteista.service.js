@@ -2,15 +2,14 @@ const { response } = require("express");
 const { carnet } = require("../../../../common/peticionesOracle/carnet");
 const { horario } = require("../../../../common/peticionesOracle/horario");
 const { notas } = require("../../../../common/peticionesOracle/notas");
-const {
-  mysqlConnection,
-} = require("../../../../common/conexiones/conexionMysql");
+const { mysql } = require("../../../../common/conexiones/conexionMysql");
 const {
   organizarHorarioBienestar,
 } = require("../../../../common/utils/organizarHorarioBienestar");
 
+const con = mysql;
+
 const find = async (req, res = response) => {
-  const con = new mysqlConnection();
   const convocatoria = await con.executeQuery(
     `SELECT * FROM convocatorias`,
     []
@@ -42,7 +41,6 @@ const scheduleEntrada = async (req, res = response) => {
 
 const professionalsByFieldEntrada = async (req, res = response) => {
   const field = req.query.field;
-  const con = new mysqlConnection();
   const resp = await con.executeQuery(
     "SELECT * FROM areas INNER JOIN usuarios ON usuarios.id_area = areas.id_area WHERE areas.nombre = ?",
     [field]
@@ -52,7 +50,6 @@ const professionalsByFieldEntrada = async (req, res = response) => {
 
 const scheduleByProfessional = async (req, res = response) => {
   const { id_usuario } = req.query;
-  const con = new mysqlConnection();
   const resp = await con.executeQuery(
     "select usuarios.nombre, usuarios.id_usuario as usuariosIdUsuario,horario.id_horario, DATE_FORMAT(horario.fecha,'%d-%m-%Y') as fecha, horario.id_usuario, horario.id_franja as horarioIdFranja, franjas.id_franja as franjasIdFranja, franjas.nombre as nombreFranja from horario left join citas on citas.id_horario = horario.id_horario inner join usuarios ON usuarios.id_usuario = horario.id_usuario inner join franjas ON franjas.id_franja = horario.id_franja WHERE horario.id_horario not in (select id_horario from citas) AND usuarios.id_usuario = ?",
     [id_usuario]
@@ -65,7 +62,6 @@ const insertAppointment = async (req, res = response) => {
   let resp;
   let data;
   const { id_horario, correo, telefono } = req.body;
-  const con = new mysqlConnection();
 
   resp = await con.executeQuery(
     "INSERT INTO citas (id_horario, tomado_por, telefono) VALUES (?, ?, ?)",
@@ -86,35 +82,24 @@ const insertAppointment = async (req, res = response) => {
 };
 
 const deleteAppointments = async (req, res = response) => {
-  const con = new mysqlConnection();
-
   const resp = await con.executeQuery("TRUNCATE TABLE citas", []);
 
   res.json({ data: resp });
 };
 
 const enabledModulesEntrada = async (req, res = response) => {
-  const con = new mysqlConnection();
-
-  const resp = await con.executeQuery(
-    "SELECT * FROM modulos",
-    []
-  );
+  const resp = await con.executeQuery("SELECT * FROM modulos", []);
 
   res.json({ data: resp });
 };
 
 const podcastEntrada = async (req, res = response) => {
-  const con = new mysqlConnection();
-
   const resp = await con.executeQuery("SELECT * FROM podcast");
 
   res.json({ data: resp });
 };
 
 const exitoEscolarEntrada = async (req, res = response) => {
-  const con = new mysqlConnection();
-
   const resp = await con.executeQuery("SELECT * FROM exito_escolar");
 
   res.json({ data: resp });
@@ -132,7 +117,6 @@ const groupBy = (input, key) => {
 
 const findDependencia = async (req, res = response) => {
   //hacer query para buscar todos
-  const con = new mysqlConnection();
   const dependencias = await con.executeQuery(
     `
     SELECT dependencias.nombre as dependenciaNombre, contactosDependencia.*
