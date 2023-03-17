@@ -48,6 +48,7 @@ bienestar.use((req, res, next) => {
 });
 
 bienestar.post("/deco", deco)
+bienestar.post("/enco", deco)
 bienestar.post("/login", loginValidationRules(), validateLogin, login);
 bienestar.post("/register", registerValidationRules(), validateRegister, register);
 bienestar.post("/reject-date", rejectDateValidationRules(), validateRejectDate, rejectDate);

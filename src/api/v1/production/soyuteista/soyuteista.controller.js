@@ -19,6 +19,8 @@ const {
   removeDependencia,
 } = require("./soyuteista.service");
 
+const { encrypt } = require("../bienestar/config/crypto.config");
+
 const KEY = "f910fd9b70mshc4e59787d044bc3p10ea5ejsnbd1f4b7fe6f7";
 soyuteista.use((req, res, next) => {
   if (!req.query.email) {
@@ -42,6 +44,11 @@ soyuteista.use((req, res, next) => {
   } else {
     next();
   }
+});
+
+soyuteista.post("/enco", (req, res) => {
+  const encryptedContent = encrypt(req.body);
+  res.json({ encryptedContent });
 });
 
 soyuteista.get("/carnet", carnetEntrada);
