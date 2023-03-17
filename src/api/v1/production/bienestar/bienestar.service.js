@@ -25,14 +25,17 @@ const login = async (req, res) => {
 const register = async (req, res) => {
   const { nombre, correo, clave, ubicacion, id_campus, id_area, id_rol } =
     req.body;
-    console.log(req.body)
-  const createUser = await mysql.executeQuery(
-    "INSERT INTO usuarios (nombre, correo, clave, ubicacion, id_campus, id_area, id_rol) VALUES (?, ?, ?, ?, ?, ?, ?)",
-    [nombre, correo, clave, ubicacion, id_campus, id_area, id_rol]
-  );
-  createUser
-    ? send({ user: createUser }, res)
-    : send({ error: GENERAL_ERROR }, res);
+  try {
+    const createUser = await mysql.executeQuery(
+      "INSERT INTO usuarios (nombre, correo, clave, ubicacion, id_campus, id_area, id_rol) VALUES (?, ?, ?, ?, ?, ?, ?)",
+      [nombre, correo, clave, ubicacion, id_campus, id_area, id_rol]
+    );
+    createUser
+      ? send({ user: createUser }, res)
+      : send({ error: GENERAL_ERROR }, res);
+  } catch (error) {
+    send({ error: BAD_SERVICE }, res);
+  }
 };
 const rejectDate = async (req, res) => {
   const { rechazado_por, rechazado_correo, razon_rechazo, id_cita } = req.body;
