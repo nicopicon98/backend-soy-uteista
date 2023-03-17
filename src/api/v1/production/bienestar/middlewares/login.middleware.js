@@ -3,7 +3,7 @@ const { send } = require("../config/crypto.config");
 
 const loginValidationRules = () => {
   return [
-    body("usuario")
+    body("correo")
       .notEmpty()
       .withMessage("El usuario es obligatorio")
       .isEmail()
