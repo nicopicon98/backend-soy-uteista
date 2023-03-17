@@ -18,7 +18,6 @@ class mysqlConnection {
         return;
       }
 
-      console.log("connected as id " + connection.threadId);
     });
   }
 
