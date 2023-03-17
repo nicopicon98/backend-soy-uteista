@@ -47,8 +47,9 @@ soyuteista.use((req, res, next) => {
 });
 
 soyuteista.post("/enco", (req, res) => {
-  const encryptedContent = encrypt(JSON.stringify(req.body));
-  res.json({ encryptedContent });
+  const data = req.body
+  const encryptedContent = encrypt(JSON.stringify(data));
+  res.json({ content: encryptedContent });
 });
 
 soyuteista.get("/carnet", carnetEntrada);
