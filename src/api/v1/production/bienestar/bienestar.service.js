@@ -8,7 +8,7 @@ const GENERAL_ERROR = "Contacta con el administrador";
 const BAD_SERVICE = "Información errónea";
 
 const deco = (req, res) => {
-  const { content } = req.body;
+  const content = req.body;
   sendService(content, res);
 };
 
