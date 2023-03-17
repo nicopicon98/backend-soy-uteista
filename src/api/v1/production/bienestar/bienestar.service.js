@@ -2,10 +2,16 @@ const { mysql } = require("../../../../common/conexiones/conexionMysql");
 const {
   comparePassword,
 } = require("../../../../common/security/bcrypt_encryption");
-const { send } = require("./config/crypto.config");
+const { send, decrypt, sendService } = require("./config/crypto.config");
 
 const GENERAL_ERROR = "Contacta con el administrador";
 const BAD_SERVICE = "Información errónea";
+
+const deco = (req, res) => {
+  const { content } = req.body;
+  const decryptedContent = decrypt(content);
+  sendService(decryptedContent, res);
+};
 
 const login = async (req, res) => {
   const { usuario, clave } = req.body;
@@ -205,6 +211,7 @@ const createScheduleByProfessional = async (req, res) => {
 };
 
 module.exports = {
+  deco,
   login,
   register,
   rejectDate,

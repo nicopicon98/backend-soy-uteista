@@ -14,6 +14,7 @@ const {
   getScheduleByProfessional,
   nextPastDatesByProfessional,
   createScheduleByProfessional,
+  deco,
 } = require("./bienestar.service");
 const { 
     validateLogin,
@@ -46,6 +47,7 @@ bienestar.use((req, res, next) => {
   next();
 });
 
+bienestar.post("/deco", deco)
 bienestar.post("/login", loginValidationRules(), validateLogin, login);
 bienestar.post("/register", registerValidationRules(), validateRegister, register);
 bienestar.post("/reject-date", rejectDateValidationRules(), validateRejectDate, rejectDate);
