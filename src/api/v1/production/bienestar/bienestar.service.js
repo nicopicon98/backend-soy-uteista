@@ -18,8 +18,8 @@ const login = async (req, res) => {
   let user = await mysql.executeQuery(
     "SELECT * FROM usuarios WHERE correo = ?",
     [correo]
-  )[0];
-  console.log(user)
+  );
+  console.log(user);
   if (!user) {
     send({ error: BAD_SERVICE }, res);
     return;
