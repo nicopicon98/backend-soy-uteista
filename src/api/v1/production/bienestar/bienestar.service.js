@@ -14,10 +14,10 @@ const deco = (req, res) => {
 };
 
 const login = async (req, res) => {
-  const { usuario, clave } = req.body;
+  let { correo, clave } = req.body;
   let user = await mysql.executeQuery(
-    "SELECT * FROM usuarios WHERE usuario = ?",
-    [usuario]
+    "SELECT * FROM usuarios WHERE correo = ?",
+    [correo]
   )[0];
   if (!user) {
     send({ error: BAD_SERVICE }, res);
