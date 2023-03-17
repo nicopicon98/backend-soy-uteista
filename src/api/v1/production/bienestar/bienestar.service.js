@@ -19,12 +19,11 @@ const login = async (req, res) => {
     "SELECT * FROM usuarios WHERE correo = ?",
     [correo]
   );
-  console.log(user[0].clave);
   if (!user) {
     send({ error: BAD_SERVICE }, res);
     return;
   }
-  const passwordCompare = await comparePassword(clave, user.clave);
+  const passwordCompare = await comparePassword(clave, user[0].clave);
   user = { ...user, clave: "" };
   send(passwordCompare ? { user } : { error: GENERAL_ERROR }, res);
 };
