@@ -36,7 +36,7 @@ const login = async (req, res) => {
   }
   const passwordCompare = await comparePassword(clave, user[0].usuarios_clave);
   user = { ...user[0] };
-  delete user.clave;
+  delete user.usuarios_clave;
   send(passwordCompare ? { user } : { error: GENERAL_ERROR }, res);
 };
 
