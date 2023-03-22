@@ -58,10 +58,10 @@ const register = async (req, res) => {
       [nombre, correo, clave, ubicacion, id_campus, id_area, id_rol]
     );
     createUser
-      ? send({ user: createUser }, res)
-      : send({ error: GENERAL_ERROR }, res);
+      ? send({ user: createUser, status: 201 }, res)
+      : send({ error: GENERAL_ERROR, status: 403 }, res);
   } catch (error) {
-    send({ error: BAD_SERVICE }, res);
+    send({ error: BAD_SERVICE, status: 409 }, res);
   }
 };
 const rejectDate = async (req, res) => {
