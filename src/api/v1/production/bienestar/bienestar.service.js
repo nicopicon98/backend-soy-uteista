@@ -14,6 +14,7 @@ const deco = (req, res) => {
 };
 
 const login = async (req, res) => {
+  console.log(req.body)
   let { email, password } = req.body;
   let user = await mysql.executeQuery(
     `SELECT usuarios.id_usuario AS usuarios_id_usuario, usuarios.nombre AS usuarios_nombre,
