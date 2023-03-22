@@ -13,9 +13,9 @@ const app = express();
 
 app.use(cors())
    .use(express.json())
-   .use(morgan('dev'))
    .use(soyUteistaVersion(), soyuteista)
    .use(decryptMiddleware)
+   .use(morgan('dev'))
    .use(bienestarVersion(), bienestar)
    .use(express.static(path.join(__dirname, 'public')))
 
