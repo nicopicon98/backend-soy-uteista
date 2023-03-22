@@ -50,6 +50,7 @@ const htmlTemplate = `
             background-color: #f2f2f2;
             color: #555;
             border: 1px solid #ddd;
+            white-space: nowrap; 
         }
 
         td {
