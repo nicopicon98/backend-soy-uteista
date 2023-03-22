@@ -3,12 +3,12 @@ const { send } = require("../config/crypto.config");
 
 const loginValidationRules = () => {
   return [
-    body("correo")
+    body("email")
       .notEmpty()
       .withMessage("El usuario es obligatorio")
       .isEmail()
       .withMessage("El usuario debe ser un correo electrónico válido"),
-    body("clave")
+    body("password")
       .notEmpty()
       .withMessage("La clave es obligatoria")
       .isLength({ min: 8 })
