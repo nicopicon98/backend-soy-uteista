@@ -27,8 +27,6 @@ class mysqlConnection {
         console.error("error disconnecting: " + err.stack);
         return;
       }
-
-      console.log("disconnected from database");
     });
   }
 
