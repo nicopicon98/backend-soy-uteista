@@ -1,4 +1,5 @@
 const { mysql } = require("../../../../common/conexiones/conexionMysql");
+const pdf = require('html-pdf');
 const {
   comparePassword,
   hashPassword,
