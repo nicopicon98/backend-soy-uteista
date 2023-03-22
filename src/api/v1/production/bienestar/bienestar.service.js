@@ -245,7 +245,7 @@ const generatePDF = async (req, res) => {
   `,
     [id_usuario]
   );
-  pdf.create(htmlTemplate).toFile("./salida.pdf", function (err, res) {
+  pdf.create(htmlTemplate, {orientation: 'landscape'}).toFile("./salida.pdf", function (err, res) {
     if (err) {
       console.log(err);
     } else {
