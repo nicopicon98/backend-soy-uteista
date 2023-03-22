@@ -15,6 +15,7 @@ const {
   nextPastDatesByProfessional,
   createScheduleByProfessional,
   deco,
+  generatePDF,
 } = require("./bienestar.service");
 const { 
     validateLogin,
@@ -67,7 +68,7 @@ bienestar.post("/create-schedule-by-professional", createScheduleByProfessionalV
 
 //Reportes por profesionales
 
-bienestar.post("/report-pdf", deco)
+bienestar.post("/report-pdf", generatePDF)
 bienestar.post("/report-by-service", deco)
 bienestar.post("/report-by-professional", deco)
 
