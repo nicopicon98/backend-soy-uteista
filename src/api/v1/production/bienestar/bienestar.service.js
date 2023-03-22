@@ -30,7 +30,7 @@ const login = async (req, res) => {
     WHERE correo = ?`,
     [email]
   );
-  if (!user) {
+  if (user.length === 0) {
     send({ error: [BAD_SERVICE], status: 404 }, res);
     return;
   }
