@@ -14,7 +14,7 @@ const deco = (req, res) => {
 };
 
 const login = async (req, res) => {
-  let { correo, clave } = req.body;
+  let { email, password } = req.body;
   let user = await mysql.executeQuery(
     `SELECT usuarios.id_usuario AS usuarios_id_usuario, usuarios.nombre AS usuarios_nombre,
     usuarios.correo AS usuarios_correo, usuarios.clave AS usuarios_clave,
@@ -28,14 +28,14 @@ const login = async (req, res) => {
     INNER JOIN campus ON campus.id_campus = usuarios.id_campus
     INNER JOIN roles ON roles.id_rol = usuarios.id_rol
     WHERE correo = ?`,
-    [correo]
+    [email]
   );
   if (!user) {
     send({ error: BAD_SERVICE }, res);
     return;
   }
   console.log(user)
-  const passwordCompare = await comparePassword(clave, user[0].usuarios_clave);
+  const passwordCompare = await comparePassword(password, user[0].usuarios_clave);
   user = { ...user[0] };
   delete user.usuarios_clave;
   send(passwordCompare ? { user } : { error: GENERAL_ERROR }, res);
