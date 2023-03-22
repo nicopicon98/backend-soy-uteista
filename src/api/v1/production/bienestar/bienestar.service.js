@@ -14,7 +14,6 @@ const deco = (req, res) => {
 };
 
 const login = async (req, res) => {
-  console.log(req.body)
   let { email, password } = req.body;
   let user = await mysql.executeQuery(
     `SELECT usuarios.id_usuario AS usuarios_id_usuario, usuarios.nombre AS usuarios_nombre,
@@ -31,15 +30,22 @@ const login = async (req, res) => {
     WHERE correo = ?`,
     [email]
   );
-  if (user.length == 0) {
-    send({ error: BAD_SERVICE }, res);
+  if (!user) {
+    send({ error: [BAD_SERVICE], status: 404 }, res);
     return;
   }
-  console.log(user)
-  const passwordCompare = await comparePassword(password, user[0].usuarios_clave);
+  const passwordCompare = await comparePassword(
+    password,
+    user[0].usuarios_clave
+  );
   user = { ...user[0] };
   delete user.usuarios_clave;
-  send(passwordCompare ? { user } : { error: GENERAL_ERROR }, res);
+  send(
+    passwordCompare
+      ? { user, status: 200 }
+      : { error: GENERAL_ERROR, status: 403 },
+    res
+  );
 };
 
 const register = async (req, res) => {
