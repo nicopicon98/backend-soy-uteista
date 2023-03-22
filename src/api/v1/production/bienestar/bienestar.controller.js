@@ -47,6 +47,8 @@ bienestar.use((req, res, next) => {
   next();
 });
 
+//Primera parte de la API
+
 bienestar.post("/deco", deco)
 bienestar.post("/enco", deco)
 bienestar.post("/login", loginValidationRules(), validateLogin, login);
@@ -62,6 +64,12 @@ bienestar.post("/close-date-by-professional", closeDateByProfessionalValidationR
 bienestar.post("/get-schedule-by-professional", getScheduleByProfessionalValidationRules(), validateGetScheduleByProfessional, getScheduleByProfessional);
 bienestar.post("/next-past-dates-by-professional", nextPastDatesByProfessionalValidationRules(), validateNextPastDatesByProfessional, nextPastDatesByProfessional);
 bienestar.post("/create-schedule-by-professional", createScheduleByProfessionalValidationRules(), validateCreateScheduleByProfessional, createScheduleByProfessional);
+
+//Reportes por profesionales
+
+bienestar.post("/report-pdf", deco)
+bienestar.post("/report-by-service", deco)
+bienestar.post("/report-by-professional", deco)
 
 module.exports = {
   bienestar,

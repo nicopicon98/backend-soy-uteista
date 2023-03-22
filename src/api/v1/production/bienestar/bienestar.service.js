@@ -4,6 +4,7 @@ const {
   hashPassword,
 } = require("../../../../common/security/bcrypt_encryption");
 const { send, decrypt, sendService } = require("./config/crypto.config");
+const { htmlTemplate } = require("./template/pdfreport");
 
 const GENERAL_ERROR = "Contacta con el administrador";
 const BAD_SERVICE = "Información errónea";
@@ -12,7 +13,6 @@ const deco = (req, res) => {
   const content = req.body;
   sendService(content, res);
 };
-
 const login = async (req, res) => {
   let { email, password } = req.body;
   let user = await mysql.executeQuery(
@@ -47,7 +47,6 @@ const login = async (req, res) => {
     res
   );
 };
-
 const register = async (req, res) => {
   let { nombre, correo, clave, ubicacion, id_campus, id_area, id_rol } =
     req.body;
@@ -231,6 +230,30 @@ const createScheduleByProfessional = async (req, res) => {
   send({ createScheduleByProfessional }, res);
 };
 
+//Reportes de citas
+
+const generatePDF = async (req, res) => {
+  const { id_usuario } = req.body;
+  const generatePDF = await mysql.executeQuery(
+    `
+    SELECT citas.*, horario.fecha, horario.id_franja, usuarios.nombre AS nombre_profesional 
+    FROM citas 
+    INNER JOIN horario ON citas.id_horario = horario.id_horario 
+    INNER JOIN usuarios ON horario.id_usuario = usuarios.id_usuario 
+    WHERE usuarios.id_usuario = ?;
+  `,
+    [id_usuario]
+  );
+  pdf.create(htmlTemplate).toFile("./salida.pdf", function (err, res) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(res);
+    }
+  });
+  send({ generatePDF }, res);
+};
+
 module.exports = {
   deco,
   login,
@@ -246,4 +269,5 @@ module.exports = {
   getScheduleByProfessional,
   nextPastDatesByProfessional,
   createScheduleByProfessional,
+  generatePDF,
 };
