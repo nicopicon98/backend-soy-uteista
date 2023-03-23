@@ -246,6 +246,7 @@ const createScheduleByProfessional = async (req, res) => {
     fecha.setDate(fecha.getDate() + 1)
   ) {
     for (const franja of franjas) {
+      console.log(franja)
       values.push([id_usuario, franja, fecha]);
       sql += "(?, ?, ?), ";
     }
