@@ -152,7 +152,7 @@ const getProfessionalBySede = async (req, res) => {
   const { id_campus_area } = req.body;
 
   let usuariosPorIdCampus = await mysql.executeQuery(
-    `SELECT * FROM usuarios WHERE id_campus_area = ? AND id_rol = 2`,
+    `SELECT usuarios.*, campus_areas.* FROM usuarios INNER JOIN campus_areas ON campus_areas.id_campus_area = usuarios.id_campus_area WHERE id_campus_area = ? AND id_rol = 2`,
     [id_campus_area]
   );
   usuariosPorIdCampus = { ...usuariosPorIdCampus[0] };
