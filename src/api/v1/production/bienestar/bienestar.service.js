@@ -205,23 +205,12 @@ const getScheduleByProfessional = async (req, res) => {
   const { id_usuario } = req.body;
   const getScheduleByProfessional = await mysql.executeQuery(
     `
-  SELECT c.*
-FROM citas c
-JOIN (
-  SELECT h.id_horario
-  FROM horario h
-  WHERE h.id_usuario = ?
-  AND h.fecha >= CURDATE()
-  AND NOT EXISTS (
-    SELECT 1
-    FROM citas c2
-    WHERE c2.id_horario = h.id_horario
-    AND c2.asistido = 1
-  )
-  ORDER BY h.fecha ASC
-  ) AS proximos_horarios ON proximos_horarios.id_horario = c.id_horario
-ORDER BY c.fecha_registro DESC
-
+    SELECT h.id_horario, h.fecha, f.nombre AS franja_nombre
+    FROM horario h
+    INNER JOIN franjas f ON h.id_franja = f.id_franja
+    WHERE h.id_usuario = ?
+    AND h.fecha >= CURDATE()
+    ORDER BY h.fecha ASC
   `,
     [id_usuario]
   );
