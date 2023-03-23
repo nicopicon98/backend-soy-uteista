@@ -20,6 +20,7 @@ const {
   getProfessionalBySede,
   getFranjasByProfessional,
   getFranjas,
+  attendDate,
 } = require("./bienestar.service");
 const { 
     validateLogin,
@@ -63,7 +64,7 @@ bienestar.post('/sedes', getSedesValidationRules(), validateGetSedes, sedes)
 bienestar.post("/login", loginValidationRules(), validateLogin, login);
 bienestar.post("/register", registerValidationRules(), validateRegister, register);
 bienestar.post("/reject-date", rejectDateValidationRules(), validateRejectDate, rejectDate);
-bienestar.post("/attend-date", attendDateValidationRules(), validateAttendDate, rejectDate);
+bienestar.post("/attend-date", attendDateValidationRules(), validateAttendDate, attendDate);
 bienestar.post("/get-services", getSedesValidationRules(), validateGetSedes, getServices);
 bienestar.post("/get-franjas", getSedesValidationRules(), validateGetSedes, getFranjas);
 bienestar.post("/get-franjas-by-professional", getSedesValidationRules(), validateGetSedes, getFranjasByProfessional);
