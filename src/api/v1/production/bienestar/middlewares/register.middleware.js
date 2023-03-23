@@ -23,16 +23,11 @@ const registerValidationRules = () => {
       .withMessage("La ubicación es obligatoria")
       .isLength({ min: 5 })
       .withMessage("La ubicación debe tener al menos 5 caracteres"),
-    body("id_campus")
+    body("id_campus_area")
       .notEmpty()
-      .withMessage("El id del campus es obligatorio")
+      .withMessage("El id_campus_area es obligatorio")
       .isInt()
-      .withMessage("El id del campus debe ser un número entero"),
-    body("id_area")
-      .notEmpty()
-      .withMessage("El id del área es obligatorio")
-      .isInt()
-      .withMessage("El id del área debe ser un número entero"),
+      .withMessage("El id_campus_area debe ser un número entero"),
     body("id_rol")
       .notEmpty()
       .withMessage("El id del rol es obligatorio")

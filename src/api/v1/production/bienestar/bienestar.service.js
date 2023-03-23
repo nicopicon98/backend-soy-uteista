@@ -64,13 +64,13 @@ WHERE u.correo = ?
   );
 };
 const register = async (req, res) => {
-  let { nombre, correo, clave, ubicacion, id_campus, id_area, id_rol } =
+  let { nombre, correo, clave, ubicacion, id_campus_area, id_rol } =
     req.body;
   clave = await hashPassword(clave);
   try {
     const createUser = await mysql.executeQuery(
-      "INSERT INTO usuarios (nombre, correo, clave, ubicacion, id_campus, id_area, id_rol) VALUES (?, ?, ?, ?, ?, ?, ?)",
-      [nombre, correo, clave, ubicacion, id_campus, id_area, id_rol]
+      "INSERT INTO usuarios (nombre, correo, clave, ubicacion, id_campus_area, id_rol) VALUES (?, ?, ?, ?, ?, ?)",
+      [nombre, correo, clave, ubicacion, id_campus_area, id_rol]
     );
     createUser
       ? send({ data: createUser, status: 200 }, res)
