@@ -255,7 +255,7 @@ const createScheduleByProfessional = async (req, res) => {
     const createScheduleByProfessional = await mysql.executeQuery(sql, values);
     send({ data: createScheduleByProfessional, status: 200 }, res);
   } catch (error) {
-    send({ error: [GENERAL_ERROR], status: 304 }, res);
+    send({ error: [GENERAL_ERROR, error], status: 304 }, res);
   }
 };
 
