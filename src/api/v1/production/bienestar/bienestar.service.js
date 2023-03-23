@@ -290,11 +290,15 @@ const createScheduleByProfessional = async (req, res) => {
 };
 const createAppointment = async (req, res) => {
   const { id_horario, tomado_por, telefono, foto } = req.body;
-  const createAppointment = await mysql.executeQuery(
-    `INSERT INTO citas (id_horario, tomado_por, telefono, foto) VALUES (?, ?, ?, ?)`,
-    [id_horario, tomado_por, telefono, foto]
-  );
-  send({ data: createAppointment, status: 200 }, res);
+  try {
+    const createAppointment = await mysql.executeQuery(
+      `INSERT INTO citas (id_horario, tomado_por, telefono, foto) VALUES (?, ?, ?, ?)`,
+      [id_horario, tomado_por, telefono, foto]
+    );
+    send({ data: createAppointment, status: 200 }, res);
+  } catch (error) {
+    send({ error: [BAD_SERVICE, error], status: 200 }, res);
+  }
 };
 
 //Reportes de citas
