@@ -123,6 +123,18 @@ const closeDateByStudent = async (req, res) => {
   )[0];
   send({ closeDateByStudent }, res);
 };
+const getProfessionalBySede = async (req, res) => {
+  const { nombre_campus } = req.body;
+  const nombreDelCampus = await mysql.executeQuery(
+    `SELECT id_campus FROM campus WHERE nombre = ?`,
+    [nombre_campus]
+  );
+  const usuariosPorIdCampus = await mysql.executeQuery(
+    `SELECT * FROM usuarios WHERE id_campus = ?`,
+    [nombreDelCampus[0].id_campus]
+  );
+  send({ data: usuariosPorIdCampus, status: 200 }, res);
+};
 const lastDateByProfessional = async (req, res) => {
   const { id_usuario } = req.body;
   const lastDateByProfessional = await mysql.executeQuery(
@@ -135,9 +147,9 @@ const lastDateByProfessional = async (req, res) => {
       GROUP BY h.id_horario
       ORDER BY max_fecha DESC
       LIMIT 1
-    ) AS ultima_horario ON ultima_horario.id_horario = c.id_horario
-    ORDER BY c.fecha_registro DESC
-    LIMIT 1`,
+      ) AS ultima_horario ON ultima_horario.id_horario = c.id_horario
+      ORDER BY c.fecha_registro DESC
+      LIMIT 1`,
     [id_usuario]
   )[0];
   send({ lastDateByProfessional }, res);
@@ -147,10 +159,10 @@ const closeDateByProfessional = async (req, res) => {
   const closeDateByProfessional = await mysql.executeQuery(
     `
   SELECT c.*
-FROM citas c
-JOIN (
-  SELECT h.id_horario, MIN(h.fecha) AS min_fecha
-  FROM horario h
+  FROM citas c
+  JOIN (
+    SELECT h.id_horario, MIN(h.fecha) AS min_fecha
+    FROM horario h
   WHERE h.id_usuario = ?
   AND h.fecha >= CURDATE()
   AND NOT EXISTS (
@@ -158,9 +170,9 @@ JOIN (
     FROM citas c2
     WHERE c2.id_horario = h.id_horario
     AND c2.asistido = 1
-  )
-  GROUP BY h.id_horario
-  ORDER BY min_fecha ASC
+    )
+    GROUP BY h.id_horario
+    ORDER BY min_fecha ASC
   LIMIT 1
 ) AS proxima_horario ON proxima_horario.id_horario = c.id_horario
 ORDER BY c.fecha_registro DESC
@@ -188,7 +200,7 @@ JOIN (
     AND c2.asistido = 1
   )
   ORDER BY h.fecha ASC
-) AS proximos_horarios ON proximos_horarios.id_horario = c.id_horario
+  ) AS proximos_horarios ON proximos_horarios.id_horario = c.id_horario
 ORDER BY c.fecha_registro DESC
 
   `,
@@ -200,9 +212,9 @@ const nextPastDatesByProfessional = async (req, res) => {
   const { id_usuario } = req.body;
   const nextPastDatesByProfessional = await mysql.executeQuery(
     `
-  SELECT h.*, c.*
-FROM horario h
-LEFT JOIN citas c ON h.id_horario = c.id_horario
+    SELECT h.*, c.*
+    FROM horario h
+    LEFT JOIN citas c ON h.id_horario = c.id_horario
 WHERE h.id_usuario = 1
 AND h.fecha <= CURDATE()
 ORDER BY h.fecha DESC
@@ -272,6 +284,7 @@ module.exports = {
   deleteNewService,
   createNewService,
   closeDateByStudent,
+  getProfessionalBySede,
   lastDateByProfessional,
   closeDateByProfessional,
   getScheduleByProfessional,
