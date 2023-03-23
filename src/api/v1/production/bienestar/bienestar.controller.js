@@ -44,6 +44,7 @@ const {
     createScheduleByProfessionalValidationRules,
     nextPastDatesByProfessionalValidationRules,
 } = require("./middlewares");
+const { getSedesValidationRules, validateGetSedes } = require("./middlewares/get-sedes.middleware");
 
 bienestar.use((req, res, next) => {
   next();
@@ -53,7 +54,7 @@ bienestar.use((req, res, next) => {
 
 bienestar.post("/deco", deco)
 bienestar.post("/enco", deco)
-bienestar.post('/sedes', sedes)
+bienestar.post('/sedes', getSedesValidationRules(), validateGetSedes, sedes)
 bienestar.post("/login", loginValidationRules(), validateLogin, login);
 bienestar.post("/register", registerValidationRules(), validateRegister, register);
 bienestar.post("/reject-date", rejectDateValidationRules(), validateRejectDate, rejectDate);
