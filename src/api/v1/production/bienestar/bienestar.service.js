@@ -152,7 +152,7 @@ const getProfessionalBySede = async (req, res) => {
   const { id_campus_area } = req.body;
 
   let usuariosPorIdCampus = await mysql.executeQuery(
-    `SELECT usuarios.*, campus_areas.* 
+    `SELECT usuarios.*, campus_areas.*, campus.id_campus as campus_id_campus, campus.nombre as nombre_campus, areas.id_area as areas_id_area, areas.nombre as nombre_area
     FROM usuarios 
     INNER JOIN campus_areas ON campus_areas.id_campus_area = usuarios.id_campus_area 
     INNER JOIN areas on areas.id_area = campus_areas.id_area
