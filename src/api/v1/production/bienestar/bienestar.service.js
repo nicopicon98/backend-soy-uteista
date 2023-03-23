@@ -106,8 +106,8 @@ const deleteNewService = async (req, res) => {
     [id_area]
   );
   deleteNewService
-    ? send({ deleteNewService }, res)
-    : send({ error: GENERAL_ERROR }, res);
+    ? send({ data: deleteNewService, status: 200 }, res)
+    : send({ error: [GENERAL_ERROR], status: 304 }, res);
 };
 const createNewService = async (req, res) => {
   const { nombre } = req.body;
