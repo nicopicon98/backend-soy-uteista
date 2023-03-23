@@ -22,6 +22,7 @@ const {
   getFranjas,
   attendDate,
   getUsers,
+  createAppointment,
 } = require("./bienestar.service");
 const { 
     validateLogin,
@@ -50,6 +51,7 @@ const {
     nextPastDatesByProfessionalValidationRules,
 } = require("./middlewares");
 const { attendDateValidationRules, validateAttendDate } = require("./middlewares/attend-date.middleware");
+const { createAppointmentValidationRules, validatecreateAppointment } = require("./middlewares/create-appointment.middleware");
 const { getProfessionalBySedeValidationRules, validateGetProfessionalBySede } = require("./middlewares/get-professional-by-sede.middleware");
 const { getSedesValidationRules, validateGetSedes } = require("./middlewares/get-sedes.middleware");
 
@@ -81,7 +83,7 @@ bienestar.post("/assign-location-by-professional", assignLocationByProfessionalV
 bienestar.post("/get-schedule-by-professional", getScheduleByProfessionalValidationRules(), validateGetScheduleByProfessional, getScheduleByProfessional);
 bienestar.post("/next-past-dates-by-professional", nextPastDatesByProfessionalValidationRules(), validateNextPastDatesByProfessional, nextPastDatesByProfessional);
 bienestar.post("/create-schedule-by-professional", createScheduleByProfessionalValidationRules(), validateCreateScheduleByProfessional, createScheduleByProfessional);
-
+bienestar.post("/create-appointment-by-professional", createAppointmentValidationRules(), validatecreateAppointment, createAppointment)
 //Reportes por profesionales
 
 bienestar.post("/report-pdf", generatePDF)

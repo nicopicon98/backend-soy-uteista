@@ -288,6 +288,14 @@ const createScheduleByProfessional = async (req, res) => {
     send({ error: [GENERAL_ERROR], status: 304 }, res);
   }
 };
+const createAppointment = async (req, res) => {
+  const { id_horario, tomado_por, telefono, foto } = req.body;
+  const createAppointment = await mysql.executeQuery(
+    `INSERT INTO citas (id_horario, tomado_por, telefono, foto) VALUES (?, ?, ?, ?)`,
+    [id_horario, tomado_por, telefono, foto]
+  );
+  send({ data: createAppointment, status: 200 }, res);
+};
 
 //Reportes de citas
 
@@ -328,6 +336,7 @@ module.exports = {
   assignLocation,
   deleteNewService,
   createNewService,
+  createAppointment,
   closeDateByStudent,
   getProfessionalBySede,
   lastDateByProfessional,
