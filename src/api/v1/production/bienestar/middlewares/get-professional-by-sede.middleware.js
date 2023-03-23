@@ -3,7 +3,7 @@ const { send } = require("../config/crypto.config");
 
 const getProfessionalBySedeValidationRules = () => {
   return [
-    body("nombre_campus")
+    body("id_campus_area")
       .notEmpty()
       .withMessage("El campo id_usuario es obligatorio")
       .isString()

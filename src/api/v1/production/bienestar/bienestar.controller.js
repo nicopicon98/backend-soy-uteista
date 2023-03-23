@@ -74,7 +74,7 @@ bienestar.post("/get-franjas-by-professional", getSedesValidationRules(), valida
 bienestar.post("/delete-new-service", deleteNewServiceValidationRules(), validateDeleteNewService, deleteNewService);
 bienestar.post("/create-new-service", createNewServiceValidationRules(), validateCreateNewService, createNewService);
 bienestar.post("/close-date-by-student", closeDateByStudentValidationRules(), validateCloseDateByStudent, closeDateByStudent);
-bienestar.post("/get-professional-by-sede", getProfessionalBySedeValidationRules(), validateGetProfessionalBySede, getProfessionalBySede);
+bienestar.post("/get-professional-by-id-campus-area", getProfessionalBySedeValidationRules(), validateGetProfessionalBySede, getProfessionalBySede);
 bienestar.post("/last-date-by-professional", lastDateByProfessionalValidationRules(), validateLastDateByProfessional, lastDateByProfessional);
 bienestar.post("/close-date-by-professional", closeDateByProfessionalValidationRules(), validateCloseDateByProfessional, closeDateByProfessional);
 bienestar.post("/assign-location-by-professional", assignLocationByProfessionalValidationRules(), validateAssignLocationByProfessional, assignLocation);

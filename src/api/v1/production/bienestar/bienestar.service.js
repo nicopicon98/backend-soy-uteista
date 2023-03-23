@@ -64,8 +64,7 @@ WHERE u.correo = ?
   );
 };
 const register = async (req, res) => {
-  let { nombre, correo, clave, ubicacion, id_campus_area, id_rol } =
-    req.body;
+  let { nombre, correo, clave, ubicacion, id_campus_area, id_rol } = req.body;
   clave = await hashPassword(clave);
   try {
     const createUser = await mysql.executeQuery(
@@ -150,14 +149,11 @@ const closeDateByStudent = async (req, res) => {
   send({ closeDateByStudent }, res);
 };
 const getProfessionalBySede = async (req, res) => {
-  const { nombre_campus } = req.body;
-  const nombreDelCampus = await mysql.executeQuery(
-    `SELECT id_campus FROM campus WHERE nombre = ?`,
-    [nombre_campus]
-  );
+  const { id_campus_area } = req.body;
+
   let usuariosPorIdCampus = await mysql.executeQuery(
-    `SELECT id_usuario, nombre, correo, ubicacion, id_campus, id_area, id_rol, fecha_registro FROM usuarios WHERE id_campus = ? AND id_rol = 2`,
-    [nombreDelCampus[0].id_campus]
+    `SELECT * FROM usuarios WHERE id_campus_area = ? AND id_rol = 2`,
+    [id_campus_area]
   );
   send({ data: usuariosPorIdCampus, status: 200 }, res);
 };
