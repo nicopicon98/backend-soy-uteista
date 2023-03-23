@@ -155,6 +155,8 @@ const getProfessionalBySede = async (req, res) => {
     `SELECT * FROM usuarios WHERE id_campus_area = ? AND id_rol = 2`,
     [id_campus_area]
   );
+  usuariosPorIdCampus = { ...usuariosPorIdCampus[0] };
+  delete usuariosPorIdCampus.usuarios_clave;
   send({ data: usuariosPorIdCampus, status: 200 }, res);
 };
 const lastDateByProfessional = async (req, res) => {
