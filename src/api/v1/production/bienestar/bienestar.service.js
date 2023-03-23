@@ -179,12 +179,10 @@ const getFranjasByProfessional = async (req, res) => {
       SELECT 1 FROM horario h
       WHERE h.id_franja = f.id_franja
       AND h.fecha IN (?, ?)
-      AND h.id_usuario = 1
-      AND h.asistido = 0
-      AND h.rechazado = 0
+      AND h.id_usuario = ?
     )
     `,
-    [inicio, fin, id_usuario, inicio, fin]
+    [inicio, fin, id_usuario, inicio, fin, id_usuario]
   );
   send({ data: franjasPorProfesional, status: 200 }, res);
 };
