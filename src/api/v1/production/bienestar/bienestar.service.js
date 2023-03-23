@@ -175,12 +175,6 @@ const getFranjasByProfessional = async (req, res) => {
       AND h.fecha IN (?, ?)
       AND h.id_usuario = ?
     )
-    OR EXISTS (
-      SELECT 1 FROM horario h
-      WHERE h.id_franja = f.id_franja
-      AND h.fecha IN (?, ?)
-      AND h.id_usuario = ?
-    )
     `,
     [inicio, fin, id_usuario, inicio, fin, id_usuario]
   );
