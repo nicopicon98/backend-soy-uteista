@@ -155,23 +155,18 @@ const lastDateByProfessional = async (req, res) => {
   send({ lastDateByProfessional }, res);
 };
 const getFranjasByProfessional = async (req, res) => {
-  const { id_usuario } = req.body;
-  const lastDateByProfessional = await mysql.executeQuery(
-    `SELECT c.*
-    FROM citas c
-    JOIN (
-      SELECT h.id_horario, MAX(h.fecha) AS max_fecha
-      FROM horario h
-      WHERE h.id_usuario = ?
-      GROUP BY h.id_horario
-      ORDER BY max_fecha DESC
-      LIMIT 1
-      ) AS ultima_horario ON ultima_horario.id_horario = c.id_horario
-      ORDER BY c.fecha_registro DESC
-      LIMIT 1`,
-    [id_usuario]
-  )[0];
-  send({ lastDateByProfessional }, res);
+  const { id_usuario, fechas } = req.body;
+  const [inicio, fin] = fechas;
+  const franjasPorProfesional = await mysql.executeQuery(
+    `SELECT f.id_franja, f.nombre
+    FROM franjas f
+    LEFT JOIN horario h
+      ON f.id_franja = h.id_franja AND h.id_usuario = ?
+    WHERE h.id_horario IS NULL
+      AND h.fecha BETWEEN ? AND ?`,
+    [id_usuario, inicio, fin]
+  );
+  send({ data: franjasPorProfesional, status: 200 }, res);
 };
 const closeDateByProfessional = async (req, res) => {
   const { id_usuario } = req.body;
