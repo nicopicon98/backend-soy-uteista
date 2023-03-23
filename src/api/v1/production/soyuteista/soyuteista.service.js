@@ -69,7 +69,7 @@ const insertAppointment = async (req, res = response) => {
   );
   if (resp != undefined) {
     data = {
-      code: 201,
+      code: 200,
       msg: "Cita creada con éxito",
     };
   } else {

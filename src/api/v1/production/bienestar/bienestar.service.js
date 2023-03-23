@@ -62,7 +62,7 @@ const register = async (req, res) => {
       [nombre, correo, clave, ubicacion, id_campus, id_area, id_rol]
     );
     createUser
-      ? send({ data: createUser, status: 201 }, res)
+      ? send({ data: createUser, status: 200 }, res)
       : send({ error: [GENERAL_ERROR], status: 403 }, res);
   } catch (error) {
     send({ error: [BAD_SERVICE], status: 409 }, res);
