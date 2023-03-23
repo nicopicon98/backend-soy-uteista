@@ -266,7 +266,7 @@ const createScheduleByProfessional = async (req, res) => {
     );
     send({ data: createScheduleByProfessional, status: 200 }, res);
   } catch (error) {
-    send({ error: [GENERAL_ERROR, error, sql], status: 304 }, res);
+    send({ error: [GENERAL_ERROR], status: 304 }, res);
   }
 };
 
