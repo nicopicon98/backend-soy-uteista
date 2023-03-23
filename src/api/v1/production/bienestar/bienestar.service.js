@@ -240,15 +240,11 @@ const createScheduleByProfessional = async (req, res) => {
   const fechaInicial = new Date(startDate);
   const fechaFinal = new Date(endDate);
 
-  for (
-    let fecha = fechaInicial;
-    fecha <= fechaFinal;
-    fecha.setDate(fecha.getDate() + 1)
-  ) {
+  for (let fecha = fechaInicial.getTime(); fecha <= fechaFinal.getTime(); fecha += 86400000) {
     console.log("a")
     for (const franja of franjas) {
       console.log(franja)
-      values.push([id_usuario, franja, fecha]);
+      values.push([id_usuario, franja, new Date(fecha)]);
       sql += "(?, ?, ?), ";
     }
   }
