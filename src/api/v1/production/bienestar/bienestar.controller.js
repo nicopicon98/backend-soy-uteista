@@ -67,6 +67,7 @@ bienestar.post("/reject-date", rejectDateValidationRules(), validateRejectDate, 
 bienestar.post("/attend-date", attendDateValidationRules(), validateAttendDate, attendDate);
 bienestar.post("/get-services", getSedesValidationRules(), validateGetSedes, getServices);
 bienestar.post("/get-franjas", getSedesValidationRules(), validateGetSedes, getFranjas);
+// bienestar.post("/update-password", getSedesValidationRules(), validateGetSedes, getFranjas);
 bienestar.post("/get-franjas-by-professional", getSedesValidationRules(), validateGetSedes, getFranjasByProfessional);
 bienestar.post("/delete-new-service", deleteNewServiceValidationRules(), validateDeleteNewService, deleteNewService);
 bienestar.post("/create-new-service", createNewServiceValidationRules(), validateCreateNewService, createNewService);

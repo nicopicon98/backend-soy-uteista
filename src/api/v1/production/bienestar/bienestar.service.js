@@ -168,13 +168,14 @@ const getFranjasByProfessional = async (req, res) => {
   const { id_usuario, fechas } = req.body;
   const [inicio, fin] = fechas;
   const franjasPorProfesional = await mysql.executeQuery(
-    `SELECT f.id_franja, f.nombre
-    FROM franjas f
-    LEFT JOIN horario h
-      ON f.id_franja = h.id_franja AND h.id_usuario = ?
-    WHERE h.id_horario IS NULL
-      AND h.fecha BETWEEN ? AND ?`,
-    [id_usuario, inicio, fin]
+    `SELECT f.id_franja, f.nombre FROM franjas f
+    WHERE NOT EXISTS (
+      SELECT 1 FROM horario h
+      WHERE h.id_franja = f.id_franja
+      AND h.fecha IN (?, ?)
+      AND h.id_usuario = ?
+    )`,
+    [inicio, fin, id_usuario]
   );
   send({ data: franjasPorProfesional, status: 200 }, res);
 };
