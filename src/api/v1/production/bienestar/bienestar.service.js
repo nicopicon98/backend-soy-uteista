@@ -297,7 +297,7 @@ const createAppointment = async (req, res) => {
     );
     send({ data: createAppointment, status: 200 }, res);
   } catch (error) {
-    send({ error: [BAD_SERVICE, error], status: 200 }, res);
+    send({ error: [BAD_SERVICE, error], status: 403 }, res);
   }
 };
 
