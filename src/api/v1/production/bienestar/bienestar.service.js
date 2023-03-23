@@ -78,7 +78,7 @@ const rejectDate = async (req, res) => {
     razon_rechazo,
     id_cita,
   ]);
-  send({ rejectDate }, res);
+  send({ data: rejectDate, status: 200 }, res);
 };
 const getFranjas = async (req, res) => {
   const franjas = await mysql.executeQuery("SELECT * FROM franjas");
