@@ -129,10 +129,12 @@ const getProfessionalBySede = async (req, res) => {
     `SELECT id_campus FROM campus WHERE nombre = ?`,
     [nombre_campus]
   );
-  const usuariosPorIdCampus = await mysql.executeQuery(
-    `SELECT * FROM usuarios WHERE id_campus = ?`,
+  let usuariosPorIdCampus = await mysql.executeQuery(
+    `SELECT id_usuario, nombre, correo, ubicacion, id_campus, id_area, id_rol, fecha_registro FROM usuarios WHERE id_campus = ?`,
     [nombreDelCampus[0].id_campus]
   );
+  usuariosPorIdCampus = { ...usuariosPorIdCampus[0] };
+  delete usuariosPorIdCampus.usuarios_clave;
   send({ data: usuariosPorIdCampus, status: 200 }, res);
 };
 const lastDateByProfessional = async (req, res) => {
