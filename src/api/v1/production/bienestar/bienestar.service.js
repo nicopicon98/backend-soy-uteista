@@ -130,12 +130,31 @@ const getProfessionalBySede = async (req, res) => {
     [nombre_campus]
   );
   let usuariosPorIdCampus = await mysql.executeQuery(
-    `SELECT id_usuario, nombre, correo, ubicacion, id_campus, id_area, id_rol, fecha_registro FROM usuarios WHERE id_campus = ?`,
+    `SELECT id_usuario, nombre, correo, ubicacion, id_campus, id_area, id_rol, fecha_registro FROM usuarios WHERE id_campus = ? AND id_rol = 2`,
     [nombreDelCampus[0].id_campus]
   );
   send({ data: usuariosPorIdCampus, status: 200 }, res);
 };
 const lastDateByProfessional = async (req, res) => {
+  const { id_usuario } = req.body;
+  const lastDateByProfessional = await mysql.executeQuery(
+    `SELECT c.*
+    FROM citas c
+    JOIN (
+      SELECT h.id_horario, MAX(h.fecha) AS max_fecha
+      FROM horario h
+      WHERE h.id_usuario = ?
+      GROUP BY h.id_horario
+      ORDER BY max_fecha DESC
+      LIMIT 1
+      ) AS ultima_horario ON ultima_horario.id_horario = c.id_horario
+      ORDER BY c.fecha_registro DESC
+      LIMIT 1`,
+    [id_usuario]
+  )[0];
+  send({ lastDateByProfessional }, res);
+};
+const getFranjasByProfessional = async (req, res) => {
   const { id_usuario } = req.body;
   const lastDateByProfessional = await mysql.executeQuery(
     `SELECT c.*
@@ -206,7 +225,7 @@ ORDER BY c.fecha_registro DESC
   `,
     [id_usuario]
   );
-  send({ getScheduleByProfessional }, res);
+  send({ data: getScheduleByProfessional, status: 200 }, res);
 };
 const nextPastDatesByProfessional = async (req, res) => {
   const { id_usuario } = req.body;
@@ -287,6 +306,7 @@ module.exports = {
   getProfessionalBySede,
   lastDateByProfessional,
   closeDateByProfessional,
+  getFranjasByProfessional,
   getScheduleByProfessional,
   nextPastDatesByProfessional,
   createScheduleByProfessional,

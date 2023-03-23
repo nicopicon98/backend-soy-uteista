@@ -18,6 +18,7 @@ const {
   deco,
   generatePDF,
   getProfessionalBySede,
+  getFranjasByProfessional,
 } = require("./bienestar.service");
 const { 
     validateLogin,
@@ -61,6 +62,7 @@ bienestar.post("/login", loginValidationRules(), validateLogin, login);
 bienestar.post("/register", registerValidationRules(), validateRegister, register);
 bienestar.post("/reject-date", rejectDateValidationRules(), validateRejectDate, rejectDate);
 bienestar.post("/get-services", getSedesValidationRules(), validateGetSedes, getServices);
+bienestar.post("/get-franjas-by-professional", getSedesValidationRules(), validateGetSedes, getFranjasByProfessional);
 bienestar.post("/delete-new-service", deleteNewServiceValidationRules(), validateDeleteNewService, deleteNewService);
 bienestar.post("/create-new-service", createNewServiceValidationRules(), validateCreateNewService, createNewService);
 bienestar.post("/close-date-by-student", closeDateByStudentValidationRules(), validateCloseDateByStudent, closeDateByStudent);
