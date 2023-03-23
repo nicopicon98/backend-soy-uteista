@@ -21,18 +21,21 @@ const sedes = async (req, res) => {
 const login = async (req, res) => {
   let { email, password } = req.body;
   let user = await mysql.executeQuery(
-    `SELECT usuarios.id_usuario AS usuarios_id_usuario, usuarios.nombre AS usuarios_nombre,
-    usuarios.correo AS usuarios_correo, usuarios.clave AS usuarios_clave,
-    usuarios.ubicacion AS usuarios_ubicacion, usuarios.id_campus AS usuarios_id_campus,
-    usuarios.id_area AS usuarios_id_area, usuarios.id_rol AS usuarios_id_rol,
-    usuarios.fecha_registro AS usuarios_fecha_registro, areas.id_area AS areas_id_area,
-    areas.nombre AS areas_nombre, campus.id_campus AS campus_id_campus,
-    campus.nombre AS campus_nombre, roles.id_rol AS roles_id_rol, roles.nombre AS roles_nombre
-    FROM usuarios
-    INNER JOIN areas ON areas.id_area = usuarios.id_area
-    INNER JOIN campus ON campus.id_campus = usuarios.id_campus
-    INNER JOIN roles ON roles.id_rol = usuarios.id_rol
-    WHERE correo = ?`,
+    `SELECT 
+    u.id_usuario,
+    u.nombre,
+    u.correo,
+    u.ubicacion,
+    u.fecha_registro,
+    r.nombre AS rol,
+    c.nombre AS campus,
+    a.nombre AS area
+FROM usuarios u
+LEFT JOIN campus_areas ca ON u.id_campus_area = ca.id_campus_area
+LEFT JOIN campus c ON ca.id_campus = c.id_campus
+LEFT JOIN areas a ON ca.id_area = a.id_area
+LEFT JOIN rol r ON u.id_rol = r.id_rol
+WHERE u.correo = ?`,
     [email]
   );
   if (user.length === 0) {
