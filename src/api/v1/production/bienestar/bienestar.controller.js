@@ -54,6 +54,7 @@ const { attendDateValidationRules, validateAttendDate } = require("./middlewares
 const { createAppointmentValidationRules, validatecreateAppointment } = require("./middlewares/create-appointment.middleware");
 const { getProfessionalBySedeValidationRules, validateGetProfessionalBySede } = require("./middlewares/get-professional-by-sede.middleware");
 const { getSedesValidationRules, validateGetSedes } = require("./middlewares/get-sedes.middleware");
+const { sedesServiciosBySedeValidationRules, validateSedesServiciosBySede } = require("./middlewares/sedes-servicios-by-sede.middleware");
 
 bienestar.use((req, res, next) => {
   next();
@@ -84,6 +85,7 @@ bienestar.post("/get-schedule-by-professional", getScheduleByProfessionalValidat
 bienestar.post("/next-past-dates-by-professional", nextPastDatesByProfessionalValidationRules(), validateNextPastDatesByProfessional, nextPastDatesByProfessional);
 bienestar.post("/create-schedule-by-professional", createScheduleByProfessionalValidationRules(), validateCreateScheduleByProfessional, createScheduleByProfessional);
 bienestar.post("/create-appointment-by-professional", createAppointmentValidationRules(), validatecreateAppointment, createAppointment) 
+bienestar.post("/sedes-servicios-by-sede", sedesServiciosBySedeValidationRules(), validateSedesServiciosBySede)
 //Reportes por profesionales
 
 bienestar.post("/report-pdf", generatePDF)

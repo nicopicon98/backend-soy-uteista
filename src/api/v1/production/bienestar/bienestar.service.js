@@ -300,6 +300,17 @@ const createAppointment = async (req, res) => {
     send({ error: [BAD_SERVICE, error], status: 403 }, res);
   }
 };
+const sedesServiciosBySede = async (req, res) => {
+  const { id_sede } = req.body;
+  const sedesServiciosBySede = await mysql.executeQuery(
+    `
+    SELECT a.* FROM areas a JOIN campus_areas ca ON a.id_area = ca.id_area WHERE ca.id_campus = ?
+  `,
+    
+    [id_sede]
+  );
+  send({ data: sedesServiciosBySede, status: 200 }, res);
+};
 
 //Reportes de citas
 
