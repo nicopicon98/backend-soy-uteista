@@ -260,7 +260,10 @@ const createScheduleByProfessional = async (req, res) => {
   }
   sql = sql.slice(0, -2); // elimina la última coma y espacio
   try {
-    const createScheduleByProfessional = await mysql.executeQuery(sql, values);
+    const createScheduleByProfessional = await mysql.executeQuery(
+      sql,
+      [].concat(...values)
+    );
     send({ data: createScheduleByProfessional, status: 200 }, res);
   } catch (error) {
     send({ error: [GENERAL_ERROR, error, sql], status: 304 }, res);
