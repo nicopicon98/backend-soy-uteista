@@ -234,25 +234,33 @@ ORDER BY h.fecha DESC
 const createScheduleByProfessional = async (req, res) => {
   const { id_usuario, schedule } = req.body;
   const { startDate, endDate, franjas } = schedule;
-  let sql = "INSERT INTO horario (id_usuario, id_franja, fecha) VALUES ";
-  const values = [];
 
   const fechaInicial = new Date(startDate);
   const fechaFinal = new Date(endDate);
 
-  for (let fecha = fechaInicial; fecha <= fechaFinal; fecha.setDate(fecha.getDate() + 1)) {
+  const values = [];
+
+  for (
+    let fecha = fechaInicial;
+    fecha <= fechaFinal;
+    fecha.setDate(fecha.getDate() + 1)
+  ) {
     for (const franja of franjas) {
-      const nuevaFecha = new Date(fecha.getTime()); // crear nueva fecha para cada fila
-      values.push([id_usuario, franja, nuevaFecha]);
-      sql += "(?, ?, ?), ";
+      values.push(id_usuario, franja, fecha);
     }
   }
-  sql = sql.slice(0, -2);
+
+  const placeholders = Array.from(
+    { length: franjas.length },
+    () => "(?, ?, ?)"
+  ).join(", ");
+  const sql = `INSERT INTO horario (id_usuario, id_franja, fecha) VALUES ${placeholders}`;
+
   try {
     const createScheduleByProfessional = await mysql.executeQuery(sql, values);
     send({ data: createScheduleByProfessional, status: 200 }, res);
   } catch (error) {
-    send({ error: [GENERAL_ERROR, error], status: 304 }, res);
+    send({ error: [GENERAL_ERROR, error, sql], status: 304 }, res);
   }
 };
 
