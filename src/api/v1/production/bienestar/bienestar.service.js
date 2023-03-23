@@ -80,6 +80,11 @@ const rejectDate = async (req, res) => {
   ]);
   send({ data: rejectDate, status: 200 }, res);
 };
+const getUsers = async (req, res) => {
+  const users = "SELECT * FROM usuarios ORDER BY fecha_registro ASC;";
+  const usersResult = await mysql.executeQuery(users);
+  send({ data: usersResult, status: 200 }, res);
+};
 const attendDate = async (req, res) => {
   const { id_cita } = req.body;
   const sql = "UPDATE citas SET asistido = 1 WHERE id_cita = ?";
@@ -301,6 +306,7 @@ module.exports = {
   sedes,
   login,
   register,
+  getUsers,
   attendDate,
   rejectDate,
   getFranjas,
