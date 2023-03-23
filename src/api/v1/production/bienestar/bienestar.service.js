@@ -198,7 +198,7 @@ LIMIT 1
 `,
     [id_usuario]
   )[0];
-  send({ closeDateByProfessional }, res);
+  send({ data: closeDateByProfessional, status: 200 }, res);
 };
 const getScheduleByProfessional = async (req, res) => {
   const { id_usuario } = req.body;
@@ -261,8 +261,12 @@ const createScheduleByProfessional = async (req, res) => {
     }
   }
   sql = sql.slice(0, -2);
-  const createScheduleByProfessional = await mysql.executeQuery(sql, values);
-  send({ createScheduleByProfessional }, res);
+  try {
+    const createScheduleByProfessional = await mysql.executeQuery(sql, values);
+    send({ data: createScheduleByProfessional, status: 200 }, res);
+  } catch (error) {
+    send({ error: [GENERAL_ERROR], status: 304 }, res);
+  }
 };
 
 //Reportes de citas
