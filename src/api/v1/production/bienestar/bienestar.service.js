@@ -34,8 +34,9 @@ FROM usuarios u
 LEFT JOIN campus_areas ca ON u.id_campus_area = ca.id_campus_area
 LEFT JOIN campus c ON ca.id_campus = c.id_campus
 LEFT JOIN areas a ON ca.id_area = a.id_area
-LEFT JOIN rol r ON u.id_rol = r.id_rol
-WHERE u.correo = ?`,
+LEFT JOIN roles r ON u.id_rol = r.id_rol
+WHERE u.correo = ?
+`,
     [email]
   );
   if (user.length === 0) {
