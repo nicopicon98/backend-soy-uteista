@@ -22,20 +22,27 @@ const login = async (req, res) => {
   let { email, password } = req.body;
   let user = await mysql.executeQuery(
     `SELECT 
-    u.id_usuario,
-    u.nombre,
-    u.correo,
-    u.ubicacion,
-    u.fecha_registro,
-    r.nombre AS rol,
-    c.nombre AS campus,
-    a.nombre AS area
+    u.id_usuario AS usuarios_id_usuario,
+    u.nombre AS usuarios_nombre,
+    u.correo AS usuarios_correo,
+    u.clave AS usuarios_clave,
+    u.ubicacion AS usuarios_ubicacion,
+    u.id_campus_area AS usuarios_id_campus_area,
+    u.id_rol AS usuarios_id_rol,
+    u.fecha_registro AS usuarios_fecha_registro,
+    r.id_rol AS roles_id_rol,
+    r.nombre AS roles_nombre,
+    c.id_campus AS campus_id_campus,
+    c.nombre AS campus_nombre,
+    a.id_area AS areas_id_area,
+    a.nombre AS areas_nombre
 FROM usuarios u
 LEFT JOIN campus_areas ca ON u.id_campus_area = ca.id_campus_area
 LEFT JOIN campus c ON ca.id_campus = c.id_campus
 LEFT JOIN areas a ON ca.id_area = a.id_area
 LEFT JOIN roles r ON u.id_rol = r.id_rol
 WHERE u.correo = ?
+
 `,
     [email]
   );
