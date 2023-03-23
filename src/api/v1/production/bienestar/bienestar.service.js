@@ -44,7 +44,7 @@ const login = async (req, res) => {
   send(
     passwordCompare
       ? { user, status: 200 }
-      : { error: GENERAL_ERROR, status: 403 },
+      : { error: [GENERAL_ERROR], status: 403 },
     res
   );
 };
@@ -59,9 +59,9 @@ const register = async (req, res) => {
     );
     createUser
       ? send({ user: createUser, status: 201 }, res)
-      : send({ error: GENERAL_ERROR, status: 403 }, res);
+      : send({ error: [GENERAL_ERROR], status: 403 }, res);
   } catch (error) {
-    send({ error: BAD_SERVICE, status: 409 }, res);
+    send({ error: [BAD_SERVICE], status: 409 }, res);
   }
 };
 const rejectDate = async (req, res) => {
