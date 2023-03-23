@@ -1,5 +1,5 @@
 const { mysql } = require("../../../../common/conexiones/conexionMysql");
-const pdf = require('html-pdf');
+const pdf = require("html-pdf");
 const {
   comparePassword,
   hashPassword,
@@ -13,6 +13,10 @@ const BAD_SERVICE = "Información errónea";
 const deco = (req, res) => {
   const content = req.body;
   sendService(content, res);
+};
+const sedes = async (req, res) => {
+  const campus = await mysql.executeQuery(`SELECT * FROM campus`);
+  send({ data: campus, status: 200 }, res);
 };
 const login = async (req, res) => {
   let { email, password } = req.body;
@@ -43,7 +47,7 @@ const login = async (req, res) => {
   delete user.usuarios_clave;
   send(
     passwordCompare
-      ? { user, status: 200 }
+      ? { data: user, status: 200 }
       : { error: [GENERAL_ERROR], status: 403 },
     res
   );
@@ -58,7 +62,7 @@ const register = async (req, res) => {
       [nombre, correo, clave, ubicacion, id_campus, id_area, id_rol]
     );
     createUser
-      ? send({ user: createUser, status: 201 }, res)
+      ? send({ data: createUser, status: 201 }, res)
       : send({ error: [GENERAL_ERROR], status: 403 }, res);
   } catch (error) {
     send({ error: [BAD_SERVICE], status: 409 }, res);
@@ -245,18 +249,21 @@ const generatePDF = async (req, res) => {
   `,
     [id_usuario]
   );
-  pdf.create(htmlTemplate, {orientation: 'landscape', format: 'A3'}).toFile("./salida.pdf", function (err, res) {
-    if (err) {
-      console.log(err);
-    } else {
-      console.log(res);
-    }
-  });
+  pdf
+    .create(htmlTemplate, { orientation: "landscape", format: "A3" })
+    .toFile("./salida.pdf", function (err, res) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(res);
+      }
+    });
   send({ generatePDF }, res);
 };
 
 module.exports = {
   deco,
+  sedes,
   login,
   register,
   rejectDate,
