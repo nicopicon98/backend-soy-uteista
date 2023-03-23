@@ -60,7 +60,7 @@ bienestar.post('/sedes', getSedesValidationRules(), validateGetSedes, sedes)
 bienestar.post("/login", loginValidationRules(), validateLogin, login);
 bienestar.post("/register", registerValidationRules(), validateRegister, register);
 bienestar.post("/reject-date", rejectDateValidationRules(), validateRejectDate, rejectDate);
-bienestar.post("/get-services", getServices);
+bienestar.post("/get-services", getSedesValidationRules(), validateGetSedes, getServices);
 bienestar.post("/delete-new-service", deleteNewServiceValidationRules(), validateDeleteNewService, deleteNewService);
 bienestar.post("/create-new-service", createNewServiceValidationRules(), validateCreateNewService, createNewService);
 bienestar.post("/close-date-by-student", closeDateByStudentValidationRules(), validateCloseDateByStudent, closeDateByStudent);
