@@ -80,6 +80,12 @@ const rejectDate = async (req, res) => {
   ]);
   send({ data: rejectDate, status: 200 }, res);
 };
+const attendDate = async (req, res) => {
+  const { id_cita } = req.body;
+  const sql = "UPDATE citas SET asistido = 1 WHERE id_cita = ?";
+  const attendDate = await mysql.executeQuery(sql, [id_cita]);
+  send({ data: attendDate, status: 200 }, res);
+};
 const getFranjas = async (req, res) => {
   const franjas = await mysql.executeQuery("SELECT * FROM franjas");
   send({ data: franjas, status: 200 }, res);
@@ -300,6 +306,7 @@ module.exports = {
   sedes,
   login,
   register,
+  attendDate,
   rejectDate,
   getFranjas,
   getServices,

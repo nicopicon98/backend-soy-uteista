@@ -47,6 +47,7 @@ const {
     createScheduleByProfessionalValidationRules,
     nextPastDatesByProfessionalValidationRules,
 } = require("./middlewares");
+const { attendDateValidationRules, validateAttendDate } = require("./middlewares/attend-date.middleware");
 const { getProfessionalBySedeValidationRules, validateGetProfessionalBySede } = require("./middlewares/get-professional-by-sede.middleware");
 const { getSedesValidationRules, validateGetSedes } = require("./middlewares/get-sedes.middleware");
 
@@ -62,6 +63,7 @@ bienestar.post('/sedes', getSedesValidationRules(), validateGetSedes, sedes)
 bienestar.post("/login", loginValidationRules(), validateLogin, login);
 bienestar.post("/register", registerValidationRules(), validateRegister, register);
 bienestar.post("/reject-date", rejectDateValidationRules(), validateRejectDate, rejectDate);
+bienestar.post("/attend-date", attendDateValidationRules(), validateAttendDate, rejectDate);
 bienestar.post("/get-services", getSedesValidationRules(), validateGetSedes, getServices);
 bienestar.post("/get-franjas", getSedesValidationRules(), validateGetSedes, getFranjas);
 bienestar.post("/get-franjas-by-professional", getSedesValidationRules(), validateGetSedes, getFranjasByProfessional);
