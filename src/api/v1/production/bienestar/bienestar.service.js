@@ -155,6 +155,8 @@ const getProfessionalBySede = async (req, res) => {
     `SELECT usuarios.*, campus_areas.* 
     FROM usuarios 
     INNER JOIN campus_areas ON campus_areas.id_campus_area = usuarios.id_campus_area 
+    INNER JOIN areas on areas.id_area = campus_areas.id_area
+    INNER JOIN campus on campus.id_campus = campus_areas.id_campus
     WHERE usuarios.id_campus_area = ? AND usuarios.id_rol = 2`,
     [id_campus_area]
   );
