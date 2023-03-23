@@ -86,7 +86,7 @@ const getFranjas = async (req, res) => {
 };
 const getServices = async (req, res) => {
   const services = await mysql.executeQuery("SELECT * FROM areas");
-  send({ services }, res);
+  send({ data: services, status: 200 }, res);
 };
 const assignLocation = async (req, res) => {
   const { id_usuario, ubicacion } = req.body;
