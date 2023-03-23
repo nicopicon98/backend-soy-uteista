@@ -234,11 +234,11 @@ ORDER BY h.fecha DESC
 const createScheduleByProfessional = async (req, res) => {
   const { id_usuario, schedule } = req.body;
   const { startDate, endDate, franjas } = schedule;
+  let sql = "INSERT INTO horario (id_usuario, id_franja, fecha) VALUES ";
+  const values = [];
 
   const fechaInicial = new Date(startDate);
   const fechaFinal = new Date(endDate);
-
-  const values = [];
 
   for (
     let fecha = fechaInicial;
@@ -246,16 +246,19 @@ const createScheduleByProfessional = async (req, res) => {
     fecha.setDate(fecha.getDate() + 1)
   ) {
     for (const franja of franjas) {
-      values.push(id_usuario, franja, fecha);
+      const fechaFranja = new Date(fecha);
+      const franjaHora = new Date(franja * 3600000); // se multiplica por 3600000 para obtener la hora en milisegundos
+      fechaFranja.setHours(
+        franjaHora.getHours(),
+        franjaHora.getMinutes(),
+        0,
+        0
+      ); // se setea la hora de la franja a la fecha actual
+      values.push([id_usuario, franja, fechaFranja]);
+      sql += "(?, ?, ?), ";
     }
   }
-
-  const placeholders = Array.from(
-    { length: franjas.length },
-    () => "(?, ?, ?)"
-  ).join(", ");
-  const sql = `INSERT INTO horario (id_usuario, id_franja, fecha) VALUES ${placeholders}`;
-
+  sql = sql.slice(0, -2); // elimina la última coma y espacio
   try {
     const createScheduleByProfessional = await mysql.executeQuery(sql, values);
     send({ data: createScheduleByProfessional, status: 200 }, res);
