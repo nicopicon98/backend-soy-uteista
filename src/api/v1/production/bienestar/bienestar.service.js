@@ -240,11 +240,13 @@ const createScheduleByProfessional = async (req, res) => {
   const fechaInicial = new Date(startDate);
   const fechaFinal = new Date(endDate);
 
-  for (let fecha = fechaInicial.getTime(); fecha <= fechaFinal.getTime(); fecha += 86400000) {
-    console.log("a")
+  for (
+    let fecha = fechaInicial;
+    fecha <= fechaFinal;
+    fecha.setDate(fecha.getDate() + 1)
+  ) {
     for (const franja of franjas) {
-      console.log(franja)
-      values.push([id_usuario, franja, new Date(fecha)]);
+      values.push([id_usuario, franja, fecha]);
       sql += "(?, ?, ?), ";
     }
   }
@@ -253,7 +255,7 @@ const createScheduleByProfessional = async (req, res) => {
     const createScheduleByProfessional = await mysql.executeQuery(sql, values);
     send({ data: createScheduleByProfessional, status: 200 }, res);
   } catch (error) {
-    send({ error: [GENERAL_ERROR, error, sql], status: 304 }, res);
+    send({ error: [GENERAL_ERROR, error], status: 304 }, res);
   }
 };
 
