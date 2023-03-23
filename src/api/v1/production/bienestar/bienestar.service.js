@@ -116,8 +116,8 @@ const createNewService = async (req, res) => {
     [nombre]
   );
   createNewService
-    ? send({ createNewService }, res)
-    : send({ error: GENERAL_ERROR }, res);
+    ? send({ data: createNewService, status: 200 }, res)
+    : send({ error: [GENERAL_ERROR], status: 304 }, res);
 };
 const closeDateByStudent = async (req, res) => {
   const { tomado_por } = req.body;
