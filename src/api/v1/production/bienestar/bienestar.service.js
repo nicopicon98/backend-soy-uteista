@@ -80,6 +80,10 @@ const rejectDate = async (req, res) => {
   ]);
   send({ rejectDate }, res);
 };
+const getFranjas = async (req, res) => {
+  const franjas = await mysql.executeQuery("SELECT * FROM franjas");
+  send({ data: franjas, status: 200 }, res);
+};
 const getServices = async (req, res) => {
   const services = await mysql.executeQuery("SELECT * FROM areas");
   send({ services }, res);
@@ -293,6 +297,7 @@ module.exports = {
   login,
   register,
   rejectDate,
+  getFranjas,
   getServices,
   assignLocation,
   deleteNewService,
