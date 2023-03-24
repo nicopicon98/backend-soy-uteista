@@ -12,6 +12,7 @@ const GENERAL_ERROR = "Contacta con el administrador";
 const BAD_SERVICE = "Información errónea";
 const USER_EXIST = "Ese usuario ya está registrado";
 const USER_UPDATE_ERROR = "No se pudo actualizar el usuario";
+
 const deco = (req, res) => {
   const content = req.body;
   sendService(content, res);
@@ -702,6 +703,22 @@ ORDER BY
     },
     res
   );
+};
+const createCampusArea = async (req, res) => {
+  const { id_area, id_campus } = req.body;
+
+  try {
+    const createCampusArea = await mysql.executeQuery(
+      `
+      INSERT INTO campus_areas (id_area, id_campus) VALUES (?, ?);
+    `,
+      [id_area, id_campus]
+    );
+
+    send({ data: createCampusArea, status: 200 }, res);
+  } catch (error) {
+    send({ error: [GENERAL_ERROR], status: 403 }, res);
+  }
 };
 
 const generatePDF = async (req, res) => {
