@@ -225,7 +225,7 @@ const lastDateByProfessional = async (req, res) => {
     JOIN (
       SELECT h.id_horario, MAX(h.fecha) AS max_fecha
       FROM horario h
-      WHERE h.id_usuario = 1
+      WHERE h.id_usuario = ?
       GROUP BY h.id_horario
       ORDER BY max_fecha DESC
       LIMIT 1
