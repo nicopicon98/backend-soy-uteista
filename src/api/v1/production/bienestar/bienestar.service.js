@@ -225,7 +225,7 @@ const lastDateByProfessional = async (req, res) => {
     JOIN (
       SELECT h.id_horario, MAX(h.fecha) AS max_fecha
       FROM horario h
-      WHERE h.id_usuario = ?
+      WHERE h.id_usuario = 1
       GROUP BY h.id_horario
       ORDER BY max_fecha DESC
       LIMIT 1
@@ -233,8 +233,8 @@ const lastDateByProfessional = async (req, res) => {
       ORDER BY c.fecha_registro DESC
       LIMIT 1`,
     [id_usuario]
-  )[0];
-  send({ lastDateByProfessional }, res);
+  );
+  send({ data: lastDateByProfessional, status: 200 }, res);
 };
 const getFranjasByProfessional = async (req, res) => {
   const { id_usuario, fechas } = req.body;
