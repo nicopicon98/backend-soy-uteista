@@ -59,7 +59,7 @@ WHERE u.correo = ?
   send(
     passwordCompare
       ? { data: user, status: 200 }
-      : { error: [GENERAL_ERROR], status: 403 },
+      : { error: [BAD_SERVICE], status: 403 },
     res
   );
 };
