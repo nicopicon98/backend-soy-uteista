@@ -463,7 +463,6 @@ const deleteProfessional = async (req, res) => {
   );
   send({ data: deleteProfessional, status: 200 }, res);
 };
-
 const dashboardHome = async (req, res) => {
   const { id_usuario } = req.body;
   const total = mysql.executeQuery(
@@ -552,6 +551,60 @@ WHERE h.id_usuario = 1 AND c.asistido = 0 AND h.fecha >= @start_date AND h.fecha
     `
   );
 
+  const totalCitas = await mysql.executeQuery(
+    `
+    SELECT 
+  u.nombre,
+  u.correo,
+  h.fecha,
+  f.nombre AS franja,
+  c.rechazado,
+  c.asistido
+FROM 
+  citas AS c
+JOIN 
+  horario AS h ON c.id_horario = h.id_horario
+JOIN 
+  usuarios AS u ON h.id_usuario = u.id_usuario
+JOIN 
+  franjas AS f ON h.id_franja = f.id_franja
+WHERE
+  h.id_usuario = ? AND
+  h.fecha >= DATE_FORMAT(NOW(), '%Y-%m-01') AND
+  h.fecha < DATE_FORMAT(DATE_ADD(DATE_FORMAT(NOW(), '%Y-%m-01'), INTERVAL 1 MONTH), '%Y-%m-01')
+ORDER BY
+  h.fecha ASC;
+  `,
+    [id_usuario]
+  );
+
+  const citasAceptadas = await mysql.executeQuery(
+    `
+    SELECT 
+  u.nombre,
+  u.correo,
+  h.fecha,
+  f.nombre AS franja,
+  c.rechazado,
+  c.asistido
+FROM 
+  citas AS c
+JOIN 
+  horario AS h ON c.id_horario = h.id_horario
+JOIN 
+  usuarios AS u ON h.id_usuario = u.id_usuario
+JOIN 
+  franjas AS f ON h.id_franja = f.id_franja
+WHERE
+  h.id_usuario = ? AND
+  h.fecha >= DATE_FORMAT(NOW(), '%Y-%m-01') AND
+  h.fecha < DATE_FORMAT(DATE_ADD(DATE_FORMAT(NOW(), '%Y-%m-01'), INTERVAL 1 MONTH), '%Y-%m-01') AND
+  c.rechazado = 0
+ORDER BY
+  h.fecha ASC;
+  `,
+    [id_usuario]
+  );
 
   const appointments = await Promise.all([
     total,
@@ -561,6 +614,8 @@ WHERE h.id_usuario = 1 AND c.asistido = 0 AND h.fecha >= @start_date AND h.fecha
     notAttended,
     citasPasadas,
     citasProximas,
+    totalCitas,
+    citasAceptadas
   ]);
 
   const [
@@ -571,6 +626,8 @@ WHERE h.id_usuario = 1 AND c.asistido = 0 AND h.fecha >= @start_date AND h.fecha
     notAttendedAppointments,
     citasPasadasAppointments,
     citasProximasAppointments,
+    totalCitasAppointments,
+    citasAceptadasAppointments
   ] = appointments;
 
   send(
@@ -580,9 +637,12 @@ WHERE h.id_usuario = 1 AND c.asistido = 0 AND h.fecha >= @start_date AND h.fecha
         { id_type_last: "accepted", value: acceptedAppointments[0].accepted },
         { id_type_last: "rejected", value: rejectedAppointments[0].rejected },
         { id_type_last: "attended", value: attendedAppointments[0].attended },
-        { id_type_last: "not_attended", value: notAttendedAppointments[0].not_attended },
+        {
+          id_type_last: "not_attended",
+          value: notAttendedAppointments[0].not_attended,
+        },
         { passed_appointments: citasPasadasAppointments },
-        { upcoming_appointments: citasProximasAppointments},
+        { upcoming_appointments: citasProximasAppointments },
       ],
       status: 200,
     },
