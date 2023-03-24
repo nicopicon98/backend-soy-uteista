@@ -302,9 +302,10 @@ const getScheduleByProfessional = async (req, res) => {
   const { id_usuario } = req.body;
   const getScheduleByProfessional = await mysql.executeQuery(
     `
-    SELECT h.id_horario, h.fecha, f.nombre AS franja_nombre
+    SELECT h.id_horario, u.tomado_por, h.fecha, f.nombre AS franja_nombre
     FROM horario h
     INNER JOIN franjas f ON h.id_franja = f.id_franja
+    INNER JOIN usuarios u ON h.id_usuario = u.id_usuario
     WHERE h.id_usuario = 1
     AND h.fecha >= CURDATE()
     ORDER BY h.fecha ASC
