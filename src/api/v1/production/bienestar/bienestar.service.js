@@ -368,11 +368,11 @@ const createScheduleByProfessional = async (req, res) => {
   }
 };
 const createAppointment = async (req, res) => {
-  const { id_horario, tomado_por, telefono, foto } = req.body;
+  const { id_horario, tomado_por, telefono, foto, nombre } = req.body;
   try {
     const createAppointment = await mysql.executeQuery(
-      `INSERT INTO citas (id_horario, tomado_por, telefono, foto) VALUES (?, ?, ?, ?)`,
-      [id_horario, tomado_por, telefono, foto]
+      `INSERT INTO citas (id_horario, tomado_por, telefono, foto, nombre) VALUES (?, ?, ?, ?, ?)`,
+      [id_horario, tomado_por, telefono, foto, nombre]
     );
     send({ data: createAppointment, status: 200 }, res);
   } catch (error) {
