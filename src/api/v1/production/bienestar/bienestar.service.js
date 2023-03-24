@@ -205,7 +205,7 @@ const getProfessionalBySede = async (req, res) => {
   const { id_campus_area } = req.body;
 
   let usuariosPorIdCampus = await mysql.executeQuery(
-    `SELECT usuarios.*, campus_areas.*, campus.id_campus as campus_id_campus, campus.nombre as nombre_campus, areas.id_area as areas_id_area, areas.nombre as nombre_area
+    `SELECT usuarios.nombre, usuarios.id_usuario, campus_areas.*, campus.id_campus as campus_id_campus, campus.nombre as nombre_campus, areas.id_area as areas_id_area, areas.nombre as nombre_area
     FROM usuarios 
     INNER JOIN campus_areas ON campus_areas.id_campus_area = usuarios.id_campus_area 
     INNER JOIN areas on areas.id_area = campus_areas.id_area
@@ -213,8 +213,6 @@ const getProfessionalBySede = async (req, res) => {
     WHERE usuarios.id_campus_area = ? AND usuarios.id_rol = 2`,
     [id_campus_area]
   );
-  usuariosPorIdCampus = { ...usuariosPorIdCampus[0] };
-  delete usuariosPorIdCampus.clave;
   send({ data: usuariosPorIdCampus, status: 200 }, res);
 };
 const lastDateByProfessional = async (req, res) => {
@@ -554,6 +552,7 @@ WHERE h.id_usuario = 1 AND c.asistido = 0 AND h.fecha >= @start_date AND h.fecha
     `
   );
 
+
   const appointments = await Promise.all([
     total,
     accepted,
@@ -573,12 +572,6 @@ WHERE h.id_usuario = 1 AND c.asistido = 0 AND h.fecha >= @start_date AND h.fecha
     citasPasadasAppointments,
     citasProximasAppointments,
   ] = appointments;
-
-  // { id_type_last: "total", value: 100 },
-  // { id_type_last: "accepted", value: 50 },
-  // { id_type_last: "rejected", value: 20 },
-  // { id_type_last: "attended", value: 30 },
-  // { id_type_last: "not_attended", value: 10 },
 
   send(
     {
