@@ -430,7 +430,6 @@ const appointmentsByIdCampusArea = async (req, res) => {
     u.id_usuario AS usuarios_id_usuario,
     u.nombre AS usuarios_nombre,
     u.correo AS usuarios_correo,
-    u.clave AS usuarios_clave,
     u.ubicacion AS usuarios_ubicacion,
     u.id_rol AS usuarios_id_rol,
     u.id_campus_area AS usuarios_id_campus_area,
