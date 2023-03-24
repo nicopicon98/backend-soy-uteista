@@ -679,10 +679,7 @@ ORDER BY
         { id_type_last: "accepted", value: acceptedAppointments[0].accepted },
         { id_type_last: "rejected", value: rejectedAppointments[0].rejected },
         { id_type_last: "attended", value: attendedAppointments[0].attended },
-        {
-          id_type_last: "not_attended",
-          value: notAttendedAppointments[0].not_attended,
-        },
+        { id_type_last: "not_attended", value: notAttendedAppointments[0].not_attended },
         { passed_appointments: citasPasadasAppointments },
         { upcoming_appointments: citasProximasAppointments },
         { id_type_upcoming: "total", value: totalCitasAppointments[0].citas },
