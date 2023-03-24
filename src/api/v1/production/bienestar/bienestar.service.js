@@ -275,23 +275,25 @@ const getAllAppointmentsByProfessional = async (req, res) => {
   const { id_usuario } = req.body;
   const getAllAppointmentsByProfessional = await mysql.executeQuery(
     `
-    SELECT c.*
+    SELECT c.*, f.nombre AS franja_nombre, h.fecha AS cita_fecha
     FROM citas c
     JOIN (
       SELECT h.id_horario, MIN(h.fecha) AS min_fecha
       FROM horario h
-    WHERE h.id_usuario = ?
-    AND h.fecha >= CURDATE()
-    AND NOT EXISTS (
-      SELECT 1
-      FROM citas c2
-      WHERE c2.id_horario = h.id_horario
-      AND c2.asistido = 1
+      WHERE h.id_usuario = ?
+      AND h.fecha >= CURDATE()
+      AND NOT EXISTS (
+        SELECT 1
+        FROM citas c2
+        WHERE c2.id_horario = h.id_horario
+        AND c2.asistido = 1
       )
       GROUP BY h.id_horario
       ORDER BY min_fecha ASC
-  ) AS proxima_horario ON proxima_horario.id_horario = c.id_horario
-  ORDER BY c.fecha_registro DESC
+    ) AS proxima_horario ON proxima_horario.id_horario = c.id_horario
+    JOIN horario h ON h.id_horario = c.id_horario
+    JOIN franjas f ON f.id_franja = h.id_franja
+    ORDER BY c.fecha_registro DESC;
     `,
     [id_usuario]
   );
@@ -680,12 +682,21 @@ ORDER BY
         { id_type_last: "accepted", value: acceptedAppointments[0].accepted },
         { id_type_last: "rejected", value: rejectedAppointments[0].rejected },
         { id_type_last: "attended", value: attendedAppointments[0].attended },
-        { id_type_last: "not_attended", value: notAttendedAppointments[0].not_attended },
+        {
+          id_type_last: "not_attended",
+          value: notAttendedAppointments[0].not_attended,
+        },
         { passed_appointments: citasPasadasAppointments },
         { upcoming_appointments: citasProximasAppointments },
         { id_type_upcoming: "total", value: totalCitasAppointments[0].citas },
-        { id_type_upcoming: "aceptadas", value: citasAceptadasAppointments[0].citas },
-        { id_type_upcoming: "rechazadas", value: citasRechazadasAppointments[0].citas },
+        {
+          id_type_upcoming: "aceptadas",
+          value: citasAceptadasAppointments[0].citas,
+        },
+        {
+          id_type_upcoming: "rechazadas",
+          value: citasRechazadasAppointments[0].citas,
+        },
       ],
       status: 200,
     },
