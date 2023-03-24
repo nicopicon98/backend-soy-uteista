@@ -412,13 +412,44 @@ const appointmentsByIdCampusArea = async (req, res) => {
   const { tomado_por, id_campus_area } = req.body;
   const appointmentsByIdCampusArea = await mysql.executeQuery(
     `
-    SELECT c.*, ca.id_campus, ca.id_area, caa.id_campus, caa.id_area, caa.id_campus_area, cam.nombre AS campus_nombre, a.nombre AS area_nombre 
-    FROM citas c 
-    JOIN campus_areas ca ON c.id_campus_area = ca.id_campus_area 
-    JOIN campus_areas caa ON ca.id_campus = caa.id_campus 
-    JOIN campus cam ON caa.id_campus = cam.id_campus 
-    JOIN areas a ON caa.id_area = a.id_area 
-    WHERE c.tomado_por = ? AND ca.id_campus_area = ?
+    SELECT ci.id_cita AS citas_id_cita,
+    ci.id_horario AS citas_id_horario,
+    ci.tomado_por AS citas_tomado_por,
+    ci.asistido AS citas_asistido,
+    ci.rechazado AS citas_rechazado,
+    ci.rechazado_por AS citas_rechazado_por,
+    ci.rechazado_correo AS citas_rechazado_correo,
+    ci.rechazado_razon AS citas_rechazado_razon,
+    ci.telefono AS citas_telefono,
+    ci.foto AS citas_foto,
+    ci.fecha_registro AS citas_fecha_registro,
+    h.id_horario AS horario_id_horario,
+    h.id_usuario AS horario_id_usuario,
+    h.id_franja AS horario_id_franja,
+    h.fecha AS horario_fecha,
+    u.id_usuario AS usuarios_id_usuario,
+    u.nombre AS usuarios_nombre,
+    u.correo AS usuarios_correo,
+    u.clave AS usuarios_clave,
+    u.ubicacion AS usuarios_ubicacion,
+    u.id_rol AS usuarios_id_rol,
+    u.id_campus_area AS usuarios_id_campus_area,
+    u.fecha_registro AS usuarios_fecha_registro,
+    ca.id_campus_area AS campus_areas_id_campus_area,
+    ca.id_campus AS campus_areas_id_campus,
+    ca.id_area AS campus_areas_id_area,
+    c.id_campus AS campus_id_campus,
+    c.nombre AS campus_nombre,
+    a.id_area AS areas_id_area,
+    a.nombre AS areas_nombre
+FROM citas ci
+INNER JOIN horario h ON h.id_horario = ci.id_horario
+INNER JOIN usuarios u ON u.id_usuario = h.id_usuario
+INNER JOIN campus_areas ca ON ca.id_campus_area = u.id_campus_area
+INNER JOIN campus c ON c.id_campus = ca.id_campus
+INNER JOIN areas a ON a.id_area = ca.id_area
+WHERE ci.tomado_por = ?
+AND ca.id_campus_area = ?
   `,
     [tomado_por, id_campus_area]
   );
