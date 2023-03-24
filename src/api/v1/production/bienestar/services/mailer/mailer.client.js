@@ -6,7 +6,7 @@ let transporter = nodemailer.createTransport({
   secure: false,
   auth: {
     user: "aplicacionmovil@correo.uts.edu.co",
-    pass: "Jgomez21!",
+    pass: "Nicolas3312",
   },
 });
 
