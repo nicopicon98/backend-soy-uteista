@@ -6,6 +6,7 @@ const {
 } = require("../../../../common/security/bcrypt_encryption");
 const { send, decrypt, sendService } = require("./config/crypto.config");
 const { htmlTemplate } = require("./template/pdfreport");
+const { prepareEmail, mailer } = require("./services/mailer/mailer.client");
 
 const GENERAL_ERROR = "Contacta con el administrador";
 const BAD_SERVICE = "Información errónea";
@@ -71,9 +72,25 @@ const register = async (req, res) => {
       "INSERT INTO usuarios (nombre, correo, clave, ubicacion, id_campus_area, id_rol) VALUES (?, ?, ?, ?, ?, ?)",
       [nombre, correo, clave, ubicacion, id_campus_area, id_rol]
     );
-    createUser
-      ? send({ data: createUser, status: 200 }, res)
-      : send({ error: [GENERAL_ERROR], status: 403 }, res);
+    if (createUser) {
+      send({ data: createUser, status: 200 }, res);
+      const emailOptions = prepareEmail(
+        correo,
+        "Bienvenido a la aplicación de Bienestar",
+        `Correo: ${correo}
+        Clave: ${clave}
+        `
+      );
+      mailer.sendMail(emailOptions, (error, info) => {
+        if (error) {
+          console.log(error);
+        } else {
+          console.log("Correo electrónico enviado: " + info.response);
+        }
+      });
+    } else {
+      send({ error: [GENERAL_ERROR], status: 403 }, res);
+    }
   } catch (error) {
     send({ error: [BAD_SERVICE], status: 409 }, res);
   }
