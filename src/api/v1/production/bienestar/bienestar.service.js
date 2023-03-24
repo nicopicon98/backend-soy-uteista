@@ -574,16 +574,22 @@ WHERE h.id_usuario = 1 AND c.asistido = 0 AND h.fecha >= @start_date AND h.fecha
     citasProximasAppointments,
   ] = appointments;
 
+  // { id_type_last: "total", value: 100 },
+  // { id_type_last: "accepted", value: 50 },
+  // { id_type_last: "rejected", value: 20 },
+  // { id_type_last: "attended", value: 30 },
+  // { id_type_last: "not_attended", value: 10 },
+
   send(
     {
       data: [
-        {id_type_last: "total", value: totalAppointments[0].total},
-        acceptedAppointments,
-        rejectedAppointments,
-        attendedAppointments,
-        notAttendedAppointments,
-        citasPasadasAppointments,
-        citasProximasAppointments,
+        { id_type_last: "total", value: totalAppointments[0].total },
+        { id_type_last: "accepted", value: acceptedAppointments[0].accepted },
+        { id_type_last: "rejected", value: rejectedAppointments[0].rejected },
+        { id_type_last: "attended", value: attendedAppointments[0].attended },
+        { id_type_last: "not_attended", value: notAttendedAppointments[0].not_attended },
+        { passed_appointments: citasPasadasAppointments },
+        { upcoming_appointments: citasProximasAppointments},
       ],
       status: 200,
     },
