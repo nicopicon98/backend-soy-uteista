@@ -77,8 +77,22 @@ const register = async (req, res) => {
       send({ data: createUser, status: 200 }, res);
       const emailOptions = prepareEmail(
         correo,
-        "Bienvenido a la aplicación de Bienestar",
-        `Correo: ${correo}\nClave: ${claveWithoutEncrypt}
+        "Bienvenido a Bienestar - Sus credenciales de acceso",
+        `
+        Estimado ${nombre},
+
+        Esperamos que se encuentre bien. Nos complace informarle que su cuenta en Bienestar Institucional ha sido creada exitosamente. Estamos emocionados de tenerlo con nosotros y de poder brindarle una experiencia excepcional en nuestro sistema.
+        
+        A continuación, encontrará sus credenciales de acceso:
+        
+        Correo: ${correo}
+        Contraseña: ${claveWithoutEncrypt}
+
+        Gracias por elegir Bienestar Institucional. Estamos seguros de que disfrutará de nuestra plataforma y de todo lo que tiene para ofrecer.
+        
+        Cordialmente,
+
+        SoyUteísta
         `
       );
       mailer.sendMail(emailOptions, (error, info) => {
