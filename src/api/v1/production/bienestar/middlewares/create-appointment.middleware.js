@@ -23,6 +23,12 @@ const createAppointmentValidationRules = () => {
       .isNumeric()
       .withMessage("El campo telefono debe ser un número"),
 
+    body("nombre")
+      .notEmpty()
+      .withMessage("El campo nombre es obligatorio")
+      .isString()
+      .withMessage("El campo nombre debe ser un string"),
+
     body("foto").notEmpty().withMessage("El campo foto es obligatorio"),
   ];
 };
@@ -32,7 +38,7 @@ const validatecreateAppointment = (req, res, next) => {
   if (errors.isEmpty()) {
     return next();
   }
-  return send({ error: [errors.array()[0].msg], status:  406 }, res);
+  return send({ error: [errors.array()[0].msg], status: 406 }, res);
 };
 
 module.exports = {
