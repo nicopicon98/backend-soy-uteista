@@ -576,15 +576,15 @@ WHERE h.id_usuario = 1 AND c.asistido = 0 AND h.fecha >= @start_date AND h.fecha
 
   send(
     {
-      data: {
-        totalAppointments,
+      data: [
+        {id_type_last: "total", value: totalAppointments[0].total},
         acceptedAppointments,
         rejectedAppointments,
         attendedAppointments,
         notAttendedAppointments,
         citasPasadasAppointments,
         citasProximasAppointments,
-      },
+      ],
       status: 200,
     },
     res
