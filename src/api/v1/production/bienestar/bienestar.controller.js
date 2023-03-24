@@ -29,6 +29,7 @@ const {
   appointmentsByIdCampusArea,
   deleteProfessional,
   dashboardHome,
+  getAllAppointmentsByProfessional,
 } = require("./bienestar.service");
 const { 
     validateLogin,
@@ -90,7 +91,7 @@ bienestar.post("/close-date-by-student", closeDateByStudentValidationRules(), va
 bienestar.post("/get-professional-by-id-campus-area", getProfessionalBySedeValidationRules(), validateGetProfessionalBySede, getProfessionalBySede);
 bienestar.post("/last-date-by-professional", lastDateByProfessionalValidationRules(), validateLastDateByProfessional, lastDateByProfessional);
 bienestar.post("/close-date-by-professional", closeDateByProfessionalValidationRules(), validateCloseDateByProfessional, closeDateByProfessional);
-bienestar.post("/all-appointments-by-professional", closeDateByProfessionalValidationRules(), validateCloseDateByProfessional, closeDateByProfessional);
+bienestar.post("/all-appointments-by-professional", closeDateByProfessionalValidationRules(), validateCloseDateByProfessional, getAllAppointmentsByProfessional);
 bienestar.post("/assign-location-by-professional", assignLocationByProfessionalValidationRules(), validateAssignLocationByProfessional, assignLocation);
 bienestar.post("/get-schedule-by-professional", getScheduleByProfessionalValidationRules(), validateGetScheduleByProfessional, getScheduleByProfessional);
 bienestar.post("/next-past-dates-by-professional", nextPastDatesByProfessionalValidationRules(), validateNextPastDatesByProfessional, nextPastDatesByProfessional);
