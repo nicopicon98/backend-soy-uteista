@@ -77,8 +77,7 @@ const register = async (req, res) => {
       const emailOptions = prepareEmail(
         correo,
         "Bienvenido a la aplicación de Bienestar",
-        `Correo: ${correo}
-        Clave: ${clave}
+        `Correo: ${correo}\nClave: ${clave}
         `
       );
       mailer.sendMail(emailOptions, (error, info) => {
