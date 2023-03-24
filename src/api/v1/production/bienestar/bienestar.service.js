@@ -11,7 +11,7 @@ const { prepareEmail, mailer } = require("./services/mailer/mailer.client");
 const GENERAL_ERROR = "Contacta con el administrador";
 const BAD_SERVICE = "Información errónea";
 const USER_EXIST = "Ese usuario ya está registrado";
-
+const USER_UPDATE_ERROR = "No se pudo actualizar el usuario";
 const deco = (req, res) => {
   const content = req.body;
   sendService(content, res);
@@ -169,8 +169,8 @@ const assignLocation = async (req, res) => {
     [ubicacion, nombre, id_usuario]
   );
   assignLocation
-    ? send({ assignLocation }, res)
-    : send({ error: GENERAL_ERROR }, res);
+    ? send({ data: assignLocation, status: 200 }, res)
+    : send({ error: [USER_UPDATE_ERROR], status: 406 }, res);
   send({}, res);
 };
 const deleteNewService = async (req, res) => {
