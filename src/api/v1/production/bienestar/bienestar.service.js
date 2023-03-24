@@ -758,6 +758,7 @@ module.exports = {
   dashboardHome,
   assignLocation,
   serviciosBySede,
+  createCampusArea,
   deleteNewService,
   createNewService,
   createAppointment,
