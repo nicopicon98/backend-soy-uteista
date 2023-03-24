@@ -268,7 +268,7 @@ ORDER BY c.fecha_registro DESC
 LIMIT 1
 `,
     [id_usuario]
-  )[0];
+  );
   send({ data: closeDateByProfessional, status: 200 }, res);
 };
 const getScheduleByProfessional = async (req, res) => {
