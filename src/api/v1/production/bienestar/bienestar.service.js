@@ -303,31 +303,33 @@ const createAppointment = async (req, res) => {
 const serviciosBySede = async (req, res) => {
   const serviciosBySede = await mysql.executeQuery(
     `
-SELECT CONCAT(
-  '{',
-  '\"id_campus\": ', campus.id_campus, ',',
-  '\"nombre_campus\": \"', campus.nombre, '\",',
-  '\"areas\": [',
-  GROUP_CONCAT(
-    CONCAT(
-      '{',
-      '\"id_area\": ', areas.id_area, ',',
-      '\"nombre_area\": \"', areas.nombre, '\"',
-      '}'
-    )
-    SEPARATOR ','
-  ),
-  ']}'
-) AS resultado_json
-FROM
-  campus
-  JOIN campus_areas ON campus.id_campus = campus_areas.id_campus
-  JOIN areas ON campus_areas.id_area = areas.id_area
-GROUP BY
-  campus.id_campus;
+    SELECT
+    campus.id_campus,
+    campus.nombre AS nombre_campus,
+    areas.id_area,
+    areas.nombre AS nombre_area
+  FROM
+    campus
+    INNER JOIN campus_areas ON campus.id_campus = campus_areas.id_campus
+    INNER JOIN areas ON campus_areas.id_area = areas.id_area;  
   `
   );
-  send({ data: serviciosBySede.resultado_json, status: 200 }, res);
+  const campusData = {};
+
+  serviciosBySede.forEach((row) => {
+    const { id_campus, nombre_campus, id_area, nombre_area } = row;
+
+    if (!campusData[id_campus]) {
+      campusData[id_campus] = {
+        id_campus,
+        nombre_campus,
+        areas: [],
+      };
+    }
+
+    campusData[id_campus].areas.push({ id_area, nombre_area });
+  });
+  send({ data: Object.values(campusData), status: 200 }, res);
 };
 const servicesByIdCampus = async (req, res) => {
   const { id_campus } = req.body;
