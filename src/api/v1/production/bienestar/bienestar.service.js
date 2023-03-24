@@ -306,13 +306,21 @@ const sedesServiciosBySede = async (req, res) => {
     `
     SELECT a.* FROM areas a JOIN campus_areas ca ON a.id_area = ca.id_area WHERE ca.id_campus = ?
   `,
-    
+
     [id_sede]
   );
   send({ data: sedesServiciosBySede, status: 200 }, res);
 };
-
-//Reportes de citas
+const servicesByIdCampus = async (req, res) => {
+  const { id_campus } = req.body;
+  const servicesByIdCampus = await mysql.executeQuery(
+    `
+    SELECT * FROM areas INNER JOIN campus_areas ON areas.id_area = campus_areas.id_area WHERE campus_areas.id_campus = ?
+  `,
+    [id_campus]
+  );
+  send({ data: servicesByIdCampus, status: 200 }, res);
+};
 
 const generatePDF = async (req, res) => {
   const { id_usuario } = req.body;
@@ -352,6 +360,7 @@ module.exports = {
   deleteNewService,
   createNewService,
   createAppointment,
+  servicesByIdCampus,
   closeDateByStudent,
   getProfessionalBySede,
   lastDateByProfessional,

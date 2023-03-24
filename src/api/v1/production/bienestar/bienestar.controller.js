@@ -23,6 +23,7 @@ const {
   attendDate,
   getUsers,
   createAppointment,
+  servicesByIdCampus,
 } = require("./bienestar.service");
 const { 
     validateLogin,
@@ -55,6 +56,7 @@ const { createAppointmentValidationRules, validatecreateAppointment } = require(
 const { getProfessionalBySedeValidationRules, validateGetProfessionalBySede } = require("./middlewares/get-professional-by-sede.middleware");
 const { getSedesValidationRules, validateGetSedes } = require("./middlewares/get-sedes.middleware");
 const { sedesServiciosBySedeValidationRules, validateSedesServiciosBySede } = require("./middlewares/sedes-servicios-by-sede.middleware");
+const { servicesByIdCampusValidationRules, validateservicesByIdCampus } = require("./middlewares/services-by-id-campus.middleware");
 
 bienestar.use((req, res, next) => {
   next();
@@ -86,6 +88,7 @@ bienestar.post("/next-past-dates-by-professional", nextPastDatesByProfessionalVa
 bienestar.post("/create-schedule-by-professional", createScheduleByProfessionalValidationRules(), validateCreateScheduleByProfessional, createScheduleByProfessional);
 bienestar.post("/create-appointment-by-professional", createAppointmentValidationRules(), validatecreateAppointment, createAppointment) 
 bienestar.post("/sedes-servicios-by-sede", sedesServiciosBySedeValidationRules(), validateSedesServiciosBySede)
+bienestar.post("/services-by-id-campus", servicesByIdCampusValidationRules(), validateservicesByIdCampus, servicesByIdCampus)
 //Reportes por profesionales
 
 bienestar.post("/report-pdf", generatePDF)
