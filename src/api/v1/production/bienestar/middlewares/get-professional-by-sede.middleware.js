@@ -12,7 +12,7 @@ const getProfessionalBySedeValidationRules = () => {
 };
 
 const validateGetProfessionalBySede = (req, res, next) => {
-  console.log(req.body)
+  console.log(typeof req.body.id_campus_area)
   const errors = validationResult(req);
   if (errors.isEmpty()) {
     return next();
