@@ -165,7 +165,7 @@ const getServices = async (req, res) => {
 const assignLocation = async (req, res) => {
   const { id_usuario, ubicacion, nombre } = req.body;
   const assignLocation = await mysql.executeQuery(
-    "UPDATE usuarios SET ubicacion = ?, set nombre = ? WHERE id_usuario = ?",
+    "UPDATE usuarios SET ubicacion = ?, nombre = ? WHERE id_usuario = ?",
     [ubicacion, nombre, id_usuario]
   );
   assignLocation
