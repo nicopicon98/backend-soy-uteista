@@ -142,6 +142,7 @@ INNER JOIN campus_areas ON usuarios.id_campus_area = campus_areas.id_campus_area
 INNER JOIN campus ON campus_areas.id_campus = campus.id_campus
 INNER JOIN areas ON campus_areas.id_area = areas.id_area
 INNER JOIN roles ON usuarios.id_rol = roles.id_rol
+WHERE usuarios.id_rol = 2
 ORDER BY usuarios.fecha_registro ASC
 `;
   const usersResult = await mysql.executeQuery(users);
