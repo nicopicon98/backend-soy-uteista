@@ -280,7 +280,7 @@ const getScheduleByProfessional = async (req, res) => {
     SELECT h.id_horario, h.fecha, f.nombre AS franja_nombre
     FROM horario h
     INNER JOIN franjas f ON h.id_franja = f.id_franja
-    WHERE h.id_usuario = ?
+    WHERE h.id_usuario = 1
     AND h.fecha >= CURDATE()
     ORDER BY h.fecha ASC
   `,
@@ -466,6 +466,106 @@ const deleteProfessional = async (req, res) => {
   send({ data: deleteProfessional, status: 200 }, res);
 };
 
+const dashboardHome = async (req, res) => {
+  const { id_usuario } = req.body;
+  const total = mysql.executeQuery(
+    `
+SELECT COUNT(*) as total
+FROM citas c
+JOIN horario h ON c.id_horario = h.id_horario
+WHERE h.id_usuario = ? AND h.fecha >= @start_date AND h.fecha <= NOW();
+  `,
+    [id_usuario]
+  );
+
+  const accepted = mysql.executeQuery(
+    `
+SELECT COUNT(*) as accepted
+FROM citas c
+JOIN horario h ON c.id_horario = h.id_horario
+WHERE h.id_usuario = ? AND c.rechazado = 0 AND h.fecha >= @start_date AND h.fecha <= NOW();
+
+  `,
+    [id_usuario]
+  );
+
+  const rejected = mysql.executeQuery(
+    `
+SELECT COUNT(*) as rejected
+FROM citas c
+JOIN horario h ON c.id_horario = h.id_horario
+WHERE h.id_usuario = 1 AND c.rechazado = 1 AND h.fecha >= @start_date AND h.fecha <= NOW();
+  `,
+    [id_usuario]
+  );
+
+  const attended = mysql.executeQuery(
+    `
+SELECT COUNT(*) as attended
+FROM citas c
+JOIN horario h ON c.id_horario = h.id_horario
+WHERE h.id_usuario = 1 AND c.asistido = 1 AND h.fecha >= @start_date AND h.fecha <= NOW();
+  `,
+    [id_usuario]
+  );
+
+  const notAttended = mysql.executeQuery(
+    `
+    SELECT COUNT(*) as not_attended
+FROM citas c
+JOIN horario h ON c.id_horario = h.id_horario
+WHERE h.id_usuario = 1 AND c.asistido = 0 AND h.fecha >= @start_date AND h.fecha <= NOW();
+  `,
+    [id_usuario]
+  );
+
+  const citasPasadas = mysql.executeQuery(
+    `
+    SELECT h.*, c.*
+    FROM horario h
+    LEFT JOIN citas c ON h.id_horario = c.id_horario
+    WHERE h.id_usuario = ?
+    AND h.fecha <= CURDATE()
+    ORDER BY h.fecha DESC`,
+    [id_usuario]
+  );
+
+  const citasProximas = mysql.executeQuery(
+    `
+    SELECT 
+      u.nombre,
+      u.correo,
+      h.fecha,
+      f.nombre AS franja,
+      c.rechazado,
+      c.asistido
+        FROM 
+          citas AS c
+        JOIN 
+          horario AS h ON c.id_horario = h.id_horario
+        JOIN 
+          usuarios AS u ON h.id_usuario = u.id_usuario
+        JOIN 
+          franjas AS f ON h.id_franja = f.id_franja
+        WHERE
+          h.id_usuario = 1 AND h.fecha >= CURRENT_DATE
+        ORDER BY
+          h.fecha ASC;
+    `
+  );
+
+  const appointments = await Promise.all([
+    total,
+    accepted,
+    rejected,
+    attended,
+    notAttended,
+    citasPasadas,
+    citasProximas,
+  ]);
+  send({ data: appointments, status: 200 }, res);
+};
+
 const generatePDF = async (req, res) => {
   const { id_usuario } = req.body;
   const generatePDF = await mysql.executeQuery(
@@ -500,6 +600,7 @@ module.exports = {
   rejectDate,
   getFranjas,
   getServices,
+  dashboardHome,
   assignLocation,
   serviciosBySede,
   deleteNewService,
