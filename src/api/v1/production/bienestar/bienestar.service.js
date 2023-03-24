@@ -408,42 +408,21 @@ const appointmentsByStudent = async (req, res) => {
   );
   send({ data: appointmentsByStudent, status: 200 }, res);
 };
-const AppointmentsByIdCampusArea = async (req, res) => {
-  const { id_campus, id_area } = req.body;
-  const AppointmentsByIdCampusArea = await mysql.executeQuery(
+const appointmentsByIdCampusArea = async (req, res) => {
+  const { tomado_por, id_campus_area } = req.body;
+  const appointmentsByIdCampusArea = await mysql.executeQuery(
     `
-    SELECT
-    citas.id_cita,
-    citas.tomado_por,
-    citas.telefono,
-    citas.foto,
-    citas.fecha_registro,
-    horario.id_horario,
-    horario.fecha,
-    horario.id_franja,
-    campus.id_campus,
-    campus.nombre AS nombre_campus,
-    areas.id_area,
-    areas.nombre AS nombre_area,
-    usuarios.nombre AS nombre_profesional
-  FROM
-    citas
-    INNER JOIN horario ON citas.id_horario = horario.id_horario
-    INNER JOIN campus ON horario.id_campus = campus.id_campus
-    INNER JOIN campus_areas ON campus.id_campus = campus_areas.id_campus
-    INNER JOIN areas ON campus_areas.id_area = areas.id_area
-    INNER JOIN usuarios ON horario.id_usuario = usuarios.id_usuario
-  WHERE
-    campus.id_campus = ?
-    AND areas.id_area = ?
-    AND citas.tomado_por IS NOT NULL
-  ORDER BY
-    citas.fecha_registro DESC
-  LIMIT 10;
+    SELECT c.*, ca.id_campus, ca.id_area, caa.id_campus, caa.id_area, caa.id_campus_area, cam.nombre AS campus_nombre, a.nombre AS area_nombre 
+    FROM citas c 
+    JOIN campus_areas ca ON c.id_campus_area = ca.id_campus_area 
+    JOIN campus_areas caa ON ca.id_campus = caa.id_campus 
+    JOIN campus cam ON caa.id_campus = cam.id_campus 
+    JOIN areas a ON caa.id_area = a.id_area 
+    WHERE c.tomado_por = ? AND ca.id_campus_area = ?
   `,
-    [id_campus, id_area]
+    [tomado_por, id_campus_area]
   );
-  send({ data: AppointmentsByIdCampusArea, status: 200 }, res);
+  send({ data: appointmentsByIdCampusArea, status: 200 }, res);
 };
 
 const generatePDF = async (req, res) => {
@@ -493,6 +472,7 @@ module.exports = {
   closeDateByProfessional,
   getFranjasByProfessional,
   getScheduleByProfessional,
+  appointmentsByIdCampusArea,
   nextPastDatesByProfessional,
   createScheduleByProfessional,
   generatePDF,

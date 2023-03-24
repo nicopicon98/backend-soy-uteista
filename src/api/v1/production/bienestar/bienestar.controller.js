@@ -26,6 +26,7 @@ const {
   servicesByIdCampus,
   serviciosBySede,
   appointmentsByStudent,
+  appointmentsByIdCampusArea,
 } = require("./bienestar.service");
 const { 
     validateLogin,
@@ -94,7 +95,7 @@ bienestar.post("/create-appointment-by-professional", createAppointmentValidatio
 bienestar.post("/sedes-servicios-by-sede", sedesServiciosBySedeValidationRules(), validateSedesServiciosBySede, serviciosBySede)
 bienestar.post("/services-by-id-campus", servicesByIdCampusValidationRules(), validateservicesByIdCampus, servicesByIdCampus)
 bienestar.post("/appointments-by-student", appointmentsByStudentValidationRules(), validateAppointmentsByStudent, appointmentsByStudent)
-bienestar.post("/appointments-by-id-campus-area", appointmentsByIdCampusAreaValidationRules(), validateAppointmentsByIdCampusArea, appointmentsByStudent)
+bienestar.post("/appointments-by-id-campus-area", appointmentsByIdCampusAreaValidationRules(), validateAppointmentsByIdCampusArea, appointmentsByIdCampusArea)
 
 //Reportes por profesionales
 

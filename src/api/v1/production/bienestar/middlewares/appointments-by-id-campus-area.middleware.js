@@ -8,11 +8,11 @@ const appointmentsByIdCampusAreaValidationRules = () => {
       .withMessage("El campo tomado_por es obligatorio")
       .isEmail()
       .withMessage("El campo tomado_por debe ser un correo electrónico válido"),
-    body("id_campus")
+      body("id_campus_area")
       .notEmpty()
-      .withMessage("El campo id_campus es obligatorio")
+      .withMessage("El campo id_campus_area es obligatorio")
       .isInt()
-      .withMessage("El campo id_campus debe ser un número entero"),
+      .withMessage("El campo id_campus_area debe ser un número entero"),
   ];
 };
 
