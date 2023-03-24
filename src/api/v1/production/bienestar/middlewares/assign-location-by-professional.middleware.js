@@ -8,11 +8,16 @@ const assignLocationByProfessionalValidationRules = () => {
       .withMessage("El campo id_usuario es obligatorio")
       .isInt()
       .withMessage("El campo id_usuario debe ser un número entero"),
-    body("ubicacion")
+      body("ubicacion")
       .notEmpty()
       .withMessage("El campo ubicacion es obligatorio")
       .isInt()
       .withMessage("El campo ubicacion debe ser un número entero"),
+      body("nombre")
+      .notEmpty()
+      .withMessage("El campo nombre es obligatorio")
+      .isString()
+      .withMessage("El campo nombre debe ser un string"),
   ];
 };
 
