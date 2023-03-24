@@ -271,6 +271,32 @@ LIMIT 1
   );
   send({ data: closeDateByProfessional, status: 200 }, res);
 };
+const getAllAppointmentsByProfessional = async (req, res) => {
+  const { id_usuario } = req.body;
+  const getAllAppointmentsByProfessional = await mysql.executeQuery(
+    `
+    SELECT c.*
+    FROM citas c
+    JOIN (
+      SELECT h.id_horario, MIN(h.fecha) AS min_fecha
+      FROM horario h
+    WHERE h.id_usuario = ?
+    AND h.fecha >= CURDATE()
+    AND NOT EXISTS (
+      SELECT 1
+      FROM citas c2
+      WHERE c2.id_horario = h.id_horario
+      AND c2.asistido = 1
+      )
+      GROUP BY h.id_horario
+      ORDER BY min_fecha ASC
+  ) AS proxima_horario ON proxima_horario.id_horario = c.id_horario
+  ORDER BY c.fecha_registro DESC
+    `[id_usuario]
+  );
+  send({ data: getAllAppointmentsByProfessional, status: 200 }, res);
+};
+
 const getScheduleByProfessional = async (req, res) => {
   const { id_usuario } = req.body;
   const getScheduleByProfessional = await mysql.executeQuery(
@@ -735,5 +761,6 @@ module.exports = {
   appointmentsByIdCampusArea,
   nextPastDatesByProfessional,
   createScheduleByProfessional,
+  getAllAppointmentsByProfessional,
   generatePDF,
 };
