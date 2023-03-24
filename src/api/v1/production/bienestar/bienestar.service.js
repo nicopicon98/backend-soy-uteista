@@ -606,6 +606,34 @@ ORDER BY
     [id_usuario]
   );
 
+  const citasRechazadas = await mysql.executeQuery(
+    `SELECT 
+    u.nombre,
+    u.correo,
+    h.fecha,
+    f.nombre AS franja,
+    c.rechazado,
+    c.asistido
+  FROM 
+    citas AS c
+  JOIN 
+    horario AS h ON c.id_horario = h.id_horario
+  JOIN 
+    usuarios AS u ON h.id_usuario = u.id_usuario
+  JOIN 
+    franjas AS f ON h.id_franja = f.id_franja
+  WHERE
+    h.id_usuario = ? AND
+    h.fecha >= DATE_FORMAT(NOW(), '%Y-%m-01') AND
+    h.fecha < DATE_FORMAT(DATE_ADD(DATE_FORMAT(NOW(), '%Y-%m-01'), INTERVAL 1 MONTH), '%Y-%m-01') AND
+    c.rechazado = 1
+  ORDER BY
+    h.fecha ASC;
+
+  `,
+    [id_usuario]
+  );
+
   const appointments = await Promise.all([
     total,
     accepted,
@@ -615,7 +643,8 @@ ORDER BY
     citasPasadas,
     citasProximas,
     totalCitas,
-    citasAceptadas
+    citasAceptadas,
+    citasRechazadas,
   ]);
 
   const [
@@ -627,7 +656,8 @@ ORDER BY
     citasPasadasAppointments,
     citasProximasAppointments,
     totalCitasAppointments,
-    citasAceptadasAppointments
+    citasAceptadasAppointments,
+    citasRechazadasAppointments,
   ] = appointments;
 
   send(
@@ -643,6 +673,9 @@ ORDER BY
         },
         { passed_appointments: citasPasadasAppointments },
         { upcoming_appointments: citasProximasAppointments },
+        { total_appointments: totalCitasAppointments },
+        { accepted_appointments: citasAceptadasAppointments },
+        { rejected_appointments: citasRechazadasAppointments },
       ],
       status: 200,
     },
