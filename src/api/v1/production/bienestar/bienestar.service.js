@@ -563,7 +563,32 @@ WHERE h.id_usuario = 1 AND c.asistido = 0 AND h.fecha >= @start_date AND h.fecha
     citasPasadas,
     citasProximas,
   ]);
-  send({ data: appointments, status: 200 }, res);
+
+  const [
+    totalAppointments,
+    acceptedAppointments,
+    rejectedAppointments,
+    attendedAppointments,
+    notAttendedAppointments,
+    citasPasadasAppointments,
+    citasProximasAppointments,
+  ] = appointments;
+
+  send(
+    {
+      data: {
+        totalAppointments,
+        acceptedAppointments,
+        rejectedAppointments,
+        attendedAppointments,
+        notAttendedAppointments,
+        citasPasadasAppointments,
+        citasProximasAppointments,
+      },
+      status: 200,
+    },
+    res
+  );
 };
 
 const generatePDF = async (req, res) => {
