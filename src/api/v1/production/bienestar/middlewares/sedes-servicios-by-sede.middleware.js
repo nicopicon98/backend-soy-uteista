@@ -3,11 +3,11 @@ const { send } = require("../config/crypto.config");
 
 const sedesServiciosBySedeValidationRules = () => {
   return [
-    body("id_sede")
+    body("id_usuario")
       .notEmpty()
-      .withMessage("El campo id_sede es obligatorio")
+      .withMessage("El campo id_usuario es obligatorio")
       .isInt()
-      .withMessage("El campo id_sede debe ser un número entero"),
+      .withMessage("El campo id_usuario debe ser un número entero"),
   ];
 };
 

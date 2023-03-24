@@ -300,16 +300,34 @@ const createAppointment = async (req, res) => {
     send({ error: [BAD_SERVICE, error], status: 403 }, res);
   }
 };
-const sedesServiciosBySede = async (req, res) => {
-  const { id_sede } = req.body;
-  const sedesServiciosBySede = await mysql.executeQuery(
+const serviciosBySede = async (req, res) => {
+  const serviciosBySede = await mysql.executeQuery(
     `
-    SELECT a.* FROM areas a JOIN campus_areas ca ON a.id_area = ca.id_area WHERE ca.id_campus = ?
-  `,
-
-    [id_sede]
+SELECT CONCAT(
+  '{',
+  '\"id_campus\": ', campus.id_campus, ',',
+  '\"nombre_campus\": \"', campus.nombre, '\",',
+  '\"areas\": [',
+  GROUP_CONCAT(
+    CONCAT(
+      '{',
+      '\"id_area\": ', areas.id_area, ',',
+      '\"nombre_area\": \"', areas.nombre, '\"',
+      '}'
+    )
+    SEPARATOR ','
+  ),
+  ']}'
+) AS resultado_json
+FROM
+  campus
+  JOIN campus_areas ON campus.id_campus = campus_areas.id_campus
+  JOIN areas ON campus_areas.id_area = areas.id_area
+GROUP BY
+  campus.id_campus;
+  `
   );
-  send({ data: sedesServiciosBySede, status: 200 }, res);
+  send({ data: serviciosBySede, status: 200 }, res);
 };
 const servicesByIdCampus = async (req, res) => {
   const { id_campus } = req.body;
@@ -357,6 +375,7 @@ module.exports = {
   getFranjas,
   getServices,
   assignLocation,
+  serviciosBySede,
   deleteNewService,
   createNewService,
   createAppointment,
