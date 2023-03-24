@@ -10,7 +10,7 @@ const { prepareEmail, mailer } = require("./services/mailer/mailer.client");
 
 const GENERAL_ERROR = "Contacta con el administrador";
 const BAD_SERVICE = "Información errónea";
-const USER_EXIST = "Ese correo ya está registrado";
+const USER_EXIST = "Ese usuario ya está registrado";
 
 const deco = (req, res) => {
   const content = req.body;
