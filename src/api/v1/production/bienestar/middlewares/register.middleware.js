@@ -28,11 +28,6 @@ const registerValidationRules = () => {
       .withMessage("El id_campus_area es obligatorio")
       .isInt()
       .withMessage("El id_campus_area debe ser un número entero"),
-    body("id_rol")
-      .notEmpty()
-      .withMessage("El id del rol es obligatorio")
-      .isInt()
-      .withMessage("El id del rol debe ser un número entero"),
   ];
 };
 
