@@ -93,6 +93,8 @@ bienestar.post("/create-appointment-by-professional", createAppointmentValidatio
 bienestar.post("/sedes-servicios-by-sede", sedesServiciosBySedeValidationRules(), validateSedesServiciosBySede, serviciosBySede)
 bienestar.post("/services-by-id-campus", servicesByIdCampusValidationRules(), validateservicesByIdCampus, servicesByIdCampus)
 bienestar.post("/appointments-by-student", appointmentsByStudentValidationRules(), validateAppointmentsByStudent, appointmentsByStudent)
+bienestar.post("/appointments-by-id-campus-area", appointmentsByStudentValidationRules(), validateAppointmentsByStudent, appointmentsByStudent)
+
 //Reportes por profesionales
 
 bienestar.post("/report-pdf", generatePDF)

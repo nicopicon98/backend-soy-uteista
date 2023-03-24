@@ -10,6 +10,7 @@ const { prepareEmail, mailer } = require("./services/mailer/mailer.client");
 
 const GENERAL_ERROR = "Contacta con el administrador";
 const BAD_SERVICE = "Información errónea";
+const USER_EXIST = "Ese correo ya está registrado";
 
 const deco = (req, res) => {
   const content = req.body;
@@ -106,7 +107,7 @@ SoyUteísta
       send({ error: [GENERAL_ERROR], status: 403 }, res);
     }
   } catch (error) {
-    send({ error: [BAD_SERVICE], status: 409 }, res);
+    send({ error: [USER_EXIST], status: 409 }, res);
   }
 };
 const rejectDate = async (req, res) => {
@@ -372,7 +373,6 @@ const servicesByIdCampus = async (req, res) => {
   );
   send({ data: servicesByIdCampus, status: 200 }, res);
 };
-
 const appointmentsByStudent = async (req, res) => {
   const { tomado_por } = req.body;
   const appointmentsByStudent = await mysql.executeQuery(
@@ -386,6 +386,43 @@ const appointmentsByStudent = async (req, res) => {
     [tomado_por]
   );
   send({ data: appointmentsByStudent, status: 200 }, res);
+};
+const AppointmentsByIdCampusArea = async (req, res) => {
+  const { id_campus, id_area } = req.body;
+  const AppointmentsByIdCampusArea = await mysql.executeQuery(
+    `
+    SELECT
+    citas.id_cita,
+    citas.tomado_por,
+    citas.telefono,
+    citas.foto,
+    citas.fecha_registro,
+    horario.id_horario,
+    horario.fecha,
+    horario.id_franja,
+    campus.id_campus,
+    campus.nombre AS nombre_campus,
+    areas.id_area,
+    areas.nombre AS nombre_area,
+    usuarios.nombre AS nombre_profesional
+  FROM
+    citas
+    INNER JOIN horario ON citas.id_horario = horario.id_horario
+    INNER JOIN campus ON horario.id_campus = campus.id_campus
+    INNER JOIN campus_areas ON campus.id_campus = campus_areas.id_campus
+    INNER JOIN areas ON campus_areas.id_area = areas.id_area
+    INNER JOIN usuarios ON horario.id_usuario = usuarios.id_usuario
+  WHERE
+    campus.id_campus = ?
+    AND areas.id_area = ?
+    AND citas.tomado_por IS NOT NULL
+  ORDER BY
+    citas.fecha_registro DESC
+  LIMIT 10;
+  `,
+    [id_campus, id_area]
+  );
+  send({ data: AppointmentsByIdCampusArea, status: 200 }, res);
 };
 
 const generatePDF = async (req, res) => {
