@@ -292,7 +292,8 @@ const getAllAppointmentsByProfessional = async (req, res) => {
       ORDER BY min_fecha ASC
   ) AS proxima_horario ON proxima_horario.id_horario = c.id_horario
   ORDER BY c.fecha_registro DESC
-    `,[id_usuario]
+    `,
+    [id_usuario]
   );
   send({ data: getAllAppointmentsByProfessional, status: 200 }, res);
 };
@@ -580,12 +581,7 @@ WHERE h.id_usuario = 1 AND c.asistido = 0 AND h.fecha >= @start_date AND h.fecha
   const totalCitas = await mysql.executeQuery(
     `
     SELECT 
-  u.nombre,
-  u.correo,
-  h.fecha,
-  f.nombre AS franja,
-  c.rechazado,
-  c.asistido
+  count(*) AS citas
 FROM 
   citas AS c
 JOIN 
@@ -607,39 +603,29 @@ ORDER BY
   const citasAceptadas = await mysql.executeQuery(
     `
     SELECT 
-  u.nombre,
-  u.correo,
-  h.fecha,
-  f.nombre AS franja,
-  c.rechazado,
-  c.asistido
-FROM 
-  citas AS c
-JOIN 
-  horario AS h ON c.id_horario = h.id_horario
-JOIN 
-  usuarios AS u ON h.id_usuario = u.id_usuario
-JOIN 
-  franjas AS f ON h.id_franja = f.id_franja
-WHERE
-  h.id_usuario = ? AND
-  h.fecha >= DATE_FORMAT(NOW(), '%Y-%m-01') AND
-  h.fecha < DATE_FORMAT(DATE_ADD(DATE_FORMAT(NOW(), '%Y-%m-01'), INTERVAL 1 MONTH), '%Y-%m-01') AND
-  c.rechazado = 0
-ORDER BY
-  h.fecha ASC;
+    count(*) AS citas
+    FROM 
+    citas AS c
+    JOIN 
+    horario AS h ON c.id_horario = h.id_horario
+    JOIN 
+    usuarios AS u ON h.id_usuario = u.id_usuario
+    JOIN 
+    franjas AS f ON h.id_franja = f.id_franja
+    WHERE
+    h.id_usuario = 1 AND
+    h.fecha >= DATE_FORMAT(NOW(), '%Y-%m-01') AND
+    h.fecha < DATE_FORMAT(DATE_ADD(DATE_FORMAT(NOW(), '%Y-%m-01'), INTERVAL 1 MONTH), '%Y-%m-01') AND
+    c.rechazado = 0
+    ORDER BY
+    h.fecha ASC;
   `,
     [id_usuario]
   );
 
   const citasRechazadas = await mysql.executeQuery(
     `SELECT 
-    u.nombre,
-    u.correo,
-    h.fecha,
-    f.nombre AS franja,
-    c.rechazado,
-    c.asistido
+    count(*) AS citas
   FROM 
     citas AS c
   JOIN 
