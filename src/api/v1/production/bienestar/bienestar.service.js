@@ -127,7 +127,6 @@ const getUsers = async (req, res) => {
   usuarios.id_usuario AS usuarios_id_usuario,
   usuarios.nombre AS usuarios_nombre,
   usuarios.correo AS usuarios_correo,
-  usuarios.clave AS usuarios_clave,
   usuarios.ubicacion AS usuarios_ubicacion,
   usuarios.id_campus_area AS usuarios_id_campus_area,
   usuarios.id_rol AS usuarios_id_rol,
