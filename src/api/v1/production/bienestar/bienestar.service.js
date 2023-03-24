@@ -327,7 +327,7 @@ GROUP BY
   campus.id_campus;
   `
   );
-  send({ data: serviciosBySede, status: 200 }, res);
+  send({ data: serviciosBySede.resultado_json, status: 200 }, res);
 };
 const servicesByIdCampus = async (req, res) => {
   const { id_campus } = req.body;
