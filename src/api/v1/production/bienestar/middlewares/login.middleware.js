@@ -5,14 +5,14 @@ const loginValidationRules = () => {
   return [
     body("email")
       .notEmpty()
-      .withMessage("El usuario es obligatorio")
+      .withMessage("Información errónea")
       .isEmail()
-      .withMessage("El usuario debe ser un correo electrónico válido"),
+      .withMessage("Información errónea"),
     body("password")
       .notEmpty()
-      .withMessage("La clave es obligatoria")
+      .withMessage("Información errónea")
       .isLength({ min: 8 })
-      .withMessage("La clave debe tener al menos 8 caracteres"),
+      .withMessage("Información errónea"),
   ];
 };
 
