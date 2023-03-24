@@ -53,6 +53,7 @@ const {
     createScheduleByProfessionalValidationRules,
     nextPastDatesByProfessionalValidationRules,
 } = require("./middlewares");
+const { appointmentsByIdCampusAreaValidationRules, validateAppointmentsByIdCampusArea } = require("./middlewares/appointments-by-id-campus-area.middleware");
 const { appointmentsByStudentValidationRules, validateAppointmentsByStudent } = require("./middlewares/appointments.middleware");
 const { attendDateValidationRules, validateAttendDate } = require("./middlewares/attend-date.middleware");
 const { createAppointmentValidationRules, validatecreateAppointment } = require("./middlewares/create-appointment.middleware");
@@ -93,7 +94,7 @@ bienestar.post("/create-appointment-by-professional", createAppointmentValidatio
 bienestar.post("/sedes-servicios-by-sede", sedesServiciosBySedeValidationRules(), validateSedesServiciosBySede, serviciosBySede)
 bienestar.post("/services-by-id-campus", servicesByIdCampusValidationRules(), validateservicesByIdCampus, servicesByIdCampus)
 bienestar.post("/appointments-by-student", appointmentsByStudentValidationRules(), validateAppointmentsByStudent, appointmentsByStudent)
-bienestar.post("/appointments-by-id-campus-area", appointmentsByStudentValidationRules(), validateAppointmentsByStudent, appointmentsByStudent)
+bienestar.post("/appointments-by-id-campus-area", appointmentsByIdCampusAreaValidationRules(), validateAppointmentsByIdCampusArea, appointmentsByStudent)
 
 //Reportes por profesionales
 

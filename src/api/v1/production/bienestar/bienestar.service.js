@@ -123,7 +123,29 @@ const rejectDate = async (req, res) => {
   send({ data: rejectDate, status: 200 }, res);
 };
 const getUsers = async (req, res) => {
-  const users = "SELECT * FROM usuarios ORDER BY fecha_registro ASC;";
+  const users = `SELECT 
+  usuarios.id_usuario AS usuarios_id_usuario,
+  usuarios.nombre AS usuarios_nombre,
+  usuarios.correo AS usuarios_correo,
+  usuarios.clave AS usuarios_clave,
+  usuarios.ubicacion AS usuarios_ubicacion,
+  usuarios.id_campus_area AS usuarios_id_campus_area,
+  usuarios.id_rol AS usuarios_id_rol,
+  usuarios.fecha_registro AS usuarios_fecha_registro,
+  roles.id_rol AS roles_id_rol,
+  roles.nombre AS roles_nombre,
+  campus.id_campus AS campus_id_campus,
+  campus.nombre AS campus_nombre,
+  areas.id_area AS areas_id_area,
+  areas.nombre AS areas_nombre
+FROM usuarios
+INNER JOIN campus_areas ON usuarios.id_campus_area = campus_areas.id_campus_area
+INNER JOIN campus ON campus_areas.id_campus = campus.id_campus
+INNER JOIN areas ON campus_areas.id_area = areas.id_area
+INNER JOIN roles ON usuarios.id_rol = roles.id_rol
+WHERE usuarios.id_rol = 2
+ORDER BY usuarios.fecha_registro ASC
+`;
   const usersResult = await mysql.executeQuery(users);
   send({ data: usersResult, status: 200 }, res);
 };
