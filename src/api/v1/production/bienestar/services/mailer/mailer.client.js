@@ -10,13 +10,15 @@ let transporter = nodemailer.createTransport({
   },
 });
 
-// // Define los detalles del correo electrónico que deseas enviar
-// let mailOptions = {
-//     from: 'tucorreo@tuempresa.com',
-//     to: 'destinatario@otraempresa.com',
-//     subject: 'Asunto del correo electrónico',
-//     text: 'Contenido del correo electrónico'
-// };
+// Define los detalles del correo electrónico que deseas enviar
+const prepareEmail = (to, subject, text) => {
+  return {
+    from: "aplicacionmovil@correo.uts.edu.co",
+    to,
+    subject,
+    text,
+  };
+};
 
 // // Envía el correo electrónico utilizando el transporter y los mailOptions
 // transporter.sendMail(mailOptions, (error, info) => {
@@ -29,4 +31,5 @@ let transporter = nodemailer.createTransport({
 
 module.exports = {
   mailer: transporter,
+  prepareEmail,
 };
