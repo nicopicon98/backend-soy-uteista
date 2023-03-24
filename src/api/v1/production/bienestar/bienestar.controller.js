@@ -27,6 +27,7 @@ const {
   serviciosBySede,
   appointmentsByStudent,
   appointmentsByIdCampusArea,
+  deleteProfessional,
 } = require("./bienestar.service");
 const { 
     validateLogin,
@@ -58,6 +59,7 @@ const { appointmentsByIdCampusAreaValidationRules, validateAppointmentsByIdCampu
 const { appointmentsByStudentValidationRules, validateAppointmentsByStudent } = require("./middlewares/appointments.middleware");
 const { attendDateValidationRules, validateAttendDate } = require("./middlewares/attend-date.middleware");
 const { createAppointmentValidationRules, validatecreateAppointment } = require("./middlewares/create-appointment.middleware");
+const { deleteProfessionalValidationRules, validateDeleteProfessional } = require("./middlewares/delete-professional.middleware");
 const { getProfessionalBySedeValidationRules, validateGetProfessionalBySede } = require("./middlewares/get-professional-by-sede.middleware");
 const { getSedesValidationRules, validateGetSedes } = require("./middlewares/get-sedes.middleware");
 const { sedesServiciosBySedeValidationRules, validateSedesServiciosBySede } = require("./middlewares/sedes-servicios-by-sede.middleware");
@@ -96,6 +98,7 @@ bienestar.post("/sedes-servicios-by-sede", sedesServiciosBySedeValidationRules()
 bienestar.post("/services-by-id-campus", servicesByIdCampusValidationRules(), validateservicesByIdCampus, servicesByIdCampus)
 bienestar.post("/appointments-by-student", appointmentsByStudentValidationRules(), validateAppointmentsByStudent, appointmentsByStudent)
 bienestar.post("/appointments-by-id-campus-area", appointmentsByIdCampusAreaValidationRules(), validateAppointmentsByIdCampusArea, appointmentsByIdCampusArea)
+bienestar.post("/delete-professional", deleteProfessionalValidationRules(), validateDeleteProfessional, deleteProfessional)
 
 //Reportes por profesionales
 

@@ -454,6 +454,17 @@ AND ca.id_campus_area = ?
   );
   send({ data: appointmentsByIdCampusArea, status: 200 }, res);
 };
+const deleteProfessional = async (req, res) => {
+  const { id_usuario } = req.body;
+  const deleteProfessional = await mysql.executeQuery(
+    `
+    DELETE FROM usuarios WHERE id_usuario = ?;
+  `,
+
+    [id_usuario]
+  );
+  send({ data: deleteProfessional, status: 200 }, res);
+};
 
 const generatePDF = async (req, res) => {
   const { id_usuario } = req.body;
@@ -494,6 +505,7 @@ module.exports = {
   deleteNewService,
   createNewService,
   createAppointment,
+  deleteProfessional,
   servicesByIdCampus,
   closeDateByStudent,
   appointmentsByStudent,
