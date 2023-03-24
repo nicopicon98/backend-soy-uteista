@@ -373,6 +373,21 @@ const servicesByIdCampus = async (req, res) => {
   send({ data: servicesByIdCampus, status: 200 }, res);
 };
 
+const appointmentsByStudent = async (req, res) => {
+  const { tomado_por } = req.body;
+  const appointmentsByStudent = await mysql.executeQuery(
+    `
+    SELECT *
+    FROM citas
+    WHERE tomado_por = ?
+    ORDER BY fecha_registro DESC
+    LIMIT 10;    
+  `,
+    [tomado_por]
+  );
+  send({ data: appointmentsByStudent, status: 200 }, res);
+};
+
 const generatePDF = async (req, res) => {
   const { id_usuario } = req.body;
   const generatePDF = await mysql.executeQuery(
@@ -414,6 +429,7 @@ module.exports = {
   createAppointment,
   servicesByIdCampus,
   closeDateByStudent,
+  appointmentsByStudent,
   getProfessionalBySede,
   lastDateByProfessional,
   closeDateByProfessional,
