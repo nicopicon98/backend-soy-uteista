@@ -66,6 +66,7 @@ WHERE u.correo = ?
 };
 const register = async (req, res) => {
   let { nombre, correo, clave, ubicacion, id_campus_area, id_rol } = req.body;
+  let claveWithoutEncrypt = clave;
   clave = await hashPassword(clave);
   try {
     const createUser = await mysql.executeQuery(
@@ -77,7 +78,7 @@ const register = async (req, res) => {
       const emailOptions = prepareEmail(
         correo,
         "Bienvenido a la aplicación de Bienestar",
-        `Correo: ${correo}\nClave: ${clave}
+        `Correo: ${correo}\nClave: ${claveWithoutEncrypt}
         `
       );
       mailer.sendMail(emailOptions, (error, info) => {
