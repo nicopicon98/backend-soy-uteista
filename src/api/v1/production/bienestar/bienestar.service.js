@@ -292,7 +292,7 @@ const getAllAppointmentsByProfessional = async (req, res) => {
       ORDER BY min_fecha ASC
   ) AS proxima_horario ON proxima_horario.id_horario = c.id_horario
   ORDER BY c.fecha_registro DESC
-    `[id_usuario]
+    `,[id_usuario]
   );
   send({ data: getAllAppointmentsByProfessional, status: 200 }, res);
 };
