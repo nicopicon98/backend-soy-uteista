@@ -309,7 +309,7 @@ const getScheduleByProfessional = async (req, res) => {
     FROM horario h
     INNER JOIN franjas f ON h.id_franja = f.id_franja
     INNER JOIN usuarios u ON h.id_usuario = u.id_usuario
-    WHERE h.id_usuario = 1
+    WHERE h.id_usuario = ?
     AND h.fecha >= CURDATE()
     ORDER BY h.fecha ASC
   `,
