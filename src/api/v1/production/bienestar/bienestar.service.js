@@ -324,7 +324,7 @@ const nextPastDatesByProfessional = async (req, res) => {
     SELECT h.*, c.*
     FROM horario h
     LEFT JOIN citas c ON h.id_horario = c.id_horario
-WHERE h.id_usuario = 1
+WHERE h.id_usuario = ?
 AND h.fecha <= CURDATE()
 ORDER BY h.fecha DESC
   `,
