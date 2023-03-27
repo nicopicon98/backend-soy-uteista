@@ -522,7 +522,7 @@ WHERE h.id_usuario = ? AND c.rechazado = 0 AND h.fecha >= @start_date AND h.fech
 SELECT COUNT(*) as rejected
 FROM citas c
 JOIN horario h ON c.id_horario = h.id_horario
-WHERE h.id_usuario = 1 AND c.rechazado = 1 AND h.fecha >= @start_date AND h.fecha <= NOW();
+WHERE h.id_usuario = ? AND c.rechazado = 1 AND h.fecha >= @start_date AND h.fecha <= NOW();
   `,
     [id_usuario]
   );
@@ -532,7 +532,7 @@ WHERE h.id_usuario = 1 AND c.rechazado = 1 AND h.fecha >= @start_date AND h.fech
 SELECT COUNT(*) as attended
 FROM citas c
 JOIN horario h ON c.id_horario = h.id_horario
-WHERE h.id_usuario = 1 AND c.asistido = 1 AND h.fecha >= @start_date AND h.fecha <= NOW();
+WHERE h.id_usuario = ? AND c.asistido = 1 AND h.fecha >= @start_date AND h.fecha <= NOW();
   `,
     [id_usuario]
   );
@@ -542,7 +542,7 @@ WHERE h.id_usuario = 1 AND c.asistido = 1 AND h.fecha >= @start_date AND h.fecha
     SELECT COUNT(*) as not_attended
 FROM citas c
 JOIN horario h ON c.id_horario = h.id_horario
-WHERE h.id_usuario = 1 AND c.asistido = 0 AND h.fecha >= @start_date AND h.fecha <= NOW();
+WHERE h.id_usuario = ? AND c.asistido = 0 AND h.fecha >= @start_date AND h.fecha <= NOW();
   `,
     [id_usuario]
   );
@@ -576,10 +576,10 @@ WHERE h.id_usuario = 1 AND c.asistido = 0 AND h.fecha >= @start_date AND h.fecha
         JOIN 
           franjas AS f ON h.id_franja = f.id_franja
         WHERE
-          h.id_usuario = 1 AND h.fecha >= CURRENT_DATE
+          h.id_usuario = ? AND h.fecha >= CURRENT_DATE
         ORDER BY
           h.fecha ASC;
-    `
+    `, [id_usuario]
   );
 
   const totalCitas = await mysql.executeQuery(
@@ -617,7 +617,7 @@ ORDER BY
     JOIN 
     franjas AS f ON h.id_franja = f.id_franja
     WHERE
-    h.id_usuario = 1 AND
+    h.id_usuario = ? AND
     h.fecha >= DATE_FORMAT(NOW(), '%Y-%m-01') AND
     h.fecha < DATE_FORMAT(DATE_ADD(DATE_FORMAT(NOW(), '%Y-%m-01'), INTERVAL 1 MONTH), '%Y-%m-01') AND
     c.rechazado = 0
