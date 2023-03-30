@@ -66,6 +66,7 @@ const { createCampusAreasValidationRules, validateCreateCampusAreas } = require(
 const { deleteProfessionalValidationRules, validateDeleteProfessional } = require("./middlewares/delete-professional.middleware");
 const { getProfessionalBySedeValidationRules, validateGetProfessionalBySede } = require("./middlewares/get-professional-by-sede.middleware");
 const { getSedesValidationRules, validateGetSedes } = require("./middlewares/get-sedes.middleware");
+const { getServicesNotInCampusValidationRules, validateGetServicesNotInCampus } = require("./middlewares/get-services-not-in-campus.middleware");
 const { sedesServiciosBySedeValidationRules, validateSedesServiciosBySede } = require("./middlewares/sedes-servicios-by-sede.middleware");
 const { servicesByIdCampusValidationRules, validateservicesByIdCampus } = require("./middlewares/services-by-id-campus.middleware");
 
@@ -106,6 +107,7 @@ bienestar.post("/appointments-by-id-campus-area", appointmentsByIdCampusAreaVali
 bienestar.post("/delete-professional", deleteProfessionalValidationRules(), validateDeleteProfessional, deleteProfessional)
 bienestar.post("/dashboard-home", deleteProfessionalValidationRules(), validateDeleteProfessional, dashboardHome)
 bienestar.post("/create-campus-areas", createCampusAreasValidationRules(), validateCreateCampusAreas, createCampusArea)
+bienestar.post("/get-services-not-in-campus", getServicesNotInCampusValidationRules(), validateGetServicesNotInCampus, createCampusArea)
 
 //Reportes por profesionales
 

@@ -330,7 +330,6 @@ const getAllAppointmentsByProfessional = async (req, res) => {
   );
   send({ data: getAllAppointmentsByProfessional, status: 200 }, res);
 };
-
 const getScheduleByProfessional = async (req, res) => {
   const { id_usuario } = req.body;
   const getScheduleByProfessional = await mysql.executeQuery(
@@ -751,6 +750,22 @@ const createCampusArea = async (req, res) => {
     send({ error: [GENERAL_ERROR], status: 403 }, res);
   }
 };
+const servicesNotInCampus = async (req, res) => {
+  const { id_campus } = req.body;
+
+  const query = `
+    SELECT a.*
+    FROM areas a
+    WHERE a.id_area NOT IN (
+      SELECT ca.id_area
+      FROM campus_areas ca
+      WHERE ca.id_campus = ?
+    )
+  `;
+
+  const result = await mysql.executeQuery(query, [id_campus]);
+  send({ data: result, status: 200 }, res);
+};
 
 const generatePDF = async (req, res) => {
   const { id_usuario } = req.body;
@@ -796,6 +811,7 @@ module.exports = {
   deleteProfessional,
   servicesByIdCampus,
   closeDateByStudent,
+  servicesNotInCampus,
   appointmentsByStudent,
   getProfessionalBySede,
   lastDateByProfessional,
