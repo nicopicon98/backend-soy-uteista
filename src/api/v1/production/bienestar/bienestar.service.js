@@ -13,6 +13,7 @@ const BAD_SERVICE = "Información errónea";
 const USER_EXIST = "Ese usuario ya está registrado";
 const USER_UPDATE_ERROR = "No se pudo actualizar el usuario";
 const ERROR_CREATING_SERVICE = "No se pudo crear el servicio";
+const ERROR_DELETING_SERVICE = "No se pudo eliminar el servicio";
 
 const deco = (req, res) => {
   const content = req.body;
@@ -177,13 +178,39 @@ const assignLocation = async (req, res) => {
 };
 const deleteNewService = async (req, res) => {
   const { id_area } = req.body;
-  const deleteNewService = await mysql.executeQuery(
-    "DELETE FROM areas WHERE id_area = ?",
+
+  const countCampusAreasQuery =
+    "SELECT COUNT(*) AS count FROM campus_areas WHERE id_area = ?";
+  const countCampusAreasResult = await mysql.executeQuery(
+    countCampusAreasQuery,
     [id_area]
   );
-  deleteNewService
-    ? send({ data: deleteNewService, status: 200 }, res)
-    : send({ error: [GENERAL_ERROR], status: 304 }, res);
+  const countCampusAreas = countCampusAreasResult[0].count;
+
+  if (countCampusAreas > 0) {
+    const countUsuariosQuery =
+      "SELECT COUNT(*) AS count FROM usuarios WHERE id_campus_area IN (SELECT id_campus_area FROM campus_areas WHERE id_area = ?)";
+    const countUsuariosResult = await mysql.executeQuery(countUsuariosQuery, [
+      id_area,
+    ]);
+    const countUsuarios = countUsuariosResult[0].count;
+
+    if (countUsuarios > 0) {
+      send({ error: [ERROR_DELETING_SERVICE], status: 304 }, res);
+    } else {
+      const deleteNewService = await mysql.executeQuery(
+        "DELETE FROM areas WHERE id_area = ?",
+        [id_area]
+      );
+      send({ data: deleteNewService, status: 200 }, res);
+    }
+  } else {
+    const deleteNewService = await mysql.executeQuery(
+      "DELETE FROM areas WHERE id_area = ?",
+      [id_area]
+    );
+    send({ data: deleteNewService, status: 200 }, res);
+  }
 };
 const createNewService = async (req, res) => {
   const { nombre } = req.body;
