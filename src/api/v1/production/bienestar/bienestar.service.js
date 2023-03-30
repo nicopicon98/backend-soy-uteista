@@ -70,6 +70,7 @@ WHERE u.correo = ?
   );
 };
 const register = async (req, res) => {
+  console.log("executed")
   let { nombre, correo, clave, ubicacion, id_campus_area } = req.body;
   let claveWithoutEncrypt = clave;
   clave = await hashPassword(clave);
