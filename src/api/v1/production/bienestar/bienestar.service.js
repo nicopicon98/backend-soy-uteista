@@ -9,6 +9,7 @@ const { htmlTemplate } = require("./template/pdfreport");
 const { prepareEmail, mailer } = require("./services/mailer/mailer.client");
 
 const GENERAL_ERROR = "Contacta con el administrador";
+const ERROR_CREATING_CAMPUS_AREA = "No se pudo crear el campus/area, ya existe";
 const BAD_SERVICE = "Información errónea";
 const USER_EXIST = "Ese usuario ya está registrado";
 const USER_UPDATE_ERROR = "No se pudo actualizar el usuario";
@@ -737,7 +738,7 @@ const createCampusArea = async (req, res) => {
 
     send({ data: createCampusArea, status: 200 }, res);
   } catch (error) {
-    send({ error: [GENERAL_ERROR], status: 403 }, res);
+    send({ error: [ERROR_CREATING_CAMPUS_AREA], status: 403 }, res);
   }
 };
 const servicesNotInCampus = async (req, res) => {
