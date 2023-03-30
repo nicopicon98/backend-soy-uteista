@@ -16,6 +16,8 @@ const USER_UPDATE_ERROR = "No se pudo actualizar el usuario";
 const ERROR_CREATING_SERVICE = "No se pudo crear el servicio";
 const ERROR_DELETING_SERVICE =
   "No se pudo eliminar el servicio porque tiene un profesional asignado";
+const ERROR_DELETING_CAMPUS_AREA =
+  "No se pudo eliminar el campus/area porque tiene un profesional asignado";
 
 const deco = (req, res) => {
   const content = req.body;
@@ -757,6 +759,26 @@ const servicesNotInCampus = async (req, res) => {
   const result = await mysql.executeQuery(query, [id_campus]);
   send({ data: result, status: 200 }, res);
 };
+const deleteCampusArea = async (req, res) => {
+  const { id_campus_area } = req.body;
+
+  const countUsuariosQuery =
+    "SELECT COUNT(*) AS count FROM usuarios WHERE id_campus_area = ?";
+  const countUsuariosResult = await mysql.executeQuery(countUsuariosQuery, [
+    id_campus_area,
+  ]);
+  const countUsuarios = countUsuariosResult[0].count;
+
+  if (countUsuarios > 0) {
+    send({ error: [ERROR_DELETING_CAMPUS_AREA], status: 304 }, res);
+  } else {
+    const deleteNewService = await mysql.executeQuery(
+      "DELETE FROM campus_areas WHERE id_campus_area = ?",
+      [id_campus_area]
+    );
+    send({ data: deleteNewService, status: 200 }, res);
+  }
+};
 
 const generatePDF = async (req, res) => {
   const { id_usuario } = req.body;
@@ -796,6 +818,7 @@ module.exports = {
   assignLocation,
   serviciosBySede,
   createCampusArea,
+  deleteCampusArea,
   deleteNewService,
   createNewService,
   createAppointment,

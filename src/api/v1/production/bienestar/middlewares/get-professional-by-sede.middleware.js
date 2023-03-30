@@ -5,9 +5,9 @@ const getProfessionalBySedeValidationRules = () => {
   return [
     body("id_campus_area")
       .notEmpty()
-      .withMessage("El campo id_usuario es obligatorio")
+      .withMessage("El campo id_campus_area es obligatorio")
       .isString()
-      .withMessage("El campo nombre_campus debe ser un string"),
+      .withMessage("El campo id_campus_area debe ser un string"),
   ];
 };
 
