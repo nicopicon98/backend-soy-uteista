@@ -184,21 +184,22 @@ const assignLocation = async (req, res) => {
 const deleteNewService = async (req, res) => {
   const { id_area } = req.body;
 
-  const countUsuariosQuery =
-    "SELECT COUNT(*) AS count FROM usuarios WHERE id_campus_area IN (SELECT id_campus_area FROM campus_areas WHERE id_area = ?)";
-  const countUsuariosResult = await mysql.executeQuery(countUsuariosQuery, [
-    id_area,
-  ]);
-  const countUsuarios = countUsuariosResult[0].count;
+  const countCampusAreasQuery =
+    "SELECT COUNT(*) AS count FROM campus_areas WHERE id_area = ?";
+  const countCampusAreasResult = await mysql.executeQuery(
+    countCampusAreasQuery,
+    [id_area]
+  );
+  const countCampusAreas = countCampusAreasResult[0].count;
 
-  if (countUsuarios > 0) {
-    send({ error: [ERROR_DELETING_SERVICE], status: 304 }, res);
-  } else {
+  if (countCampusAreas > 0) {
     const deleteNewService = await mysql.executeQuery(
       "DELETE FROM areas WHERE id_area = ?",
       [id_area]
     );
     send({ data: deleteNewService, status: 200 }, res);
+  } else {
+    send({ error: [ERROR_DELETING_SERVICE], status: 304 }, res);
   }
 };
 const createNewService = async (req, res) => {
