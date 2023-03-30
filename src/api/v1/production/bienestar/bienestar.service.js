@@ -407,10 +407,10 @@ const serviciosBySede = async (req, res) => {
     campus.nombre AS nombre_campus,
     areas.id_area,
     areas.nombre AS nombre_area,
-    campus_areas.id_campus_area,
+    campus_areas.id_campus_area
   FROM
     campus
-    INNER JOIN campus_areas ON campus.id_campus = campus_areas.id_campus_area
+    INNER JOIN campus_areas ON campus.id_campus = campus_areas.id_campus
     INNER JOIN areas ON campus_areas.id_area = areas.id_area;  
   `
   );
