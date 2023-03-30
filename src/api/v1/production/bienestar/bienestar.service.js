@@ -417,12 +417,13 @@ const serviciosBySede = async (req, res) => {
   const campusData = {};
 
   serviciosBySede.forEach((row) => {
-    const { id_campus, nombre_campus, id_area, nombre_area } = row;
+    const { id_campus, nombre_campus, id_area, nombre_area, id_campus_area } = row;
 
     if (!campusData[id_campus]) {
       campusData[id_campus] = {
         id_campus,
         nombre_campus,
+        id_campus_area,
         areas: [],
       };
     }
