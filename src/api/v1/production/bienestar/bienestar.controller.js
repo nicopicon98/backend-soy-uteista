@@ -106,6 +106,7 @@ bienestar.post("/appointments-by-id-campus-area", appointmentsByIdCampusAreaVali
 bienestar.post("/delete-professional", deleteProfessionalValidationRules(), validateDeleteProfessional, deleteProfessional)
 bienestar.post("/dashboard-home", deleteProfessionalValidationRules(), validateDeleteProfessional, dashboardHome)
 bienestar.post("/create-campus-areas", createCampusAreasValidationRules(), validateCreateCampusAreas, createCampusArea)
+
 //Reportes por profesionales
 
 bienestar.post("/report-pdf", generatePDF)

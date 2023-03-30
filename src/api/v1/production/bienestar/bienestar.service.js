@@ -12,6 +12,7 @@ const GENERAL_ERROR = "Contacta con el administrador";
 const BAD_SERVICE = "Información errónea";
 const USER_EXIST = "Ese usuario ya está registrado";
 const USER_UPDATE_ERROR = "No se pudo actualizar el usuario";
+const ERROR_CREATING_SERVICE = "No se pudo crear el servicio";
 
 const deco = (req, res) => {
   const content = req.body;
@@ -186,13 +187,15 @@ const deleteNewService = async (req, res) => {
 };
 const createNewService = async (req, res) => {
   const { nombre } = req.body;
-  const createNewService = await mysql.executeQuery(
-    "INSERT INTO areas (nombre) VALUES (?)",
-    [nombre]
-  );
-  createNewService
-    ? send({ data: createNewService, status: 200 }, res)
-    : send({ error: [GENERAL_ERROR], status: 304 }, res);
+  try {
+    const createNewService = await mysql.executeQuery(
+      "INSERT INTO areas (nombre) VALUES (?)",
+      [nombre]
+    );
+    send({ data: createNewService, status: 200 }, res);
+  } catch (error) {
+    send({ error: [ERROR_CREATING_SERVICE], status: 304 }, res);
+  }
 };
 const closeDateByStudent = async (req, res) => {
   const { tomado_por } = req.body;
@@ -579,7 +582,8 @@ WHERE h.id_usuario = ? AND c.asistido = 0 AND h.fecha >= @start_date AND h.fecha
           h.id_usuario = ? AND h.fecha >= CURRENT_DATE
         ORDER BY
           h.fecha ASC;
-    `, [id_usuario]
+    `,
+    [id_usuario]
   );
 
   const totalCitas = await mysql.executeQuery(
