@@ -111,7 +111,7 @@ SoyUteísta
       send({ error: [GENERAL_ERROR], status: 403 }, res);
     }
   } catch (error) {
-    send({ error: [USER_EXIST], status: 409 }, res);
+    send({ error: [error], status: 409 }, res);
   }
 };
 const rejectDate = async (req, res) => {
