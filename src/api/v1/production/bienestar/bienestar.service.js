@@ -70,7 +70,7 @@ WHERE u.correo = ?
   );
 };
 const register = async (req, res) => {
-  console.log("executed")
+  console.log("executed");
   let { nombre, correo, clave, ubicacion, id_campus_area } = req.body;
   let claveWithoutEncrypt = clave;
   clave = await hashPassword(clave);
@@ -417,18 +417,18 @@ const serviciosBySede = async (req, res) => {
   const campusData = {};
 
   serviciosBySede.forEach((row) => {
-    const { id_campus, nombre_campus, id_area, nombre_area, id_campus_area } = row;
+    const { id_campus, nombre_campus, id_area, nombre_area, id_campus_area } =
+      row;
 
     if (!campusData[id_campus]) {
       campusData[id_campus] = {
         id_campus,
         nombre_campus,
-        id_campus_area,
         areas: [],
       };
     }
 
-    campusData[id_campus].areas.push({ id_area, nombre_area });
+    campusData[id_campus].areas.push({ id_area, nombre_area, id_campus_area });
   });
   send({ data: Object.values(campusData), status: 200 }, res);
 };
