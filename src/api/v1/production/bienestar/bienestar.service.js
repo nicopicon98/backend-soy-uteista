@@ -13,7 +13,7 @@ const BAD_SERVICE = "Información errónea";
 const USER_EXIST = "Ese usuario ya está registrado";
 const USER_UPDATE_ERROR = "No se pudo actualizar el usuario";
 const ERROR_CREATING_SERVICE = "No se pudo crear el servicio";
-const ERROR_DELETING_SERVICE = "No se pudo eliminar el servicio";
+const ERROR_DELETING_SERVICE = "No se pudo eliminar el servicio porque tiene un profesional asignado";
 
 const deco = (req, res) => {
   const content = req.body;
