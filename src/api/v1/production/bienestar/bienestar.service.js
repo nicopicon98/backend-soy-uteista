@@ -406,7 +406,8 @@ const serviciosBySede = async (req, res) => {
     campus.id_campus,
     campus.nombre AS nombre_campus,
     areas.id_area,
-    areas.nombre AS nombre_area
+    areas.nombre AS nombre_area,
+    campus_areas.id_campus_area,
   FROM
     campus
     INNER JOIN campus_areas ON campus.id_campus = campus_areas.id_campus
