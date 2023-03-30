@@ -13,7 +13,8 @@ const BAD_SERVICE = "Información errónea";
 const USER_EXIST = "Ese usuario ya está registrado";
 const USER_UPDATE_ERROR = "No se pudo actualizar el usuario";
 const ERROR_CREATING_SERVICE = "No se pudo crear el servicio";
-const ERROR_DELETING_SERVICE = "No se pudo eliminar el servicio porque tiene un profesional asignado";
+const ERROR_DELETING_SERVICE =
+  "No se pudo eliminar el servicio porque tiene un profesional asignado";
 
 const deco = (req, res) => {
   const content = req.body;
@@ -198,11 +199,23 @@ const deleteNewService = async (req, res) => {
     if (countUsuarios > 0) {
       send({ error: [ERROR_DELETING_SERVICE], status: 304 }, res);
     } else {
-      const deleteNewService = await mysql.executeQuery(
-        "DELETE FROM areas WHERE id_area = ?",
-        [id_area]
+      // Agregar verificación de id_campus_area nulo
+      const countUsuariosNullQuery =
+        "SELECT COUNT(*) AS count FROM usuarios WHERE id_campus_area IS NULL";
+      const countUsuariosNullResult = await mysql.executeQuery(
+        countUsuariosNullQuery
       );
-      send({ data: deleteNewService, status: 200 }, res);
+      const countUsuariosNull = countUsuariosNullResult[0].count;
+
+      if (countUsuariosNull > 0) {
+        const deleteNewService = await mysql.executeQuery(
+          "DELETE FROM areas WHERE id_area = ?",
+          [id_area]
+        );
+        send({ data: deleteNewService, status: 200 }, res);
+      } else {
+        send({ error: [ERROR_DELETING_SERVICE], status: 304 }, res);
+      }
     }
   } else {
     const deleteNewService = await mysql.executeQuery(
@@ -236,7 +249,9 @@ const getProfessionalBySede = async (req, res) => {
   const { id_campus_area } = req.body;
 
   let usuariosPorIdCampus = await mysql.executeQuery(
-    `SELECT usuarios.nombre, usuarios.id_usuario, campus_areas.*, campus.id_campus as campus_id_campus, campus.nombre as nombre_campus, areas.id_area as areas_id_area, areas.nombre as nombre_area
+    `SELECT usuarios.nombre, usuarios.id_usuario, 
+    campus_areas.*, campus.id_campus as campus_id_campus, campus.nombre as nombre_campus, 
+    areas.id_area as areas_id_area, areas.nombre as nombre_area
     FROM usuarios 
     INNER JOIN campus_areas ON campus_areas.id_campus_area = usuarios.id_campus_area 
     INNER JOIN areas on areas.id_area = campus_areas.id_area
