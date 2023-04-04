@@ -193,7 +193,7 @@ const deleteNewService = async (req, res) => {
   );
   const countCampusAreas = countCampusAreasResult[0].count;
 
-  if (countCampusAreas > 0) {
+  if (countCampusAreas === 0) {
     const deleteNewService = await mysql.executeQuery(
       "DELETE FROM areas WHERE id_area = ?",
       [id_area]
