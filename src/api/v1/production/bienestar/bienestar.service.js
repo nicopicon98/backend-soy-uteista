@@ -15,7 +15,7 @@ const USER_EXIST = "Ese usuario ya está registrado";
 const USER_UPDATE_ERROR = "No se pudo actualizar el usuario";
 const ERROR_CREATING_SERVICE = "No se pudo crear el servicio";
 const ERROR_DELETING_SERVICE =
-  "No se pudo eliminar el servicio porque tiene un profesional asignado";
+  "No se pudo eliminar el servicio porque esta asignado a una sede";
 const ERROR_DELETING_CAMPUS_AREA =
   "No se pudo eliminar el campus/area porque tiene un profesional asignado";
 
@@ -181,6 +181,7 @@ const assignLocation = async (req, res) => {
     : send({ error: [USER_UPDATE_ERROR], status: 406 }, res);
   send({}, res);
 };
+
 const deleteNewService = async (req, res) => {
   const { id_area } = req.body;
 
@@ -202,6 +203,7 @@ const deleteNewService = async (req, res) => {
     send({ error: [ERROR_DELETING_SERVICE], status: 304 }, res);
   }
 };
+
 const createNewService = async (req, res) => {
   const { nombre } = req.body;
   try {
