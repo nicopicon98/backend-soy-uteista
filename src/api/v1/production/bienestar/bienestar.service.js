@@ -121,7 +121,7 @@ SoyUteísta
 const rejectDate = async (req, res) => {
   const { rechazado_por, rechazado_correo, razon_rechazo, id_cita } = req.body;
   const sql =
-    "UPDATE citas SET rechazado = 1, rechazado_por = ?, rechazado_correo = ?, rechazado_razon = ? WHERE id_cita = ?";
+    "UPDATE citas SET rechazado = 1, rechazado_por = ?, rechazado_razon = ? WHERE id_cita = ?";
   const rejectDate = await mysql.executeQuery(sql, [
     rechazado_por,
     rechazado_correo,
