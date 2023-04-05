@@ -785,10 +785,10 @@ const deleteCampusArea = async (req, res) => {
 const getAreasNotInCampus = async (req, res) => {
   const { id_campus } = req.body;
   const getAllAreasNotInCampus = await mysql.executeQuery(
-    ` SELECT a.id_area, a.nombre, ca.id_campus_area, ca.id_campus
+    ` SELECT a.id_area, a.nombre
     FROM areas a
     LEFT JOIN campus_areas ca ON a.id_area = ca.id_area AND ca.id_campus = ?
-    WHERE ca.id_campus IS NULL;`,
+    WHERE ca.id_campus IS NULL;;`,
     [id_campus]
   );
   send({ data: getAllAreasNotInCampus, status: 200 }, res);
