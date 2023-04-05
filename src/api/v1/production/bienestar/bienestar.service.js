@@ -782,7 +782,15 @@ const deleteCampusArea = async (req, res) => {
     send({ data: deleteNewService, status: 200 }, res);
   }
 };
-
+const getAreasNotInCampus = async (req, res) => {
+  const { id_campus } = req.body;
+  const getAllAreasNotInCampus = await mysql.executeQuery(
+    ` SELECT * FROM campus_areas 
+  WHERE id_campus != ?;`,
+    [id_campus]
+  );
+  send({ data: getAllAreasNotInCampus, status: 200 }, res);
+};
 const generatePDF = async (req, res) => {
   const { id_usuario } = req.body;
   const generatePDF = await mysql.executeQuery(
@@ -839,5 +847,6 @@ module.exports = {
   nextPastDatesByProfessional,
   createScheduleByProfessional,
   getAllAppointmentsByProfessional,
+  getAreasNotInCampus,
   generatePDF,
 };

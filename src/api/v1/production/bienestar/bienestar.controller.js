@@ -31,6 +31,7 @@ const {
   dashboardHome,
   getAllAppointmentsByProfessional,
   createCampusArea,
+  getAreasNotInCampus,
   deleteCampusArea,
 } = require("./bienestar.service");
 const { 
@@ -108,7 +109,7 @@ bienestar.post("/appointments-by-id-campus-area", appointmentsByIdCampusAreaVali
 bienestar.post("/delete-professional", deleteProfessionalValidationRules(), validateDeleteProfessional, deleteProfessional)
 bienestar.post("/dashboard-home", deleteProfessionalValidationRules(), validateDeleteProfessional, dashboardHome)
 bienestar.post("/create-campus-areas", createCampusAreasValidationRules(), validateCreateCampusAreas, createCampusArea)
-bienestar.post("/get-services-not-in-campus", getServicesNotInCampusValidationRules(), validateGetServicesNotInCampus, createCampusArea)
+bienestar.post("/get-services-not-in-campus", getServicesNotInCampusValidationRules(), validateGetServicesNotInCampus, getAreasNotInCampus)
 bienestar.post("/delete-campus-area", getProfessionalBySedeValidationRules(), validateGetProfessionalBySede, deleteCampusArea)
 
 //Reportes por profesionales
