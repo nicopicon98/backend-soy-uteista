@@ -122,13 +122,16 @@ const rejectDate = async (req, res) => {
   const { rechazado_por, rechazado_correo, razon_rechazo, id_cita } = req.body;
   const sql =
     "UPDATE citas SET rechazado = 1, rechazado_por = ?, rechazado_razon = ? WHERE id_cita = ?";
-  const rejectDate = await mysql.executeQuery(sql, [
-    rechazado_por,
-    rechazado_correo,
-    razon_rechazo,
-    id_cita,
-  ]);
-  send({ data: rejectDate, status: 200 }, res);
+  try {
+    const rejectDate = await mysql.executeQuery(sql, [
+      rechazado_por,
+      razon_rechazo,
+      id_cita,
+    ]);
+    send({ data: rejectDate, status: 200 }, res);
+  } catch (error) {
+    send({ error: "Hubo un error actualizando al usuario", status: 409 }, res);
+  }
 };
 const getUsers = async (req, res) => {
   const users = `SELECT 
