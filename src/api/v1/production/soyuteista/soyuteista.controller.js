@@ -32,7 +32,7 @@ soyuteista.use((req, res, next) => {
   } else if (req.header("X-WebServiceUTSAPI-Key") != KEY) {
     return res.json({
       error: {
-        code: "InvalidAuthenticationToken",
+        code: "InvalidAuthenticationToke",
         message: "Access token is Invalid",
         innerError: {
           date: new Date(),
