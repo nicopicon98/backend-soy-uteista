@@ -1,18 +1,19 @@
 const { body, validationResult } = require("express-validator");
 const { send } = require("../config/crypto.config");
+const { loginModelErrors } = require("../models/errors/login.model");
 
 const loginValidationRules = () => {
   return [
     body("email")
       .notEmpty()
-      .withMessage("Información errónea")
+      .withMessage(loginModelErrors.WRONG_INFO)
       .isEmail()
-      .withMessage("Información errónea"),
+      .withMessage(loginModelErrors.WRONG_INFO),
     body("password")
       .notEmpty()
-      .withMessage("Información errónea")
+      .withMessage(loginModelErrors.WRONG_INFO)
       .isLength({ min: 8 })
-      .withMessage("Información errónea"),
+      .withMessage(loginModelErrors.WRONG_INFO),
   ];
 };
 
