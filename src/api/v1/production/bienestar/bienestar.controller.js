@@ -103,31 +103,31 @@ bienestar.post("/delete-professional", deleteProfessionalValidationRules(), vali
 
 //Fields
 bienestar.post("/get-all-fields", getSedesValidationRules(), validateGetSedes, getServices);
-bienestar.post("/get-all-campus-by-campus", servicesByIdCampusValidationRules(), validateservicesByIdCampus, servicesByIdCampus)
-bienestar.post("/get-services-not-in-campus", getServicesNotInCampusValidationRules(), validateGetServicesNotInCampus, getAreasNotInCampus)
-bienestar.post("/insert-area", createNewServiceValidationRules(), validateCreateNewService, createNewService);
-bienestar.post("/delete-area", deleteNewServiceValidationRules(), validateDeleteNewService, deleteNewService);
-
-//Appointments
-bienestar.post("/reject-appointment", rejectDateValidationRules(), validateRejectDate, rejectDate);
-bienestar.post("/attend-appointment", attendDateValidationRules(), validateAttendDate, attendDate);
-bienestar.post("/get-upcoming-appointment-by-student", closeDateByStudentValidationRules(), validateCloseDateByStudent, closeDateByStudent);
-bienestar.post("/get-last-appointment-by-professional", lastDateByProfessionalValidationRules(), validateLastDateByProfessional, lastDateByProfessional);
-bienestar.post("/get-upcoming-appointment-by-professional", closeDateByProfessionalValidationRules(), validateCloseDateByProfessional, closeDateByProfessional);
-bienestar.post("/all-appointments-by-professional", closeDateByProfessionalValidationRules(), validateCloseDateByProfessional, getAllAppointmentsByProfessional);
-bienestar.post("/next-past-dates-by-professional", nextPastDatesByProfessionalValidationRules(), validateNextPastDatesByProfessional, nextPastDatesByProfessional);
-bienestar.post("/create-appointment-by-professional", createAppointmentValidationRules(), validatecreateAppointment, createAppointment) 
-bienestar.post("/appointments-by-student", appointmentsByStudentValidationRules(), validateAppointmentsByStudent, appointmentsByStudent)
-bienestar.post("/appointments-by-id-campus-area", appointmentsByIdCampusAreaValidationRules(), validateAppointmentsByIdCampusArea, appointmentsByIdCampusArea)
+bienestar.post("/get-all-fields-by-campus", servicesByIdCampusValidationRules(), validateservicesByIdCampus, servicesByIdCampus)
+bienestar.post("/get-all-fields-not-in-campus", getServicesNotInCampusValidationRules(), validateGetServicesNotInCampus, getAreasNotInCampus)
+bienestar.post("/insert-field", createNewServiceValidationRules(), validateCreateNewService, createNewService);
+bienestar.post("/delete-field", deleteNewServiceValidationRules(), validateDeleteNewService, deleteNewService);
 
 //Campus
-bienestar.post('/campus', getSedesValidationRules(), validateGetSedes, sedes)
+bienestar.post('/get-all-campuses', getSedesValidationRules(), validateGetSedes, sedes)
 
+
+//Appointments
+bienestar.post("/get-last-appointment-by-professional", lastDateByProfessionalValidationRules(), validateLastDateByProfessional, lastDateByProfessional);
+bienestar.post("/get-upcoming-appointment-by-professional", closeDateByProfessionalValidationRules(), validateCloseDateByProfessional, closeDateByProfessional);
+bienestar.post("/get-all-upcoming-appointments-by-professional", closeDateByProfessionalValidationRules(), validateCloseDateByProfessional, getAllAppointmentsByProfessional);
+bienestar.post("/get-upcoming-appointment-by-student", closeDateByStudentValidationRules(), validateCloseDateByStudent, closeDateByStudent);
+bienestar.post("/get-all-last-month-to-now-appointment-by-professional", nextPastDatesByProfessionalValidationRules(), validateNextPastDatesByProfessional, nextPastDatesByProfessional);
+bienestar.post("/update-appointment-rejected", rejectDateValidationRules(), validateRejectDate, rejectDate);
+bienestar.post("/update-appointment-attended", attendDateValidationRules(), validateAttendDate, attendDate);
+bienestar.post("/insert-appointment", createAppointmentValidationRules(), validatecreateAppointment, createAppointment) 
+bienestar.post("/get-all-appointments-by-student", appointmentsByStudentValidationRules(), validateAppointmentsByStudent, appointmentsByStudent)
+bienestar.post("/get-all-appointments-by-campuses-field", appointmentsByIdCampusAreaValidationRules(), validateAppointmentsByIdCampusArea, appointmentsByIdCampusArea)
 
 //Campus Area
-bienestar.post("/sedes-servicios-by-sede", sedesServiciosBySedeValidationRules(), validateSedesServiciosBySede, serviciosBySede)
+bienestar.post("/get-all-campuses-field-by-campus", sedesServiciosBySedeValidationRules(), validateSedesServiciosBySede, serviciosBySede)
 bienestar.post("/create-campus-areas", createCampusAreasValidationRules(), validateCreateCampusAreas, createCampusArea)
-bienestar.post("/delete-campus-area", getProfessionalBySedeValidationRules(), validateGetProfessionalBySede, deleteCampusArea)
+bienestar.post("/insert-campus-field", getProfessionalBySedeValidationRules(), validateGetProfessionalBySede, deleteCampusArea)
 
 //Reports
 bienestar.post("/report-pdf", generatePDF)
