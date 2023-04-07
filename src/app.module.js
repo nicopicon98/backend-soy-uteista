@@ -15,7 +15,7 @@ const { decryptMiddleware } = require('@api_v1_production_bienestar/middlewares/
 
 // Import routes
 const { bienestarVersion, bienestar } = require('@api_v1_production_bienestar');
-const { soyUteistaVersion, soyuteista } = require('@api_v1_production_soyuteista');
+const { soyUteistaVersion, soyuteista } = require('./api/v1/production/soyuteista');
 
 // Configure app middleware
 app.use(cors())
