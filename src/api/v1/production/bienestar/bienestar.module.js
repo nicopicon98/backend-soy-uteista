@@ -1,7 +1,14 @@
-const bienestarVersion = () => {
-    return '/api/v1/production/bienestar';
-};
+// const bienestarVersion = () => {
+//     return '/api/v1/production/bienestar';
+// };
+
+// module.exports = {
+//     bienestarVersion
+// }
+
+const app = require('./index');
 
 module.exports = {
-    bienestarVersion
-}
+  bienestar: app,
+  bienestarVersion: () => '/api/v1/production/bienestar',
+};
