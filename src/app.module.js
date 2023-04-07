@@ -1,17 +1,18 @@
+// Register module aliases
+require('module-alias/register');
+
+// Load environment variables from .env file
+require('dotenv').config();
+
 const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
 const path = require('path');
 const app = express();
 
-// Load environment variables from .env file
-require('dotenv').config();
-
-// Register module aliases
-require('module-alias/register');
-
 // Import middleware
-const { decryptMiddleware } = require('@api_v1_production_bienestar/middlewares/decrypt.middleware');
+// const { decryptMiddleware } = require('@api_v1_production_bienestar/middlewares/decrypt.middleware');
+const { decryptMiddleware } = require('./api/v1/production/bienestar/middlewares/decrypt.middleware');
 
 // Import routes
 const { bienestarVersion, bienestar } = require('./api/v1/production/bienestar');
