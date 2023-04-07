@@ -15,7 +15,7 @@ const app = express();
 const { decryptMiddleware } = require('./api/v1/production/bienestar/middlewares/decrypt.middleware');
 
 // Import routes
-const { bienestarVersion, bienestar } = require('./api/v1/production/bienestar');
+// const { bienestarVersion, bienestar } = require('./api/v1/production/bienestar');
 const { soyUteistaVersion, soyuteista } = require('./api/v1/production/soyuteista');
 
 // Configure app middleware
@@ -24,7 +24,7 @@ app.use(cors())
    .use(soyUteistaVersion(), soyuteista)
    .use(decryptMiddleware)
    .use(morgan('dev'))
-   .use(bienestarVersion(), bienestar)
+  //  .use(bienestarVersion(), bienestar)
    .use(express.static(path.join(__dirname, 'public')));
 
 // Start the server listening on port 9091
