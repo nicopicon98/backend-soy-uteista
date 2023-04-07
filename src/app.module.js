@@ -15,7 +15,7 @@ const app = express();
 const { decryptMiddleware } = require('./api/v1/production/bienestar/middlewares/decrypt.middleware');
 
 // Import routes
-// const { bienestarVersion, bienestar } = require('./api/v1/production/bienestar');
+const { bienestarVersion, bienestar } = require('./api/v1/production/bienestar');
 const { soyUteistaVersion, soyuteista } = require('./api/v1/production/soyuteista');
 
 // Configure app middleware
