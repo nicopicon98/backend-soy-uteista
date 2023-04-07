@@ -1,3 +1,4 @@
+require('dotenv').config();
 require('module-alias/register')
 const test_alitas = require('@test_deep_alias/test_alitas')
 const { decryptMiddleware } = require('./api/v1/production/bienestar/middlewares/decrypt.middleware');
@@ -68,7 +69,7 @@ const app = express();
 // Define a random route that generates a random number between 1 and 10
 app.get('/random', (req, res) => {
   const randomNumber = Math.floor(Math.random() * 10) + 1;
-  res.send(`test_alitas is working: ${test_alitas}`);
+  res.send(`test_alitas is working: ${test_alitas} and environment variables are working also ${process.env.PORT}`);
 });
 
 app.listen(9091, () => {
