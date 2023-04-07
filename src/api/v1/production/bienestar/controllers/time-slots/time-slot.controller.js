@@ -1,5 +1,5 @@
-const { mysql } = require("../../../../../../common/conexiones/conexionMysql");
-const { send } = require("../../config/crypto.config");
+const { send } = require("@api_bienestar/config/crypto.config");
+const TimeSlotService = require("@api_bienestar/services/time-slots");
 
 /**
  * Class representing the Time Slot Controller.
@@ -13,7 +13,7 @@ class TimeSlotController {
    */
   static async getAllTimeSlots(req, res) {
     try {
-      const timeSlots = await mysql.executeQuery("SELECT * FROM time_slots");
+      const timeSlots = await TimeSlotService.getAllTimeSlots();
       send({ data: timeSlots, status: 200 }, res);
     } catch (error) {
       send({ error: [error.message], status: 500 }, res);
@@ -28,11 +28,11 @@ class TimeSlotController {
   static async getTimeSlotsByProfessional(req, res) {
     try {
       const { professional_id, dates } = req.body;
-      const [start, end] = dates;
-      const timeSlotsByProfessional = await mysql.executeQuery(
-        `SELECT * from time_slots ts WHERE NOT EXISTS ( SELECT 1 FROM schedules s WHERE s.time_slot_id = ts.time_slot_id AND s.date BETWEEN ? AND ? AND s.professional_id = ? );`,
-        [start, end, professional_id]
-      );
+      const timeSlotsByProfessional =
+        await TimeSlotService.getTimeSlotsByProfessional(
+          professional_id,
+          dates
+        );
       send({ data: timeSlotsByProfessional, status: 200 }, res);
     } catch (error) {
       send({ error: [error.message], status: 500 }, res);

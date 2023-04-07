@@ -11,11 +11,11 @@ const path = require('path');
 const app = express();
 
 // Import middlewares
-const { decryptMiddleware } = require('@api_v1_production_bienestar/middlewares/decrypt.middleware');
+const { decryptMiddleware } = require('@api_bienestar/middlewares/decrypt.middleware');
 
 // Import routes
-const { bienestarVersion, bienestar } = require('@api_v1_production_bienestar');
-const { soyUteistaVersion, soyuteista } = require('@api_v1_production_soyuteista');
+const { bienestarVersion, bienestar } = require('@api_bienestar');
+const { soyUteistaVersion, soyuteista } = require('@api_soyuteista');
 
 // Configure app middleware
 app.use(cors())
