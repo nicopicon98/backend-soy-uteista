@@ -6,7 +6,6 @@ const express = require('express');
 const app = express();
 // const { bienestarVersion, bienestar } = require('./api/v1/production/bienestar');
 
-const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
 const path = require('path');
