@@ -1,40 +1,50 @@
-const { decryptMiddleware } = require('./api/v1/production/bienestar/middlewares/decrypt.middleware');
-const { soyUteistaVersion, soyuteista } = require('./api/v1/production/soyuteista/');
-// const { bienestarVersion, bienestar } = require('./api/v1/production/bienestar');
-// const bienestar = require('./api/v1/production/bienestar');
-const { bienestarVersion, bienestar } = require('./api/v1/production/bienestar');
+const {
+  decryptMiddleware,
+} = require("./api/v1/production/bienestar/middlewares/decrypt.middleware");
+const {
+  soyUteistaVersion,
+  soyuteista,
+} = require("./api/v1/production/soyuteista/");
+const {
+  bienestarVersion,
+  bienestar,
+} = require("./api/v1/production/bienestar");
 
-const express = require('express');
-const morgan = require('morgan');
-const cors = require('cors');
-const path = require('path');
-const fs = require('fs');
+const express = require("express");
+const morgan = require("morgan");
+const cors = require("cors");
+const path = require("path");
+const fs = require("fs");
 
 const app = express();
 
-app.use(cors())
-   .use(express.json())
-   .use(soyUteistaVersion(), soyuteista)
-   .use(decryptMiddleware)
-   .use(morgan('dev'))
-   .use(bienestarVersion(), bienestar)
-   .use(express.static(path.join(__dirname, 'public')))
+app
+  .use(cors())
+  .use('/xd', (req, res, next) => {
+    res.json({test: "test"})
+  })
+  .use(express.json())
+  .use(soyUteistaVersion(), soyuteista)
+  .use(decryptMiddleware)
+  .use(morgan("dev"))
+  .use(bienestarVersion(), bienestar)
+  .use(express.static(path.join(__dirname, "public")));
 
 app.use((req, res, next) => {
-   const timestamp = new Date().toISOString();
-   console.log(`[${timestamp}] ${req.method} ${req.url}`);
-   next();
+  const timestamp = new Date().toISOString();
+  console.log(`[${timestamp}] ${req.method} ${req.url}`);
+  next();
 });
 
 app.use((req, res, next) => {
-   const timestamp = new Date().toISOString();
-   const logMessage = `[${timestamp}] ${req.method} ${req.url}`;
-   fs.appendFile('traffic.log', logMessage + '\n', (err) => {
-     if (err) {
-       console.error(`Error al escribir en el archivo de registro: ${err}`);
-     }
-   });
-   next();
+  const timestamp = new Date().toISOString();
+  const logMessage = `[${timestamp}] ${req.method} ${req.url}`;
+  fs.appendFile("traffic.log", logMessage + "\n", (err) => {
+    if (err) {
+      console.error(`Error al escribir en el archivo de registro: ${err}`);
+    }
+  });
+  next();
 });
 
 // if (cluster.isWorker) {
@@ -61,5 +71,5 @@ app.use((req, res, next) => {
 // }
 
 app.listen(9091, () => {
-   console.log('Servidor iniciado en el puerto 9091');
+  console.log("Servidor iniciado en el puerto 9091");
 });
