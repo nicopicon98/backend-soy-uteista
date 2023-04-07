@@ -1,8 +1,8 @@
-const { mysql } = require("../../../../../common/conexiones/conexionMysql");
-const { send } = require("../config/crypto.config");
+const { mysql } = require("../../../../../../common/conexiones/conexionMysql");
+const { send } = require("../../config/crypto.config");
 
 
-const getFranjas = async (req, res) => {
+const getAllTimeSlots = async (req, res) => {
   const timeSlots = await mysql.executeQuery("SELECT * FROM time_slots");
   send({ data: timeSlots, status: 200 }, res);
 };
@@ -18,6 +18,6 @@ const getFranjasByProfessional = async (req, res) => {
 };
 
 module.exports = {
-  getFranjas,
+  getAllTimeSlots,
   getFranjasByProfessional,
 };

@@ -34,7 +34,7 @@ const bienestar = express.Router();
 // } = require("./bienestar.service");
  const {
    getFranjas,
- } = require("./controllers/time-slot.controller");
+ } = require("./controllers/time_slots/time-slot.controller");
 // const {
 //   validateLogin,
 //   validateRegister,

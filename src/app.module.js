@@ -1,6 +1,7 @@
 const { decryptMiddleware } = require('./api/v1/production/bienestar/middlewares/decrypt.middleware');
 const { soyUteistaVersion, soyuteista } = require('./api/v1/production/soyuteista/');
-const { bienestarVersion, bienestar } = require('./api/v1/production/bienestar');
+// const { bienestarVersion, bienestar } = require('./api/v1/production/bienestar');
+const bienestar = require('./api/v1/production/bienestar');
 const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
@@ -14,7 +15,8 @@ app.use(cors())
    .use(soyUteistaVersion(), soyuteista)
    .use(decryptMiddleware)
    .use(morgan('dev'))
-   .use(bienestarVersion(), bienestar)
+   // .use(bienestarVersion(), bienestar)
+   .use(bienestar)
    .use(express.static(path.join(__dirname, 'public')))
 
 app.use((req, res, next) => {
