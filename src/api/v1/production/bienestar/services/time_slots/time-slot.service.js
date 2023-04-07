@@ -1,4 +1,4 @@
-const TimeSlotRepository = require("@api_bienestar/reporitories/time-slot");
+const TimeSlotRepository = require("@api_bienestar/repositories/time-slot");
 
 class TimeSlotService {
   async getAllTimeSlots() {
