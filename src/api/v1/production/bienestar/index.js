@@ -1,15 +1,13 @@
-const bienestarVersion = () => {
-  return '/api/v1/production/bienestar';
-};
-
-const express = require('express');
+const express = require("express");
 const bienestar = express();
 
-const timeSlotRoutes = require('./routes/time_slots');
+//Routes
+const timeSlotRoutes = require("./routes/time-slots");
 
 bienestar.use(timeSlotRoutes);
 
+const bienestarVersion = () => "/api/v1/production/bienestar";
 module.exports = {
   bienestar,
-  bienestarVersion
-}
+  bienestarVersion,
+};

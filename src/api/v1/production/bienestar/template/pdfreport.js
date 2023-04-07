@@ -94,7 +94,6 @@ const htmlTemplate = `
 </html>
 `;
 
-
 module.exports = {
   htmlTemplate,
 };

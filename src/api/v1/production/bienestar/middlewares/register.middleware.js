@@ -32,12 +32,12 @@ const registerValidationRules = () => {
 };
 
 const validateRegister = (req, res, next) => {
-  console.log(req.body)
+  console.log(req.body);
   const errors = validationResult(req);
   if (errors.isEmpty()) {
     return next();
   }
-  return send({ error: [errors.array()[0].msg], status:  406 }, res);
+  return send({ error: [errors.array()[0].msg], status: 406 }, res);
 };
 
 module.exports = {

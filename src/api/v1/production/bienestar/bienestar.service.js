@@ -20,7 +20,6 @@ const ERROR_DELETING_SERVICE =
 const ERROR_DELETING_CAMPUS_AREA =
   "No se pudo eliminar el campus/area porque tiene un profesional asignado";
 
-
 /**Services */
 
 //General Services
@@ -522,7 +521,6 @@ const deleteNewService = async (req, res) => {
   }
 };
 
-
 //Campuses
 const sedes = async (req, res) => {
   const campus = await mysql.executeQuery(`SELECT * FROM campus`);
@@ -730,7 +728,6 @@ AND ca.id_campus_area = ?
   );
   send({ data: appointmentsByIdCampusArea, status: 200 }, res);
 };
-
 
 //Campus Field
 

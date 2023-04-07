@@ -8,12 +8,12 @@ const assignLocationByProfessionalValidationRules = () => {
       .withMessage("El campo id_usuario es obligatorio")
       .isInt()
       .withMessage("El campo id_usuario debe ser un número entero"),
-      body("ubicacion")
+    body("ubicacion")
       .notEmpty()
       .withMessage("El campo ubicacion es obligatorio")
       .isString()
       .withMessage("El campo ubicacion debe ser un string"),
-      body("nombre")
+    body("nombre")
       .notEmpty()
       .withMessage("El campo nombre es obligatorio")
       .isString()
@@ -26,7 +26,7 @@ const validateAssignLocationByProfessional = (req, res, next) => {
   if (errors.isEmpty()) {
     return next();
   }
-  return send({ error: [errors.array()[0].msg], status:  406 }, res);
+  return send({ error: [errors.array()[0].msg], status: 406 }, res);
 };
 
 module.exports = {

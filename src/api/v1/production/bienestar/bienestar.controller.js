@@ -32,9 +32,7 @@ const {
   getAreasNotInCampus,
   deleteCampusArea,
 } = require("./bienestar.service");
- const {
-   getFranjas,
- } = require("./controllers/time_slots/time-slot.controller");
+const { getFranjas } = require("./controllers/time_slots/time-slot.controller");
 const {
   validateLogin,
   validateRegister,
@@ -89,10 +87,10 @@ const {
   getProfessionalBySedeValidationRules,
   validateGetProfessionalBySede,
 } = require("./middlewares/get-professional-by-sede.middleware");
- const {
+const {
   getSedesValidationRules,
   validateGetSedes,
- } = require("./middlewares/get-sedes.middleware");
+} = require("./middlewares/get-sedes.middleware");
 const {
   getServicesNotInCampusValidationRules,
   validateGetServicesNotInCampus,

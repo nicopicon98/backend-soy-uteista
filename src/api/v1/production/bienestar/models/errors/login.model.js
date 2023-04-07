@@ -3,5 +3,5 @@ const loginModelErrors = {
 };
 
 module.exports = {
-  loginModelErrors
+  loginModelErrors,
 };
