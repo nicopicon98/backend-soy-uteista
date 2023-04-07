@@ -5,7 +5,7 @@ const bienestarVersion = () => {
 const express = require('express');
 const bienestar = express();
 
-const timeSlotRoutes = require('./routes/time_slot.routes');
+const timeSlotRoutes = require('./routes/time_slots');
 
 bienestar.use(timeSlotRoutes);
 
