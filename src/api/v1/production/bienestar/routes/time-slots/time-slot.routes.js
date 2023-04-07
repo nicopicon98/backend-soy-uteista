@@ -17,8 +17,8 @@ time_slots.post(
 
 time_slots.post(
   TIME_SLOT_ROUTES_MODEL.GET_ALL_BY_PROFESSIONAL,
-  getSedesValidationRules(),
-  validateGetSedes,
+  // getSedesValidationRules(),
+  // validateGetSedes,
   TimeSlotController.getTimeSlotsByProfessional
 );
 
