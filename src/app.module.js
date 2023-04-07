@@ -10,12 +10,11 @@ const cors = require('cors');
 const path = require('path');
 const app = express();
 
-// Import middleware
-// const { decryptMiddleware } = require('@api_v1_production_bienestar/middlewares/decrypt.middleware');
-const { decryptMiddleware } = require('./api/v1/production/bienestar/middlewares/decrypt.middleware');
+// Import middlewares
+const { decryptMiddleware } = require('@api_v1_production_bienestar/middlewares/decrypt.middleware');
 
 // Import routes
-const { bienestarVersion, bienestar } = require('./api/v1/production/bienestar');
+const { bienestarVersion, bienestar } = require('@api_v1_production_bienestar');
 const { soyUteistaVersion, soyuteista } = require('@api_v1_production_soyuteista');
 
 // Configure app middleware
