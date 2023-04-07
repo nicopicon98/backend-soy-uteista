@@ -32,9 +32,9 @@ const bienestar = express.Router();
 //   getAreasNotInCampus,
 //   deleteCampusArea,
 // } = require("./bienestar.service");
-//  const {
-//    getFranjas,
-//  } = require("./controllers/time-slot.controller");
+ const {
+   getFranjas,
+ } = require("./controllers/time-slot.controller");
 // const {
 //   validateLogin,
 //   validateRegister,
@@ -315,10 +315,6 @@ bienestar.use((req, res, next) => {
   next();
 });
 
-const getFranjas = async (req, res) => {
-  const timeSlots = await mysql.executeQuery("SELECT * FROM time_slots");
-  send({ data: timeSlots, status: 200 }, res);
-};
 
 //Fields
 bienestar.post(
