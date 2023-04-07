@@ -126,7 +126,7 @@ bienestar.post("/get-all-appointments-by-campuses-field", appointmentsByIdCampus
 
 //Campus Area
 bienestar.post("/get-all-campuses-field-by-campus", sedesServiciosBySedeValidationRules(), validateSedesServiciosBySede, serviciosBySede)
-bienestar.post("/insert-campus-areas", createCampusAreasValidationRules(), validateCreateCampusAreas, createCampusArea)
+bienestar.post("/insert-campus-field", createCampusAreasValidationRules(), validateCreateCampusAreas, createCampusArea)
 bienestar.post("/delete-campus-field", getProfessionalBySedeValidationRules(), validateGetProfessionalBySede, deleteCampusArea)
 
 //Reports
