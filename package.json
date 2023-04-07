@@ -14,7 +14,10 @@
     "nodemon": "^2.0.20"
   },
   "_moduleAliases": {
-    "@test_deep_alias": "src/test_deep_alias"
+    "@src": "src/",
+    "@api_v1_production_bienestar": "src/api/v1/production/bienestar",
+    "@api_v1_production_directorio": "src/api/v1/production/directorio",
+    "@api_v1_production_soyuteista": "src/api/v1/production/soyuteista"
   },
   "dependencies": {
     "bcrypt": "^5.1.0",
