@@ -1,5 +1,6 @@
-const { mysql } = require("../../common/conexiones/conexionMysql");
+const { mysql } = require("../../../../../common/conexiones/conexionMysql");
 const { send } = require("../config/crypto.config");
+
 
 const getFranjas = async (req, res) => {
   const timeSlots = await mysql.executeQuery("SELECT * FROM time_slots");
