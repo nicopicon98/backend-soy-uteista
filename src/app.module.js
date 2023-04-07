@@ -14,7 +14,7 @@ require('module-alias/register');
 const { decryptMiddleware } = require('@api_v1_production_bienestar/middlewares/decrypt.middleware');
 
 // Import routes
-const { bienestarVersion, bienestar } = require('@api_v1_production_bienestar');
+const { bienestarVersion, bienestar } = require('./api/v1/production/bienestar');
 const { soyUteistaVersion, soyuteista } = require('./api/v1/production/soyuteista');
 
 // Configure app middleware
