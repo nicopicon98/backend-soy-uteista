@@ -1,22 +1,22 @@
-// const { decryptMiddleware } = require('./api/v1/production/bienestar/middlewares/decrypt.middleware');
-// const { soyUteistaVersion, soyuteista } = require('./api/v1/production/soyuteista/');
+const { decryptMiddleware } = require('./api/v1/production/bienestar/middlewares/decrypt.middleware');
+const { soyUteistaVersion, soyuteista } = require('./api/v1/production/soyuteista/');
+const express = require('express');
+const app = express();
 // const { bienestarVersion, bienestar } = require('./api/v1/production/bienestar');
 
 // const express = require('express');
-// const morgan = require('morgan');
-// const cors = require('cors');
-// const path = require('path');
+const morgan = require('morgan');
+const cors = require('cors');
+const path = require('path');
 // const fs = require('fs');
 
-// const app = express();
-
-// app.use(cors())
-//    .use(express.json())
-//    .use(soyUteistaVersion(), soyuteista)
-//    .use(decryptMiddleware)
-//    .use(morgan('dev'))
-//    .use(bienestarVersion(), bienestar)
-//    .use(express.static(path.join(__dirname, 'public')))
+app.use(cors())
+   .use(express.json())
+   .use(soyUteistaVersion(), soyuteista)
+   .use(decryptMiddleware)
+   .use(morgan('dev'))
+   // .use(bienestarVersion(), bienestar)
+   .use(express.static(path.join(__dirname, 'public')))
 
 // app.use((req, res, next) => {
 //    const timestamp = new Date().toISOString();
@@ -61,14 +61,13 @@
 // app.listen(9091, () => {
 //    console.log('Servidor iniciado en el puerto 9091');
 // });
-const express = require('express');
-const app = express();
+
 
 // Define a random route that generates a random number between 1 and 10
-app.get('/random', (req, res) => {
-  const randomNumber = Math.floor(Math.random() * 10) + 1;
-  res.send(`Your random number is: ${randomNumber}`);
-});
+// app.get('/random', (req, res) => {
+//   const randomNumber = Math.floor(Math.random() * 10) + 1;
+//   res.send(`Your random number is: ${randomNumber}`);
+// });
 
 app.listen(9091, () => {
    console.log('Servidor iniciado en el puerto 9091');
