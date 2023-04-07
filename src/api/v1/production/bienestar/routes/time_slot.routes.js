@@ -1,7 +1,13 @@
-const express = require('express');
+const { validateGetSedes, getSedesValidationRules } = require("../middlewares/get-sedes.middleware");
+const timeSlotController = require("../controllers/time_slots/time-slot.controller");
+const express = require("express");
 const router = express.Router();
-const timeSlotController = require('../controllers/time_slots/time-slot.controller');
 
-router.post('/get-all-time-slots', timeSlotController.getAllTimeSlots);
+router.post(
+  "/get-all-time-slots",
+  getSedesValidationRules(),
+  validateGetSedes,
+  timeSlotController.getAllTimeSlots
+);
 
 module.exports = router;
