@@ -5,9 +5,10 @@ class TimeSlotService {
     return await TimeSlotRepository.getAllTimeSlots();
   }
 
-  async getTimeSlotsByProfessional(professional_id, dates) {
-    const [start, end] = dates;
-    return await TimeSlotRepository.getTimeSlotsByProfessional(professional_id, start, end);
+  async getTimeSlotsByProfessional(professional_id) {
+    return await TimeSlotRepository.getTimeSlotsByProfessional(
+      professional_id,
+    );
   }
 }
 

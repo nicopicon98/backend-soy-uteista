@@ -5,10 +5,14 @@ class TimeSlotRepository {
     return await mysql.executeQuery("SELECT * FROM time_slots");
   }
 
-  async getTimeSlotsByProfessional(professional_id, start, end) {
+  async getTimeSlotsByProfessional(professional_id) {
     return await mysql.executeQuery(
-      `SELECT * from time_slots ts WHERE NOT EXISTS ( SELECT 1 FROM schedules s WHERE s.time_slot_id = ts.time_slot_id AND s.date BETWEEN ? AND ? AND s.professional_id = ? );`,
-      [start, end, professional_id]
+      `SELECT time_slots.*
+        FROM time_slots
+          JOIN schedules ON time_slots.id_time_slot = schedules.id_time_slot
+          JOIN users ON schedules.id_user = users.id_user
+        WHERE users.id_user = ?`,
+      [professional_id]
     );
   }
 }
