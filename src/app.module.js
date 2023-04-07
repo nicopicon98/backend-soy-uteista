@@ -2,7 +2,7 @@ const { decryptMiddleware } = require('./api/v1/production/bienestar/middlewares
 const { soyUteistaVersion, soyuteista } = require('./api/v1/production/soyuteista/');
 // const { bienestarVersion, bienestar } = require('./api/v1/production/bienestar');
 // const bienestar = require('./api/v1/production/bienestar');
-const { bienestarVersion, bienestar } = require('./api/v1/production/bienestar/bienestar.module');
+const { bienestarVersion, bienestar } = require('./api/v1/production/bienestar/bienestar.pepito');
 
 const express = require('express');
 const morgan = require('morgan');
