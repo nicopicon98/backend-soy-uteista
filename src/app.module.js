@@ -24,7 +24,7 @@ app.use(cors())
    .use(soyUteistaVersion(), soyuteista)
    .use(decryptMiddleware)
    .use(morgan('dev'))
-  //  .use(bienestarVersion(), bienestar)
+   .use(bienestarVersion(), bienestar)
    .use(express.static(path.join(__dirname, 'public')));
 
 // Start the server listening on port 9091
