@@ -1,75 +1,32 @@
-require('dotenv').config();
-require('module-alias/register')
-const { decryptMiddleware } = require('@api_v1_production_bienestar/middlewares/decrypt.middleware');
-const { soyUteistaVersion, soyuteista } = require('./api/v1/production/soyuteista/');
 const express = require('express');
-const app = express();
-// const { bienestarVersion, bienestar } = require('./api/v1/production/bienestar');
-
 const morgan = require('morgan');
 const cors = require('cors');
 const path = require('path');
-// // const fs = require('fs');
+const app = express();
 
+// Load environment variables from .env file
+require('dotenv').config();
+
+// Register module aliases
+require('module-alias/register');
+
+// Import middleware
+const { decryptMiddleware } = require('@api_v1_production_bienestar/middlewares/decrypt.middleware');
+
+// Import routes
+const { bienestarVersion, bienestar } = require('@api_v1_production_bienestar');
+const { soyUteistaVersion, soyuteista } = require('@api_v1_production_soyuteista');
+
+// Configure app middleware
 app.use(cors())
    .use(express.json())
    .use(soyUteistaVersion(), soyuteista)
    .use(decryptMiddleware)
    .use(morgan('dev'))
-   // .use(bienestarVersion(), bienestar)
-   .use(express.static(path.join(__dirname, 'public')))
+   .use(bienestarVersion(), bienestar)
+   .use(express.static(path.join(__dirname, 'public')));
 
-// app.use((req, res, next) => {
-//    const timestamp = new Date().toISOString();
-//    console.log(`[${timestamp}] ${req.method} ${req.url}`);
-//    next();
-// });
-
-// app.use((req, res, next) => {
-//    const timestamp = new Date().toISOString();
-//    const logMessage = `[${timestamp}] ${req.method} ${req.url}`;
-//    fs.appendFile('traffic.log', logMessage + '\n', (err) => {
-//      if (err) {
-//        console.error(`Error al escribir en el archivo de registro: ${err}`);
-//      }
-//    });
-//    next();
-// });
-
-// // if (cluster.isWorker) {
-// //    // Iniciar el servidor Express
-// //    const server = app.listen(9091, () => {
-// //       console.log(`Worker ${process.pid} iniciado en el puerto ${server.address().port}`);
-// //    });
-// // }
-
-// // if (cluster.isMaster) {
-// //    // Obtener el número de CPU disponibles en el sistema
-// //    const numCPUs = os.cpus().length;
-
-// //    // Crear un worker para cada CPU
-// //    for (let i = 0; i < numCPUs; i++) {
-// //       cluster.fork();
-// //    }
-
-// //    // Escuchar eventos de cambio de estado de los workers
-// //    cluster.on('exit', (worker, code, signal) => {
-// //       console.log(`Worker ${worker.process.pid} terminado`);
-// //       cluster.fork();
-// //    });
-// // }
-
-// app.listen(9091, () => {
-//    console.log('Servidor iniciado en el puerto 9091');
-// });
-
-
-// Define a random route that generates a random number between 1 and 10
-// app.get('/random', (req, res) => {
-//   const randomNumber = Math.floor(Math.random() * 10) + 1;
-//   res.send(`test_alitas is working: ${test_alitas} and environment variables are working also ${process.env.PORT}`);
-// });
-
+// Start the server listening on port 9091
 app.listen(9091, () => {
    console.log('Servidor iniciado en el puerto 9091');
 });
