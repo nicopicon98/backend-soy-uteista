@@ -28,10 +28,8 @@ class TimeSlotController {
   static async getTimeSlotsByProfessional(req, res) {
     try {
       const { professional_id } = req.body;
-      const timeSlotsByProfessional =
-        await TimeSlotService.getTimeSlotsByProfessional(
-          professional_id
-        );
+      const timeSlotsByProfessional = await TimeSlotService.getTimeSlotsByProfessional(professional_id);
+      
       send({ data: timeSlotsByProfessional, status: 200 }, res);
     } catch (error) {
       send({ error: [error.message], status: 500 }, res);

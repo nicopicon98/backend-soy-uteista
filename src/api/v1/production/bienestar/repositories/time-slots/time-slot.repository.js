@@ -7,7 +7,7 @@ class TimeSlotRepository {
 
   async getTimeSlotsByProfessional(professional_id) {
     return await mysql.executeQuery(
-      `SELECT time_slots.*
+      `SELECT time_slots.id_time_slot, time_slots.name_time_slot, schedules.id_schedule, schedules.date
         FROM time_slots
           JOIN schedules ON time_slots.id_time_slot = schedules.id_time_slot
           JOIN users ON schedules.id_user = users.id_user

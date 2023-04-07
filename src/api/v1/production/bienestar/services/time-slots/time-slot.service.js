@@ -6,9 +6,30 @@ class TimeSlotService {
   }
 
   async getTimeSlotsByProfessional(professional_id) {
-    return await TimeSlotRepository.getTimeSlotsByProfessional(
-      professional_id,
+    const rawTimeSlots = await TimeSlotRepository.getTimeSlotsByProfessional(
+      professional_id
     );
+    return this.groupTimeSlotsByScheduleAndDate(rawTimeSlots);
+  }
+
+  groupTimeSlotsByScheduleAndDate(rawTimeSlots) {
+    const groupedTimeSlots = {};
+
+    rawTimeSlots.forEach((timeSlot) => {
+      if (!groupedTimeSlots[timeSlot.id_schedule]) {
+        groupedTimeSlots[timeSlot.id_schedule] = {
+          id_schedule: timeSlot.id_schedule,
+          date: timeSlot.date,
+          time_slots: [],
+        };
+      }
+      groupedTimeSlots[timeSlot.id_schedule].time_slots.push({
+        id_time_slot: timeSlot.id_time_slot,
+        name_time_slot: timeSlot.name_time_slot,
+      });
+    });
+
+    return Object.values(groupedTimeSlots);
   }
 }
 
