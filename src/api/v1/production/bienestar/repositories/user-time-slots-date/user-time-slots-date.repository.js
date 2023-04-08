@@ -30,17 +30,31 @@ class UserTimeSlotsDateRepository {
       VALUES (?, ?, ?)
     `;
     let affectedRows = 0;
-    const connection = await mysql.connect();
     for (let date = new Date(startDate); date <= new Date(endDate); date.setDate(date.getDate() + 1)) {
       for (const id_time_slot of time_slots) {
-        const [rows] = await connection.query(sql, [id_user, date, id_time_slot]);
+        const rows = await mysql.executeQuery(sql, [id_user, date, id_time_slot]);
         console.log(rows, "rows")
         affectedRows += rows.affectedRows;
       }
     }
-    connection.end();
     return affectedRows > 0 ? { message: "User time slots date inserted successfully" } : { message: "Failed to insert user time slots date" };
   }
-}  
+
+  // static async testInsert() {
+  //   try {
+  //     const sql = `
+  //       INSERT INTO user_time_slots_date (id_user, date, id_time_slot)
+  //       VALUES (?, ?, ?)
+  //     `;
+  //     const [rows] = await mysql.executeQuery(sql, [1, '2023-04-25', 1]);
+  //     console.log(rows);
+  //   } catch (error) {
+  //     console.error("Error: ", error);
+  //   }
+  // }
+  
+
+  
+}
 
 module.exports = UserTimeSlotsDateRepository;
