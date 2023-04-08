@@ -34,6 +34,7 @@ class UserTimeSlotsDateRepository {
     for (const date = new Date(startDate); date <= new Date(endDate); date.setDate(date.getDate() + 1)) {
       for (const time_slot_id of time_slots) {
         const rows = await mysql.executeQuery(sql, [id_user, date, time_slot_id]);
+        console.log(rows)
         affectedRows += rows.affectedRows;
       }
     }
