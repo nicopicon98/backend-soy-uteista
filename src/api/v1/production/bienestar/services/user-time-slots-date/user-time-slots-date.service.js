@@ -1,5 +1,5 @@
 // const UserTimeSlotsDateRepository = require('../../repositories/user-time-slots-date');
-
+const { mysql } = require("@src/common/conexiones/conexionMysql");
 class UserTimeSlotsDateService {
   static async getAllByProfessional(professional_id) {
     // const rows = await UserTimeSlotsDateRepository.getAllByUserId(professional_id);
