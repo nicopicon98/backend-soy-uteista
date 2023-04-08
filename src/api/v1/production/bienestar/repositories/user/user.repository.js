@@ -21,8 +21,11 @@ class UserRepository {
   }
 
   static async getAllProfessionals(user_id) {
-    const query =
-      "SELECT id_user, name_user, email, id_role, id_campuses_field FROM users WHERE id_role = 2";
+    const query = `SELECT 
+        id_user, name_user, email_user, location_user, 
+        id_role, id_campuses_field, registration_date
+        FROM users 
+        WHERE id_role = 2`;
     return mysql.executeQuery(query);
   }
 }
