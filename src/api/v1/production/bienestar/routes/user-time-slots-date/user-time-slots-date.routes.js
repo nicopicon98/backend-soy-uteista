@@ -17,7 +17,7 @@ userTimeSlotsDateRouter.post(
 userTimeSlotsDateRouter.post(
   USER_TIME_SLOTS_DATE_ROUTES.INSERT,
   (req, res) => {
-    res.send(req.params);
+    res.send(req.body);
   }
 )
 
