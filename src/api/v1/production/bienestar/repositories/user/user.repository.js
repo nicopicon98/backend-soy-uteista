@@ -22,7 +22,7 @@ class UserRepository {
 
   static async getAllProfessionals(user_id) {
     const query = "SELECT * FROM users WHERE id_role = 2";
-    return mysql.executeQueryy(query);
+    return mysql.executeQuery(query);
   }
 }
 
