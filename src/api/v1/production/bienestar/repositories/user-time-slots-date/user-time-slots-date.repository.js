@@ -40,7 +40,7 @@ class UserTimeSlotsDateRepository {
   //   return affectedRows > 0 ? { message: "User time slots date inserted successfully" } : { message: "Failed to insert user time slots date" };
   // }
 
-  static async testInsert() {
+  static async insert() {
     try {
       const sql = `
         INSERT INTO user_time_slots_date (id_user, date, id_time_slot)
