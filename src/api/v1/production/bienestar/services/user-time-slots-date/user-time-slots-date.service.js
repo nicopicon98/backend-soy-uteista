@@ -3,7 +3,7 @@ const { mysql } = require("@src/common/conexiones/conexionMysql");
 class UserTimeSlotsDateService {
   static async getAllByProfessional(professional_id) {
     // const rows = await UserTimeSlotsDateRepository.getAllByUserId(professional_id);
-      const query = `
+    const query = `
         SELECT
           user_time_slots_date.date,
           GROUP_CONCAT(time_slots.id_time_slot ORDER BY time_slots.id_time_slot) AS time_slot_ids,
@@ -20,7 +20,7 @@ class UserTimeSlotsDateService {
         ORDER BY
           user_time_slots_date.date ASC;
       `;
-    const rows =  mysql.executeQuery(query, [professional_id]);
+    const rows = await mysql.executeQuery(query, [professional_id]);
     return rows.map((row) => {
       const timeSlotIds = row.time_slot_ids.split(",");
       const timeSlotNames = row.time_slot_names.split(",");
