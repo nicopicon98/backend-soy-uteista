@@ -13,8 +13,7 @@ class UserTimeSlotsDateController {
    */
   static async getAllByProfessional(req, res) {
     try {
-      const { professional_id } = req.params;
-      console.log(professional_id, "professional_id from controller")
+      const { professional_id } = req.body;
       const userTimeSlotsDates =
         await UserTimeSlotsDateService.getAllByProfessional(professional_id);
       send({ data: userTimeSlotsDates, status: 200 }, res);
