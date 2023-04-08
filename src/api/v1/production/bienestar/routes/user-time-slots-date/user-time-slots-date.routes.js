@@ -5,6 +5,8 @@ const userTimeSlotsDateRouter = express.Router();
 const {
   getAllUserTimeSlotsDateByProfessionalValidationRules,
   validategetAllUserTimeSlotsDateByProfessional,
+  insertUserTimeSlotsDateValidationRules,
+  validateInsertUserTimeSlotsDate,
 } = require("../../middlewares/user-time-slots-date");
 
 //routes module
@@ -23,6 +25,8 @@ userTimeSlotsDateRouter.post(
 
 userTimeSlotsDateRouter.post(
   USER_TIME_SLOTS_DATE_ROUTES.INSERT,
+  insertUserTimeSlotsDateValidationRules(),
+  validateInsertUserTimeSlotsDate,
   UserTimeSlotsDateController.insert
 );
 
