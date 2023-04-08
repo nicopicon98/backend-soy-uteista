@@ -3,6 +3,10 @@ const nodemailer = require("nodemailer");
 class MailerService {
   constructor() {
     this.transporter = this.createTransporter();
+    console.log(process.env.SMTP_HOST, "SMTP_HOST");
+    console.log(process.env.SMTP_PORT, "SMTP_PORT");
+    console.log(process.env.SMTP_USER, "SMTP_USER");
+    console.log(process.env.SMTP_PASSWORD, "SMTP_PASSWORD");
   }
 
   // Create a transporter using environment variables
