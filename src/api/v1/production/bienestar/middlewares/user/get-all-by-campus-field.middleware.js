@@ -3,11 +3,11 @@ const { send } = require("../../config/crypto.config");
 
 const getAllUsersByCampusFieldValidationRules = () => {
   return [
-    body("campus_field")
+    body("campus_field_id")
       .notEmpty()
-      .withMessage("El campo campus_field es obligatorio")
+      .withMessage("El campo campus_field_id es obligatorio")
       .isInt()
-      .withMessage("El campo campus_field debe ser un número entero"),
+      .withMessage("El campo campus_field_id debe ser un número entero"),
   ];
 };
 
