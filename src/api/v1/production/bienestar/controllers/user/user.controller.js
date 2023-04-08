@@ -1,6 +1,7 @@
 const { send } = require("@api_bienestar/config/crypto.config");
 const UserService = require("../../services/user");
 const MailerService = require("../../services/mailer");
+const { hashPassword } = require("@src/common/security/bcrypt_encryption");
 
 class UserController {
   /**
