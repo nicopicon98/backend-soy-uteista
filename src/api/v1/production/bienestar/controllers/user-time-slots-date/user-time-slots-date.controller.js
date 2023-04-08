@@ -1,5 +1,5 @@
 const { send } = require("@api_bienestar/config/crypto.config");
-// const UserTimeSlotsDateService = require("../services/user-time-slots-date.service");
+const UserTimeSlotsDateService = require("@api_bienestar/services/user-time-slots-date");
 
 /**
  * Class representing the User Time Slots Date Controller.
@@ -14,9 +14,8 @@ class UserTimeSlotsDateController {
   static async getAllByProfessional(req, res) {
     try {
       const { professional_id } = req.params;
-      const userTimeSlotsDates = await UserTimeSlotsDateService.getAllByProfessional(
-        professional_id
-      );
+      const userTimeSlotsDates =
+        await UserTimeSlotsDateService.getAllByProfessional(professional_id);
 
       const formattedData = userTimeSlotsDates.map((utd) => {
         const { date, timeSlots } = utd;
