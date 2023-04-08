@@ -21,6 +21,16 @@ class UserTimeSlotsDateController {
       send({ error: [error.message], status: 500 }, res);
     }
   }
+
+  static async insert(req, res) {
+    try {
+      const { professional_id, time_slots_date } = req.body;
+      const result = await UserTimeSlotsDateService.insert(professional_id, time_slots_date);
+      send({ data: result, status: 201 }, res);
+    } catch (error) {
+      send({ error: [error.message], status: 500 }, res);
+    }
+  }
 }
 
 module.exports = UserTimeSlotsDateController;

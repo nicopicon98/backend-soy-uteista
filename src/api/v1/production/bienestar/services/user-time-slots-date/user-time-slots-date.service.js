@@ -1,4 +1,3 @@
-const { mysql } = require("@src/common/conexiones/conexionMysql");
 const UserTimeSlotsDateRepository = require('../../repositories/user-time-slots-date');
 
 class UserTimeSlotsDateService {
@@ -15,6 +14,10 @@ class UserTimeSlotsDateService {
       }));
       return { date: row.date, time_slots: timeSlots };
     });
+  }
+
+  static async insert(professional_id, time_slots_date) {
+    return await UserTimeSlotsDateRepository.insert(professional_id, time_slots_date);
   }
 }
 
