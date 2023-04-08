@@ -17,7 +17,14 @@ userRouter.post(
   USER_ROUTES_MODEL.GET_ALL_PROFESSIONALS_BY_CAMPUS_FIELD,
   getAllUsersByCampusFieldValidationRules(),
   validateGetAllUsersByCampusField,
-  UserController.getAllByCampusField
+  UserController.getAllProfessionalsByCampusField
+);
+
+userRouter.post(
+  USER_ROUTES_MODEL.GET_ALL_PROFESSIONALS,
+  // getAllUsersByCampusFieldValidationRules(),
+  // validateGetAllUsersByCampusField,
+  UserController.getAllProfessionals
 );
 
 module.exports = userRouter;

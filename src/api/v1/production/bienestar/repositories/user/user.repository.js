@@ -1,7 +1,7 @@
 const { mysql } = require("@src/common/conexiones/conexionMysql");
 
 class UserRepository {
-  static async getAllByCampusField(campus_field_id) {
+  static async getAllProfessionalsByCampusField(campus_field_id) {
     try {
       const rows = await mysql.executeQuery(
         `SELECT users.name_user, users.id_user,
@@ -18,6 +18,12 @@ class UserRepository {
     } catch (error) {
       throw error;
     }
+  }
+
+  static async getAllProfessionals(user_id) {
+    const query = 'SELECT * FROM users WHERE id_role = 2';
+    const { rows } = await db.query(query);
+    return rows;
   }
 }
 
