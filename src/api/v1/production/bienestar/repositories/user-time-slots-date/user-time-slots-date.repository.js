@@ -24,24 +24,31 @@ class UserTimeSlotsDateRepository {
 
   static async insert(id_user, user_time_slots_date) {
     const { startDate, endDate, time_slots } = user_time_slots_date;
-    
+
     const sql = `
-      INSERT INTO user_time_slots_date (id_user, date, id_time_slot)
+      INSERT IGNORE INTO user_time_slots_date (id_user, date, id_time_slot)
       VALUES (?, ?, ?)
     `;
     let affectedRows = 0;
-    for (let date = new Date(startDate); date <= new Date(endDate); date.setDate(date.getDate() + 1)) {
+    for (
+      let date = new Date(startDate);
+      date <= new Date(endDate);
+      date.setDate(date.getDate() + 1)
+    ) {
       for (const id_time_slot of time_slots) {
-        const rows = await mysql.executeQuery(sql, [id_user, date, id_time_slot]);
-        console.log(rows, "rows")
+        const rows = await mysql.executeQuery(sql, [
+          id_user,
+          date,
+          id_time_slot,
+        ]);
+        console.log(rows, "rows");
         affectedRows += rows.affectedRows;
       }
     }
-    return affectedRows > 0 ? { message: "User time slots date inserted successfully" } : { message: "Failed to insert user time slots date" };
+    return affectedRows > 0
+      ? { message: "User time slots date inserted successfully" }
+      : { message: "Failed to insert user time slots date" };
   }
-  
-
-  
 }
 
 module.exports = UserTimeSlotsDateRepository;
