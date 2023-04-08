@@ -1,5 +1,5 @@
 const { body, validationResult } = require("express-validator");
-const { send } = require("../config/crypto.config");
+const { send } = require("../../config/crypto.config");
 
 const getAllUserTimeSlotsDateByProfessionalValidationRules = () => {
   return [
