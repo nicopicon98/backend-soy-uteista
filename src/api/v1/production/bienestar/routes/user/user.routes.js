@@ -8,7 +8,7 @@ const userRouter = express.Router();
 const USER_ROUTES_MODEL = require("../../models/routes/user");
 
 //controllers
-const UserTimeSlotsDateController = require("../../controllers/user-time-slots-date");
+const UserController = require("../../controllers/user");
 
 //example
 // userRouter.post(
@@ -20,7 +20,7 @@ const UserTimeSlotsDateController = require("../../controllers/user-time-slots-d
 
 userRouter.post(
   USER_ROUTES_MODEL.GET_ALL_PROFESSIONALS_BY_CAMPUS_FIELD,
-  (req, res) => res.send("This is working")
+  UserController.getAllByCampusField
 );
 
 module.exports = userRouter;
