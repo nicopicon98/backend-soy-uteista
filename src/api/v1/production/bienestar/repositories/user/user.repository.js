@@ -28,6 +28,21 @@ class UserRepository {
         WHERE id_role = 2`;
     return mysql.executeQuery(query);
   }
+
+  static async insertProfessional(professional) {
+    const result = await mysql.executeQuery(
+      "INSERT INTO users (name_user, email_user, password_user, location_user, id_campuses_field, id_role) VALUES (?, ?, ?, ?, ?, ?)",
+      [
+        professional.name_user,
+        professional.email_user,
+        professional.password_user,
+        professional.location_user,
+        professional.id_campuses_field,
+        2,
+      ]
+    );
+    return result;
+  }
 }
 
 module.exports = UserRepository;

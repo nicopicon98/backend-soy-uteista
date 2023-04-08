@@ -31,7 +31,7 @@ userRouter.post(
 
 userRouter.post(
   USER_ROUTES_MODEL.INSERT_PROFESSIONAL,
-  (req, res) => res.send("this is working")
+  UserController.insertProfessional
 );
 
 
