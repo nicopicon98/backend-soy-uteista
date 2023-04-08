@@ -20,7 +20,7 @@ const USER_ROUTES_MODEL = require("../../models/routes/user");
 
 userRouter.post(
   USER_ROUTES_MODEL.GET_ALL_PROFESSIONALS_BY_CAMPUS_FIELD,
-  (req, res) => res.json("This is working")
+  (req, res) => res.send("This is working")
 );
 
 module.exports = userRouter;
