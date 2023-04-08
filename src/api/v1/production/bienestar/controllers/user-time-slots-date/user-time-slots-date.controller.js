@@ -1,5 +1,5 @@
 const { send } = require("@api_bienestar/config/crypto.config");
-const UserTimeSlotsDateService = require("@api_bienestar/services/user-time-slots-date");
+// const UserTimeSlotsDateService = require("@api_bienestar/services/user-time-slots-date");
 
 /**
  * Class representing the User Time Slots Date Controller.
@@ -12,30 +12,31 @@ class UserTimeSlotsDateController {
    * @param {Object} res - The response object.
    */
   static async getAllByProfessional(req, res) {
-    try {
-      const { professional_id } = req.params;
-      const userTimeSlotsDates =
-        await UserTimeSlotsDateService.getAllByProfessional(professional_id);
+    // try {
+    //   const { professional_id } = req.params;
+    //   const userTimeSlotsDates =
+    //     await UserTimeSlotsDateService.getAllByProfessional(professional_id);
 
-      const formattedData = userTimeSlotsDates.map((utd) => {
-        const { date, timeSlots } = utd;
+    //   const formattedData = userTimeSlotsDates.map((utd) => {
+    //     const { date, timeSlots } = utd;
 
-        return {
-          date,
-          time_slots: timeSlots.map((ts) => {
-            return {
-              id_user_time_slot_date: ts.id_user_time_slot_date,
-              id_time_slot: ts.id_time_slot,
-              name_time_slot: ts.name_time_slot,
-            };
-          }),
-        };
-      });
+    //     return {
+    //       date,
+    //       time_slots: timeSlots.map((ts) => {
+    //         return {
+    //           id_user_time_slot_date: ts.id_user_time_slot_date,
+    //           id_time_slot: ts.id_time_slot,
+    //           name_time_slot: ts.name_time_slot,
+    //         };
+    //       }),
+    //     };
+    //   });
 
-      send({ data: formattedData, status: 200 }, res);
-    } catch (error) {
-      send({ error: [error.message], status: 500 }, res);
-    }
+    //   send({ data: formattedData, status: 200 }, res);
+    // } catch (error) {
+    //   send({ error: [error.message], status: 500 }, res);
+    // }
+    send({ data: [{ a: "working" }], status: 200 }, res);
   }
 }
 
