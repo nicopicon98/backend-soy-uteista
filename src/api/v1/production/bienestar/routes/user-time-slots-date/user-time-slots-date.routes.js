@@ -15,7 +15,7 @@ userTimeSlotsDateRouter.post(
 );
 
 userTimeSlotsDateRouter.post(
-  USER_TIME_SLOTS_DATE_ROUTES.GET_ALL_BY_PROFESSIONAL,
+  USER_TIME_SLOTS_DATE_ROUTES.INSERT,
   (req, res) => res.send("It's working")
 )
 
