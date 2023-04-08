@@ -23,16 +23,14 @@ class UserTimeSlotsDateRepository {
   }
 
   static async insert(professional_id, time_slots_date) {
-    const sql = `
+    const query = `
       INSERT INTO user_time_slots_date (professional_id, time_slots_date)
       VALUES (?, ?)
     `;
-    const connection = await mysql.connect();
-    const [rows] = await connection.query(sql, [
+    const rows = await mysql.executeQuery(query, [
       professional_id,
       time_slots_date,
     ]);
-    connection.end();
     return rows.affectedRows > 0
       ? { message: "User time slots date inserted successfully" }
       : { message: "Failed to insert user time slots date" };
