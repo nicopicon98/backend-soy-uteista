@@ -29,4 +29,10 @@ userRouter.post(
   UserController.getAllProfessionals
 );
 
+userRouter.post(
+  USER_ROUTES_MODEL.INSERT_PROFESSIONAL,
+  (req, res) => res.send("this is working")
+);
+
+
 module.exports = userRouter;
