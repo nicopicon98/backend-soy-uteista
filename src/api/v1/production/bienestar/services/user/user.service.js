@@ -1,4 +1,4 @@
-const UserRepository = require("../repositories/user");
+const UserRepository = require("../../repositories/user");
 
 class UserService {
   static async getAllByCampusField(campus_field_id) {
