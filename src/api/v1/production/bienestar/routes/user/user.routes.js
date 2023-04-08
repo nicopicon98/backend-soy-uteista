@@ -8,7 +8,7 @@ const userRouter = express.Router();
 const USER_ROUTES_MODEL = require("../../models/routes/user");
 
 //controllers
-// const UserTimeSlotsDateController = require("../../controllers/user-time-slots-date");
+const UserTimeSlotsDateController = require("../../controllers/user-time-slots-date");
 
 //example
 // userRouter.post(
