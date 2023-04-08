@@ -24,7 +24,6 @@ class UserTimeSlotsDateRepository {
 
   static async insert(id_user, user_time_slots_date) {
     const { startDate, endDate, time_slots } = user_time_slots_date;
-    const timeSlotIds = time_slots.join(",");
     
     const sql = `
       INSERT INTO user_time_slots_date (id_user, date, id_time_slot)
@@ -38,7 +37,7 @@ class UserTimeSlotsDateRepository {
         affectedRows += rows.affectedRows;
       }
     }
-    return rows.affectedRows > 0 ? { message: "User time slots date inserted successfully" } : { message: "Failed to insert user time slots date" };
+    return affectedRows > 0 ? { message: "User time slots date inserted successfully" } : { message: "Failed to insert user time slots date" };
   }
 }
 
