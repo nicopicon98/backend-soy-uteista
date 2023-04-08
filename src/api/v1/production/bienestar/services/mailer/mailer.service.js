@@ -6,7 +6,7 @@ class MailerService {
     console.log(process.env.SMTP_HOST, "SMTP_HOST");
     console.log(process.env.SMTP_PORT, "SMTP_PORT");
     console.log(process.env.SMTP_USER, "SMTP_USER");
-    console.log(process.env.SMTP_PASSWORD, "SMTP_PASSWORD");
+    console.log(process.env.SMTP_PASS, "SMTP_PASS");
   }
 
   // Create a transporter using environment variables
@@ -17,7 +17,7 @@ class MailerService {
       secure: false,
       auth: {
         user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASSWORD,
+        pass: process.env.SMTP_PASS,
       },
     });
   }
