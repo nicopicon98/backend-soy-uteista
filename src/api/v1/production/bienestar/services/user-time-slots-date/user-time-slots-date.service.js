@@ -2,6 +2,7 @@ const { mysql } = require("@src/common/conexiones/conexionMysql");
 
 class UserTimeSlotsDateService {
   static async getAllByProfessional(professional_id) {
+    console.log(professional_id, "professional_id")
     const query = `
     SELECT
     user_time_slots_date.date,
@@ -20,7 +21,7 @@ class UserTimeSlotsDateService {
     user_time_slots_date.date ASC;
     `;
     const rows = await mysql.executeQuery(query, [professional_id]);
-    console.log(rows);
+    console.log(rows, "rows");
     return rows.map((row) => {
       const timeSlotIds = row.time_slot_ids.split(",");
       const timeSlotNames = row.time_slot_names.split(",");
