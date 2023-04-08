@@ -2,21 +2,21 @@ const { body } = require("express-validator");
 
 const getAllProfessionalsByCampusFieldValidationRules = () => {
   return [
-    body("campus_field_id")
+    body("id_campus_field")
       .notEmpty()
-      .withMessage("El campo campus_field_id es obligatorio")
+      .withMessage("El campo id_campus_field es obligatorio")
       .isInt()
-      .withMessage("El campo campus_field_id debe ser un número entero"),
+      .withMessage("El campo id_campus_field debe ser un número entero"),
   ];
 };
 
 const getAllProfessionalsValidationRules = () => {
   return [
-    body("user_id")
+    body("id_user")
       .notEmpty()
-      .withMessage("El campo user_id es obligatorio")
+      .withMessage("El campo id_user es obligatorio")
       .isInt()
-      .withMessage("El campo user_id debe ser un número entero"),
+      .withMessage("El campo id_user debe ser un número entero"),
   ];
 };
 

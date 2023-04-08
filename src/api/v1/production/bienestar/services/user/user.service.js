@@ -1,16 +1,16 @@
 const UserRepository = require("../../repositories/user");
 
 class UserService {
-  static async getAllProfessionalsByCampusField(campus_field_id) {
+  static async getAllProfessionalsByCampusField(id_campus_field) {
     try {
-      return await UserRepository.getAllByCampusField(campus_field_id);
+      return await UserRepository.getAllByCampusField(id_campus_field);
     } catch (error) {
       throw error;
     }
   }
 
-  static async getAllProfessionals(user_id) {
-    return UserRepository.getAllProfessionals(user_id);
+  static async getAllProfessionals(id_user) {
+    return UserRepository.getAllProfessionals(id_user);
   }
 }
 

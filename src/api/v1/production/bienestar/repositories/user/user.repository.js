@@ -1,7 +1,7 @@
 const { mysql } = require("@src/common/conexiones/conexionMysql");
 
 class UserRepository {
-  static async getAllProfessionalsByCampusField(campus_field_id) {
+  static async getAllProfessionalsByCampusField(id_campus_field) {
     try {
       const rows = await mysql.executeQuery(
         `SELECT users.name_user, users.id_user,
@@ -12,7 +12,7 @@ class UserRepository {
           INNER JOIN fields ON fields.id_field = campuses_fields.id_field
           INNER JOIN campuses ON campuses.id_campus = campuses_fields.id_campus
           WHERE users.id_campuses_field = ? AND users.id_role = 2`,
-        [campus_field_id]
+        [id_campus_field]
       );
       return rows;
     } catch (error) {
@@ -20,7 +20,7 @@ class UserRepository {
     }
   }
 
-  static async getAllProfessionals(user_id) {
+  static async getAllProfessionals(id_user) {
     const query = `SELECT 
         id_user, name_user, email_user, location_user, 
         id_role, id_campuses_field, registration_date
