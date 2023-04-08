@@ -9,4 +9,4 @@ const validationMiddleware = (req, res, next) => {
   return send({ error: [errors.array()[0].msg], status: 406 }, res);
 };
 
-module.exports = validationMiddleware
+module.exports = validationMiddleware;

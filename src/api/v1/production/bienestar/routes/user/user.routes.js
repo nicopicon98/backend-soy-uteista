@@ -7,7 +7,7 @@ const {
   getAllProfessionalsValidationRules,
 } = require("../../middlewares/validation-rules/user");
 
-const { validationMiddleware } = require("../../middlewares/validator");
+const validationMiddleware = require("../../middlewares/validator");
 
 //routes module
 const USER_ROUTES_MODEL = require("../../models/routes/user");
