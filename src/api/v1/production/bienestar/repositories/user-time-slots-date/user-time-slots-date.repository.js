@@ -1,7 +1,7 @@
 const { mysql } = require("@src/common/conexiones/conexionMysql");
 
 class UserTimeSlotsDateRepository {
-  static async getAllByUserId(userId) {
+  static async getAllByUserId(professional_id) {
     const query = `
       SELECT
         user_time_slots_date.date,
@@ -19,8 +19,7 @@ class UserTimeSlotsDateRepository {
       ORDER BY
         user_time_slots_date.date ASC;
     `;
-    const rows = await mysql.executeQuery(query, [userId]);
-    return rows;
+    return mysql.executeQuery(query, [professional_id]);
   }
 }
 

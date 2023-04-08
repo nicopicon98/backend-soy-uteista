@@ -1,4 +1,4 @@
-const UserTimeSlotsDateRepository = require('@api_bienestar/repositories/user-time-slots-date');
+const UserTimeSlotsDateRepository = require('../../repositories/user-time-slots-date');
 
 class UserTimeSlotsDateService {
   static async getAllByProfessional(professional_id) {
