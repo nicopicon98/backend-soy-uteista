@@ -3,7 +3,7 @@ const { send } = require("../../config/crypto.config");
 
 const insertUserTimeSlotsDateValidationRules = () => {
   return [
-    body("professional_id")
+    body("id_user")
       .notEmpty()
       .withMessage("El campo professional_id es obligatorio")
       .isInt()
