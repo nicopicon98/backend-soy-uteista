@@ -3,7 +3,6 @@ const { mysql } = require("@src/common/conexiones/conexionMysql");
 class UserTimeSlotsDateService {
   static async getAllByProfessional(professional_id) {
     // const rows = await UserTimeSlotsDateRepository.getAllByUserId(professional_id);
-    const proff_formmated = Number(professional_id);
     const query = `
     SELECT
       user_time_slots_date.date,
