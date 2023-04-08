@@ -6,8 +6,8 @@ const getAllUserTimeSlotsDateByProfessionalValidationRules = () => {
     body("professional_id")
       .notEmpty()
       .withMessage("El campo professional_id es obligatorio")
-      .isNumeric()
-      .withMessage("El tipo de professional_id debe ser un numero")
+      .isInt()
+      .withMessage("El campo id_campus_area debe ser un número entero"),
   ];
 };
 
