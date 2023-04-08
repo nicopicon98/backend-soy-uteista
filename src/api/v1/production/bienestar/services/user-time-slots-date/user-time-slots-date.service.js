@@ -20,7 +20,7 @@ class UserTimeSlotsDateService {
     user_time_slots_date.date ASC;
     `;
     const rows = await mysql.executeQuery(query, [professional_id]);
-
+    console.log(rows);
     return rows.map((row) => {
       const timeSlotIds = row.time_slot_ids.split(",");
       const timeSlotNames = row.time_slot_names.split(",");
