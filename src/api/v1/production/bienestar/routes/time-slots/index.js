@@ -1,2 +1,2 @@
-const router = require("./time-slot.routes");
-module.exports = router;
+const timeSlotRouter = require("./time-slot.routes");
+module.exports = timeSlotRouter;
