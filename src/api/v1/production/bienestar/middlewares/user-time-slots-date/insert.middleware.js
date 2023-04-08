@@ -5,7 +5,7 @@ const insertUserTimeSlotsDateValidationRules = () => {
   return [
     body("id_user")
       .notEmpty()
-      .withMessage("El campo professional_id es obligatorio")
+      .withMessage("El campo id_user es obligatorio")
       .isInt()
       .withMessage("El campo id_campus_area debe ser un número entero"),
     body("user_time_slots_date.startDate")
