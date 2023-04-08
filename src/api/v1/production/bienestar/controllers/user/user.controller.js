@@ -79,11 +79,11 @@ class UserController {
         professional
       );
       // Use the WelcomeUserEmailService class to send the welcome email
-      await MailerService.sendWelcomeUserEmail(
-        name_user,
-        email_user,
-        passwordWithoutEncrypt
-      );
+      // await MailerService.sendWelcomeUserEmail(
+      //   name_user,
+      //   email_user,
+      //   passwordWithoutEncrypt
+      // );
       send({ data: createdProfessional, status: 200 }, res);
     } catch (error) {
       if (error.code === "ER_DUP_ENTRY") {
