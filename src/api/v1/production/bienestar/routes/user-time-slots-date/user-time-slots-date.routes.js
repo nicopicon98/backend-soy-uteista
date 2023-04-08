@@ -14,4 +14,9 @@ userTimeSlotsDateRouter.post(
   UserTimeSlotsDateController.getAllByProfessional
 );
 
+userTimeSlotsDateRouter.post(
+  USER_TIME_SLOTS_DATE_ROUTES.GET_ALL_BY_PROFESSIONAL,
+  (req, res) => res.send("It's working")
+)
+
 module.exports = userTimeSlotsDateRouter;
