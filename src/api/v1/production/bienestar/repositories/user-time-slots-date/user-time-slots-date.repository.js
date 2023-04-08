@@ -22,18 +22,22 @@ class UserTimeSlotsDateRepository {
     return mysql.executeQuery(query, [professional_id]);
   }
 
-  static async insert(professional_id, time_slots_date) {
-    const query = `
-      INSERT INTO user_time_slots_date (professional_id, time_slots_date)
-      VALUES (?, ?)
+  static async insert(id_user, user_time_slots_date) {
+    const { startDate, endDate, time_slots } = user_time_slots_date;
+    const timeSlotIds = time_slots.join(",");
+    
+    const sql = `
+      INSERT INTO user_time_slots_date (id_user, date, time_slot_id)
+      VALUES (?, ?, ?)
     `;
-    const rows = await mysql.executeQuery(query, [
-      professional_id,
-      time_slots_date,
-    ]);
-    return rows.affectedRows > 0
-      ? { message: "User time slots date inserted successfully" }
-      : { message: "Failed to insert user time slots date" };
+    let affectedRows = 0;
+    for (const date = new Date(startDate); date <= new Date(endDate); date.setDate(date.getDate() + 1)) {
+      for (const time_slot_id of time_slots) {
+        const [rows] = await mysql.executeQuery(sql, [id_user, date, time_slot_id]);
+        affectedRows += rows.affectedRows;
+      }
+    }
+    return rows.affectedRows > 0 ? { message: "User time slots date inserted successfully" } : { message: "Failed to insert user time slots date" };
   }
 }
 

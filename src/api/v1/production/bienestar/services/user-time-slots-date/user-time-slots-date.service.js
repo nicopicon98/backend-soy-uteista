@@ -16,8 +16,8 @@ class UserTimeSlotsDateService {
     });
   }
 
-  static async insert(professional_id, time_slots_date) {
-    return await UserTimeSlotsDateRepository.insert(professional_id, time_slots_date);
+  static async insert(id_user, user_time_slots_date) {
+    return await UserTimeSlotsDateRepository.insert(id_user, user_time_slots_date);
   }
 }
 
