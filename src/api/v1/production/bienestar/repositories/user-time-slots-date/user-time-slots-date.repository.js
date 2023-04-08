@@ -46,7 +46,7 @@ class UserTimeSlotsDateRepository {
         INSERT INTO user_time_slots_date (id_user, date, id_time_slot)
         VALUES (?, ?, ?)
       `;
-      const [rows] = await mysql.executeQuery(sql, [1, '2023-04-25', 1]);
+      const rows = await mysql.executeQuery(sql, [1, '2023-04-25', 1]);
       console.log(rows);
     } catch (error) {
       console.error("Error: ", error);
