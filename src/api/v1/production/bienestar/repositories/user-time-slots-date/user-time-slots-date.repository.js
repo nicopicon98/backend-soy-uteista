@@ -27,13 +27,13 @@ class UserTimeSlotsDateRepository {
     const timeSlotIds = time_slots.join(",");
     
     const sql = `
-      INSERT INTO user_time_slots_date (id_user, date, time_slot_id)
+      INSERT INTO user_time_slots_date (id_user, date, id_time_slot)
       VALUES (?, ?, ?)
     `;
     let affectedRows = 0;
     for (const date = new Date(startDate); date <= new Date(endDate); date.setDate(date.getDate() + 1)) {
       for (const time_slot_id of time_slots) {
-        const [rows] = await mysql.executeQuery(sql, [id_user, date, time_slot_id]);
+        const rows = await mysql.executeQuery(sql, [id_user, date, time_slot_id]);
         affectedRows += rows.affectedRows;
       }
     }
