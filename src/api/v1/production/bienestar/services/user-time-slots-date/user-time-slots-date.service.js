@@ -30,7 +30,7 @@ class UserTimeSlotsDateService {
         id_time_slot: parseInt(id),
         name_time_slot: timeSlotNames[index],
       }));
-      return { date: row.date, time_slots: timeSlots };
+      return { date: row.date, time_slots: rows };
     });
   }
 }

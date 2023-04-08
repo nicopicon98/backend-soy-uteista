@@ -16,22 +16,6 @@ class UserTimeSlotsDateController {
       const { professional_id } = req.params;
       const userTimeSlotsDates =
         await UserTimeSlotsDateService.getAllByProfessional(professional_id);
-
-      // const formattedData = userTimeSlotsDates.map((utd) => {
-      //   const { date, timeSlots } = utd;
-
-      //   return {
-      //     date,
-      //     time_slots: timeSlots.map((ts) => {
-      //       return {
-      //         id_user_time_slot_date: ts.id_user_time_slot_date,
-      //         id_time_slot: ts.id_time_slot,
-      //         name_time_slot: ts.name_time_slot,
-      //       };
-      //     }),
-      //   };
-      // });
-
       send({ data: userTimeSlotsDates, status: 200 }, res);
     } catch (error) {
       send({ error: [error.message], status: 500 }, res);
