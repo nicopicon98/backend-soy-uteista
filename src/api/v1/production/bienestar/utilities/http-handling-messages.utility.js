@@ -12,7 +12,7 @@ const HTTP_HANDLING_MSGS = {
     return [`Error interno del servidor: ${JSON.stringify(error, null, 2)}`];
   },
   successUpdateUser: "Usuario actualizado satisfactoriamente!",
-  errorUserNotFound: "Este usuario que estas intentando actualizar, no existe!",
+  errorUserNotFound: "Este usuario que estas intentando modificar, no existe!",
   errorDeleteUserUserSlotTimesDateDependency:
     "Este usuario no se pudo eliminar, ya que tiene un horario asignado!",
   successDeleteUser: "Usuario eliminado con éxito",
