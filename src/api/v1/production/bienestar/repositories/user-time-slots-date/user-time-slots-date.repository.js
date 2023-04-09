@@ -41,7 +41,6 @@ class UserTimeSlotsDateRepository {
           date,
           id_time_slot,
         ]);
-        console.log(rows, "rows");
         affectedRows += rows.affectedRows;
       }
     }
