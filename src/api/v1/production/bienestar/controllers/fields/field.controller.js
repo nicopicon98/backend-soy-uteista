@@ -83,7 +83,7 @@ class FieldController {
       await FieldService.delete(id_field);
       send(
         {
-          data: { message: `Field with ID: ${id_field} has been deleted.` },
+          data: HTTP_HANDLING_MSGS.successDelete(),
           status: 200,
         },
         res
