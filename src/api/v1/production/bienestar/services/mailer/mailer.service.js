@@ -4,6 +4,7 @@ const { myEmitter } = require("../../utilities");
 class MailerService {
   constructor() {
     this.transporter = this.createTransporter();
+    this.registerListeners();
   }
 
   // Create a transporter using environment variables
