@@ -2,9 +2,9 @@ const express = require("express");
 const campusRouter = express.Router();
 
 // middlewares
-const {
-  getAllCampusesValidationRules,
-} = require("../../middlewares/validation-rules/campuses");
+// const {
+//   getAllCampusesValidationRules,
+// } = require("../../middlewares/validation-rules/campuses");
 const validationMiddleware = require("../../middlewares/validator");
 
 // routes
