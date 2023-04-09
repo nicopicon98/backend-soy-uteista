@@ -1,7 +1,7 @@
 const {
   getAllUserTimeSlotsDateByProfessionalValidationRules,
   insertUserTimeSlotsDateValidationRules,
-} = require("./user-time-slots-date-validation-rules.middleware");
+} = require("./user-time-slot-date-validation-rules.middleware");
 
 module.exports = {
   getAllUserTimeSlotsDateByProfessionalValidationRules,

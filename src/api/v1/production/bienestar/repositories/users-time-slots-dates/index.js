@@ -1,2 +1,2 @@
-const UserTimeSlotsDateRepository = require('./user-time-slots-date.repository');
+const UserTimeSlotsDateRepository = require('./user-time-slot-date.repository');
 module.exports = UserTimeSlotsDateRepository
