@@ -1,21 +1,39 @@
 const HTTP_HANDLING_MSGS = {
-  successInsertProfessional: (email_user) => {
-    return `Usuario creado con éxito, un correo con indicaciones fue enviado al correo electrónico registrado ${email_user}`;
+
+  //success
+  successInsert: (custom_msg = "") => {
+    return `Registro: ${custom_msg} insertado con exito`;
   },
-  successInsertProfessionalMailNotSend: (email_user) => {
-    return `Usuario creado con éxito, pero no se pudo enviar el correo electrónico de bienvenida a ${email_user}. Por favor, revise que ${email_user} sea el correo electrónico indicado. Si el error persiste, por favor contacte con soporte.`;
+  successUpdate: (custom_msg = "") => {
+    return `Registro: ${custom_msg} modificado con exito`;
   },
-  errorDuplicateEntry: (custom_msg) => {
-    return [`Entrada duplicada: ${custom_msg}`];
+  successDelete: (custom_msg = "") => {
+    return `Registro: ${custom_msg} eliminado con exito`;
   },
-  errorInternalServer: (error) => {
-    return [`Error interno del servidor: ${JSON.stringify(error, null, 2)}`];
+  successInsertEmailNotSent: function (email = "") {
+    return `${this.successInsert(
+      email
+    )}, pero el email de bienvenida no pudo ser enviado. Verifica que el correo ${email} no contenga errores. Si el error persiste, contacte con soporte.`;
   },
-  successUpdateUser: "Usuario actualizado satisfactoriamente!",
-  errorUserNotFound: "Este usuario que estas intentando modificar, no existe!",
-  errorDeleteUserUserSlotTimesDateDependency:
-    "Este usuario no se pudo eliminar, ya que tiene un horario asignado!",
-  successDeleteUser: "Usuario eliminado con éxito",
+
+  //error
+  errorDeleteDependency: (value = "", dependency = "") => {
+    return `Registro: ${value} no se pudo eliminar debido a la dependencia existente con ${dependency}`;
+  },
+  errorDuplicateEntry: (custom_msg = "") => {
+    return `Registro duplicado: ${custom_msg}`;
+  },
+  errorInternalServer: (error = "") => {
+    return `Error interno del servidor: ${JSON.stringify(error, null, 2)}`;
+  },
+  errorNotFound: (custom_msg = "") => {
+    return `Registro no encontrado: ${custom_msg}`;
+  },
+
+  //warning
+
+  //info
+  
 };
 
 module.exports = HTTP_HANDLING_MSGS;

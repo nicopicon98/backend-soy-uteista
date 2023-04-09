@@ -103,7 +103,7 @@ class UserRepository {
     );
 
     if (result.affectedRows === 0) {
-      throw new Error(HTTP_HANDLING_MSGS.errorUserNotFound);
+      throw new Error(HTTP_HANDLING_MSGS.errorNotFound(`profesional`));
     }
 
     return result;

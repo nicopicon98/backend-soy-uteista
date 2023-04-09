@@ -86,7 +86,7 @@ class UserController {
       if (emailSent) {
         send(
           {
-            data: HTTP_HANDLING_MSGS.successInsertProfessional(email_user),
+            data: HTTP_HANDLING_MSGS.successInsert(email_user),
             status: 200,
           },
           res
@@ -94,10 +94,7 @@ class UserController {
       } else {
         send(
           {
-            error:
-              HTTP_HANDLING_MSGS.successInsertProfessionalMailNotSend(
-                email_user
-              ),
+            data: HTTP_HANDLING_MSGS.successInsertEmailNotSent(email_user),
             status: 200,
           },
           res
@@ -107,16 +104,19 @@ class UserController {
       if (error.code === "ER_DUP_ENTRY") {
         send(
           {
-            error: HTTP_HANDLING_MSGS.errorDuplicateEntry(
-              "El usuario ya existe"
-            ),
+            error: [
+              HTTP_HANDLING_MSGS.errorDuplicateEntry("El usuario ya existe"),
+            ],
             status: 409,
           },
           res
         );
       } else {
         send(
-          { error: HTTP_HANDLING_MSGS.errorInternalServer(error), status: 500 },
+          {
+            error: [HTTP_HANDLING_MSGS.errorInternalServer(error)],
+            status: 500,
+          },
           res
         );
       }
@@ -145,7 +145,7 @@ class UserController {
       if (result.affectedRows === 0) {
         send(
           {
-            error: { message: HTTP_HANDLING_MSGS.errorUserNotFound },
+            error: [HTTP_HANDLING_MSGS.errorNotFound(`profesional`)],
             status: 404,
           },
           res
@@ -153,7 +153,11 @@ class UserController {
       }
       send(
         {
-          data: { message: HTTP_HANDLING_MSGS.successUpdateUser },
+          data: {
+            message: HTTP_HANDLING_MSGS.successUpdate(
+              `Profesional: ${name_user}`
+            ),
+          },
           status: 200,
         },
         res
@@ -178,7 +182,7 @@ class UserController {
       await UserService.deleteUser(id_user);
       send(
         {
-          data: { message: HTTP_HANDLING_MSGS.successDeleteUser },
+          data: { message: HTTP_HANDLING_MSGS.successDelete("profesional") },
           status: 200,
         },
         res

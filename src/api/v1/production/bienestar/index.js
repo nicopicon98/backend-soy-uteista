@@ -2,15 +2,15 @@ const express = require("express");
 const bienestar = express();
 
 //Routes
-const timeSlotRouter = require("./routes/time-slots");
 const userTimeSlotsDateRouter = require('./routes/user-time-slots-date')
-const userRouter = require('./routes/user')
+const timeSlotRouter = require("./routes/time-slots");
 const fieldRouter = require('./routes/fields')
+const userRouter = require('./routes/user')
 
-bienestar.use(timeSlotRouter);
 bienestar.use(userTimeSlotsDateRouter);
-bienestar.use(userRouter);
+bienestar.use(timeSlotRouter);
 bienestar.use(fieldRouter);
+bienestar.use(userRouter);
 
 const bienestarVersion = () => "/api/v1/production/bienestar";
 module.exports = {

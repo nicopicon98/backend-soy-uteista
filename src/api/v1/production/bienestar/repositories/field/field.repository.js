@@ -28,6 +28,18 @@ class FieldRepository {
     const query = "DELETE FROM fields WHERE id_field = ?";
     return mysql.executeQuery(query, [id_field]);
   }
+
+  static async getByName(name_field) {
+    const query = "SELECT * FROM fields WHERE LOWER(name_field) = LOWER(?)";
+    const result = await mysql.executeQuery(query, [name_field]);
+    return result;
+  }
+
+  static async isFieldInCampus(id_field) {
+    const query = "SELECT * FROM campuses_fields WHERE id_field = ?";
+    const result = await mysql.executeQuery(query, [id_field]);
+    return result.length > 0;
+  }
 }
 
 module.exports = FieldRepository;
