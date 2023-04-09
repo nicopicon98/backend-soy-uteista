@@ -5,6 +5,7 @@ const userRouter = express.Router();
 const {
   getAllProfessionalsByCampusFieldValidationRules,
   getAllProfessionalsValidationRules,
+  insertProfessionalValidationRules,
 } = require("../../middlewares/validation-rules/user");
 
 const validationMiddleware = require("../../middlewares/validator");
@@ -31,6 +32,8 @@ userRouter.post(
 
 userRouter.post(
   USER_ROUTES_MODEL.INSERT_PROFESSIONAL,
+  insertProfessionalValidationRules(),
+  validationMiddleware,
   UserController.insertProfessional
 );
 
