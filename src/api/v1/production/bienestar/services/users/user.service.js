@@ -1,4 +1,4 @@
-const UserRepository = require("../../repositories/user");
+const UserRepository = require("../../repositories/users");
 const { HTTP_HANDLING_MSGS } = require("../../utilities");
 
 class UserService {
