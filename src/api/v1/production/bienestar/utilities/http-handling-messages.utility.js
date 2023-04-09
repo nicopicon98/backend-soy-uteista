@@ -16,4 +16,4 @@ const HTTP_HANDLING_MSGS = {
   },
 };
 
-module.exports = HTTP_HANDLING_MSGS
+module.exports = HTTP_HANDLING_MSGS;
