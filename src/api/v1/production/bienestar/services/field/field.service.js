@@ -11,7 +11,6 @@ class FieldService {
 
   static async insert(name_field) {
     const existingField = await FieldRepository.getByName(name_field);
-    console.log(existingField, "existingField");
     if (existingField) {
       throw new Error(
         HTTP_HANDLING_MSGS.errorDuplicateEntry(
@@ -23,7 +22,7 @@ class FieldService {
   }
 
   static async delete(id_field) {
-    const existingField = await FieldRepository.get(id_field);
+    const existingField = await FieldRepository.isFieldInCampus(id_field);
     if (!existingField) {
       throw new Error(
         HTTP_HANDLING_MSGS.errorNotFound(
