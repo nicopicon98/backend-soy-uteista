@@ -3,10 +3,7 @@ const HTTP_HANDLING_MSGS = {
     return `Usuario creado con éxito, un correo con indicaciones fue enviado al correo electrónico registrado ${email_user}`;
   },
   successInsertProfessionalMailNotSend: (email_user) => {
-    return `Usuario creado con éxito, 
-    pero no se pudo enviar el correo electrónico de bienvenida a ${email_user}. 
-    Por favor, revise que ${email_user} sea el correo electrónico indicado.
-    Si el error persiste, por favor contacte con soporte.`;
+    return `Usuario creado con éxito, pero no se pudo enviar el correo electrónico de bienvenida a ${email_user}. Por favor, revise que ${email_user} sea el correo electrónico indicado. Si el error persiste, por favor contacte con soporte.`;
   },
   errorDuplicateEntry: (custom_msg) => {
     return [`Entrada duplicada: ${custom_msg}`];

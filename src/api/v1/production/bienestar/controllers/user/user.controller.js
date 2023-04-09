@@ -1,7 +1,7 @@
 const { hashPassword } = require("@src/common/security/bcrypt_encryption");
 const { send } = require("@api_bienestar/config/crypto.config");
-// const MailerService = require("../../services/mailer");
-const { HTTP_HANDLING_MSGS, myEmitter } = require("../../utilities");
+const MailerService = require("../../services/mailer");
+const { HTTP_HANDLING_MSGS } = require("../../utilities");
 const UserService = require("../../services/user");
 
 class UserController {
@@ -77,15 +77,13 @@ class UserController {
     };
     try {
       await UserService.insertProfessional(professional);
-      // Emit 'professionalInserted' event
-      myEmitter.emit("professionalInserted", {
+      const emailSent = await MailerService.sendWelcomeUserEmail(
         name_user,
         email_user,
-        passwordWithoutEncrypt,
-      });
-
+        passwordWithoutEncrypt
+      );
       // Check if the event is emitted successfully
-      if (myEmitter.eventNames().includes("professionalInserted")) {
+      if (emailSent) {
         send(
           {
             data: HTTP_HANDLING_MSGS.successInsertProfessional(email_user),
@@ -96,9 +94,10 @@ class UserController {
       } else {
         send(
           {
-            error: HTTP_HANDLING_MSGS.successInsertProfessionalMailNotSend(
-              email_user
-            ),
+            error:
+              HTTP_HANDLING_MSGS.successInsertProfessionalMailNotSend(
+                email_user
+              ),
             status: 200,
           },
           res
