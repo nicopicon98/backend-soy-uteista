@@ -1,4 +1,4 @@
-const UserTimeSlotsDateRepository = require('../../repositories/userss-time-slots-dates');
+const UserTimeSlotsDateRepository = require('../../repositories/users-time-slots-dates');
 
 class UserTimeSlotsDateService {
   static async getAllByProfessional(id_professional) {
