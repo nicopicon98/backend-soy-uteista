@@ -1,6 +1,12 @@
 const { mysql } = require("@src/common/conexiones/conexionMysql");
 
 class UserRepository {
+  /**
+   * Get all professionals by campus field ID
+   *
+   * @param {number} id_campus_field - The ID of the campus field
+   * @returns {Array} - Array of professionals with related campus and field data
+   */
   static async getAllProfessionalsByCampusField(id_campus_field) {
     try {
       const rows = await mysql.executeQuery(
@@ -20,7 +26,13 @@ class UserRepository {
     }
   }
 
-  static async getAllProfessionals(id_user) {
+  /**
+   * Get all professionals
+   *
+   * @param {number} _id_user - The ID of the user (currently unused)
+   * @returns {Array} - Array of professionals
+   */
+  static async getAllProfessionals(_id_user) {
     const query = `SELECT 
         id_user, name_user, email_user, location_user, 
         id_role, id_campuses_field, registration_date
@@ -29,6 +41,12 @@ class UserRepository {
     return mysql.executeQuery(query);
   }
 
+  /**
+   * Insert a professional into the database
+   *
+   * @param {object} professional - The professional object containing user data
+   * @returns {object} - MySQL query result
+   */
   static async insertProfessional(professional) {
     const result = await mysql.executeQuery(
       "INSERT INTO users (name_user, email_user, password_user, location_user, id_campuses_field, id_role) VALUES (?, ?, ?, ?, ?, ?)",
@@ -42,6 +60,24 @@ class UserRepository {
       ]
     );
     return result;
+  }
+
+  /**
+   * Update a user's name and location
+   *
+   * @param {number} id_user - The ID of the user
+   * @param {string} name_user - The updated name of the user
+   * @param {string} location_user - The updated location of the user
+   * @returns {object} - MySQL query result
+   */
+  static async updateUser(id_user, name_user, location_user) {
+    const sql = `UPDATE users SET name_user = ?, location_user = ? WHERE id_user = ?`;
+    const values = [name_user, location_user, id_user];
+    return mysql.executeQuery(sql, values);
+    // if (result.affectedRows === 0) {
+    //   throw new Error("User not found");
+    // }
+    // return result;
   }
 }
 

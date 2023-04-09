@@ -11,6 +11,8 @@ const HTTP_HANDLING_MSGS = {
   errorInternalServer: (error) => {
     return [`Error interno del servidor: ${JSON.stringify(error, null, 2)}`];
   },
+  successUpdateUser: "Usuario actualizado satisfactoriamente!",
+  errorUserNotFound: "Este usuario que estas intentando actualizar, no existe!",
 };
 
 module.exports = HTTP_HANDLING_MSGS;

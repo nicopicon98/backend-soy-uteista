@@ -122,6 +122,46 @@ class UserController {
       }
     }
   }
+
+  /**
+   * Update a user's name and location
+   *
+   * @param {object} req - Request object
+   * @param {object} res - Response object
+   * @param {string} req.body.id_user - The ID of the user
+   * @param {string} req.body.name_user - The updated name of the user
+   * @param {string} req.body.location_user - The updated location of the user
+   *
+   * @returns {object} - The updated user
+   */
+  static async updateUser(req, res) {
+    const { id_user, name_user, location_user } = req.body;
+    try {
+      const result = await UserService.updateUser(
+        id_user,
+        name_user,
+        location_user
+      );
+      if (result.affectedRows === 0) {
+        send(
+          {
+            error: { message: HTTP_HANDLING_MSGS.errorUserNotFound },
+            status: 404,
+          },
+          res
+        );
+      }
+      send(
+        {
+          data: { message: HTTP_HANDLING_MSGS.successUpdateUser },
+          status: 200,
+        },
+        res
+      );
+    } catch (error) {
+      send({ error: [error.message], status: 500 }, res);
+    }
+  }
 }
 
 module.exports = UserController;
