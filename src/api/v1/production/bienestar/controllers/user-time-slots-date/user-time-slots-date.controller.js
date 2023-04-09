@@ -13,9 +13,9 @@ class UserTimeSlotsDateController {
    */
   static async getAllByProfessional(req, res) {
     try {
-      const { professional_id } = req.body;
+      const { id_professional } = req.body;
       const userTimeSlotsDates =
-        await UserTimeSlotsDateService.getAllByProfessional(professional_id);
+        await UserTimeSlotsDateService.getAllByProfessional(id_professional);
       send({ data: userTimeSlotsDates, status: 200 }, res);
     } catch (error) {
       send({ error: [error.message], status: 500 }, res);

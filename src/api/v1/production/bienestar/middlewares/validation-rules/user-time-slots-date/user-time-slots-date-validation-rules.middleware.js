@@ -2,9 +2,9 @@ const { body } = require("express-validator");
 
 const getAllUserTimeSlotsDateByProfessionalValidationRules = () => {
   return [
-    body("professional_id")
+    body("id_professional")
       .notEmpty()
-      .withMessage("El campo professional_id es obligatorio")
+      .withMessage("El campo id_professional es obligatorio")
       .isInt()
       .withMessage("El campo id_campus_area debe ser un número entero"),
   ];

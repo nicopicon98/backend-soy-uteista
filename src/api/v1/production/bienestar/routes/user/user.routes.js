@@ -10,7 +10,7 @@ const {
 
 const validationMiddleware = require("../../middlewares/validator");
 
-//routes module
+//routes
 const USER_ROUTES_MODEL = require("../../models/routes/user");
 
 //controllers
