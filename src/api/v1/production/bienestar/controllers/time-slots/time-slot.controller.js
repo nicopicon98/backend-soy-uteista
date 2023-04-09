@@ -1,5 +1,5 @@
-const { send } = require("@api_bienestar/config");
-const TimeSlotService = require("@api_bienestar/services/time-slot");
+const { send } = require("../../config");
+const TimeSlotService = require("../../services/time-slots");
 
 /**
  * Class representing the Time Slot Controller.

@@ -10,7 +10,7 @@ const {
 const validationMiddleware  = require('../../middlewares/validator');
 
 //routes module
-const USERS_TIME_SLOTS_DATES_ROUTES = require("../../models/routes/user-time-slots-date");
+const USERS_TIME_SLOTS_DATES_ROUTES = require("../../models/routes/users-time-slots-dates");
 
 //controllers
 const UserTimeSlotsDateController = require("../../controllers/users-time-slots-date");

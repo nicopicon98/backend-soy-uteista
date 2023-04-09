@@ -1,5 +1,5 @@
 const { send } = require("@api_bienestar/config");
-const UserTimeSlotsDateService = require("../../services/user-time-slots-date");
+const UserTimeSlotsDateService = require("../../services/users-time-slots-dates");
 
 /**
  * Class representing the User Time Slots Date Controller.

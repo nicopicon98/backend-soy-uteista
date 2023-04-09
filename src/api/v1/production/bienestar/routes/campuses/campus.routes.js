@@ -8,14 +8,19 @@ const campusRouter = express.Router();
 const validationMiddleware = require("../../middlewares/validator");
 
 // routes
-const CAMPUS_ROUTES_MODEL = require("../../models/routes/campuses");
+// const CAMPUS_ROUTES_MODEL = require("../../models/routes/campuses");
 
 // controller
-const CampusController = require("../../controllers/campuses");
+// const CampusController = require("../../controllers/campuses");
+
+// campusRouter.post(
+//   FIELD_ROUTES_MODEL.GET_ALL,
+//   getAllFieldsValidationRules(),
+//   validationMiddleware,
+//   CampusController.getAll
+// );
 
 campusRouter.post(
-  FIELD_ROUTES_MODEL.GET_ALL,
-  getAllFieldsValidationRules(),
-  validationMiddleware,
-  CampusController.getAll
-);
+  '/get-all-campuses',
+  (req, res) => res.send("it's working from campus")
+)

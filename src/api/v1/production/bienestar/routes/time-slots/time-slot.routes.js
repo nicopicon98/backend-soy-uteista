@@ -8,10 +8,10 @@ const {
 const validationMiddleware = require("../../middlewares/validator");
 
 //routes
-const TIME_SLOT_ROUTES_MODEL = require("@api_bienestar/models/routes/time-slot");
+const TIME_SLOT_ROUTES_MODEL = require("../../models/routes/time-slots");
 
 //controllers
-const TimeSlotController = require("@api_bienestar/controllers/time-slots");
+const TimeSlotController = require("../../controllers/time-slots");
 
 timeSlotRouter.post(
   TIME_SLOT_ROUTES_MODEL.GET_ALL,

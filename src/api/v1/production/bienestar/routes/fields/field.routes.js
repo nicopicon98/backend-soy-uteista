@@ -11,7 +11,7 @@ const {
 const validationMiddleware = require("../../middlewares/validator");
 
 // routes
-const FIELD_ROUTES_MODEL = require("../../models/routes/field");
+const FIELD_ROUTES_MODEL = require("../../models/routes/fields");
 
 // controller
 const FieldController = require("../../controllers/fields");

@@ -72,7 +72,7 @@ class FieldRepository {
    * @param {number} id_field - The ID of the field to check
    * @returns {boolean} - True if the field is associated with a campus, false otherwise
    */
-  static async isFieldInCampus(id_field) {
+  static async isInCampusField(id_field) {
     const query = "SELECT * FROM campuses_fields WHERE id_field = ?";
     const result = await mysql.executeQuery(query, [id_field]);
     return result.length > 0;

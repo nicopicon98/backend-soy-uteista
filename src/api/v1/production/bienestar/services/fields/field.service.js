@@ -58,7 +58,7 @@ class FieldService {
       );
     }
     // Validate that the field is not associated with any campuses
-    const fieldInCampus = await FieldRepository.isFieldInCampus(id_field);
+    const fieldInCampus = await FieldRepository.isInCampusField(id_field);
     if (fieldInCampus) {
       throw new Error(
         HTTP_HANDLING_MSGS.errorDeleteDependency("servicio", "campus")
