@@ -5,7 +5,7 @@ const userTimeSlotsDateRouter = express.Router();
 const {
   getAllUserTimeSlotsDateByProfessionalValidationRules,
   insertUserTimeSlotsDateValidationRules,
-} = require("../../middlewares/validation-rules/");
+} = require("../../middlewares/validation-rules/users-time-slots-dates");
 
 const validationMiddleware  = require('../../middlewares/validator');
 
