@@ -15,3 +15,5 @@ const HTTP_HANDLING_MSGS = {
     return [`Error interno del servidor: ${JSON.stringify(error, null, 2)}`];
   },
 };
+
+module.exports = HTTP_HANDLING_MSGS
