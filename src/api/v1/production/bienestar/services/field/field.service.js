@@ -11,7 +11,7 @@ class FieldService {
 
   static async insert(name_field) {
     const existingField = await FieldRepository.getByName(name_field);
-    console.log(existingField, "existingField")
+    console.log(existingField, "existingField");
     if (existingField) {
       throw new Error(
         HTTP_HANDLING_MSGS.errorDuplicateEntry(

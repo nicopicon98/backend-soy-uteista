@@ -32,7 +32,7 @@ class FieldRepository {
   static async getByName(name_field) {
     const query = "SELECT * FROM fields WHERE LOWER(name_field) = LOWER(?)";
     const result = await mysql.executeQuery(query, [name_field]);
-    return result;
+    return result[0];
   }
 
   static async isFieldInCampus(id_field) {
