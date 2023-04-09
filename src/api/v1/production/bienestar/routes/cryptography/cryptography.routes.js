@@ -5,3 +5,5 @@ cryptRouter.post("/deco", (req, res) => {
   const content = req.body;
   sendService(content, res);
 });
+
+module.exports = cryptRouter;
