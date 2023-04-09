@@ -1,4 +1,4 @@
-const FieldRepository = require("../../repositories/field");
+const FieldRepository = require("../../repositories/fields");
 const { HTTP_HANDLING_MSGS } = require("../../utilities");
 
 class FieldService {
