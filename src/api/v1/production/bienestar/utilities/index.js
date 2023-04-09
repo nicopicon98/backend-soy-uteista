@@ -1,2 +1,3 @@
 const HTTP_HANDLING_MSGS = require("./http-handling-messages.utility");
-module.exports = { HTTP_HANDLING_MSGS };
+const myEmitter = require("./event-emitter.utility");
+module.exports = { HTTP_HANDLING_MSGS, myEmitter };

@@ -1,12 +1,9 @@
 const nodemailer = require("nodemailer");
+const { myEmitter } = require("../../utilities");
 
 class MailerService {
   constructor() {
     this.transporter = this.createTransporter();
-    console.log(process.env.SMTP_HOST, "SMTP_HOST");
-    console.log(process.env.SMTP_PORT, "SMTP_PORT");
-    console.log(process.env.SMTP_USER, "SMTP_USER");
-    console.log(process.env.SMTP_PASS, "SMTP_PASS");
   }
 
   // Create a transporter using environment variables
@@ -30,6 +27,19 @@ class MailerService {
       text,
       attachments,
     };
+  }
+
+  registerListeners() {
+    myEmitter.on(
+      "professionalInserted",
+      async ({ name_user, email_user, passwordWithoutEncrypt }) => {
+        await this.sendWelcomeUserEmail(
+          name_user,
+          email_user,
+          passwordWithoutEncrypt
+        );
+      }
+    );
   }
 
   // Separate email template into a function for maintainability

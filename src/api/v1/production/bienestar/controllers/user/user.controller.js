@@ -1,7 +1,7 @@
 const { hashPassword } = require("@src/common/security/bcrypt_encryption");
 const { send } = require("@api_bienestar/config/crypto.config");
-const MailerService = require("../../services/mailer");
-const { HTTP_HANDLING_MSGS } = require("../../utilities");
+// const MailerService = require("../../services/mailer");
+const { HTTP_HANDLING_MSGS, myEmitter } = require("../../utilities");
 const UserService = require("../../services/user");
 
 class UserController {
@@ -67,51 +67,43 @@ class UserController {
       id_campuses_field,
     } = req.body;
     const passwordWithoutEncrypt = password_user;
-
+    const password_user_hashed = await hashPassword(password_user);
+    const professional = {
+      name_user,
+      email_user,
+      password_user: password_user_hashed,
+      location_user,
+      id_campuses_field,
+    };
     try {
-      const password_user_hashed = hashPassword(password_user);
-      const professional = {
+      await UserService.insertProfessional(professional);
+      // Emit 'professionalInserted' event
+      myEmitter.emit("professionalInserted", {
         name_user,
         email_user,
-        password_user: await password_user_hashed,
-        location_user,
-        id_campuses_field,
-      };
+        passwordWithoutEncrypt,
+      });
 
-      // Use Promise.all to run hashing and inserting in parallel
-      const [insertedProfessional] = await Promise.all([
-        UserService.insertProfessional(professional),
-        password_user_hashed,
-      ]);
-
-      const emailSent = MailerService.sendWelcomeUserEmail(
-        name_user,
-        email_user,
-        passwordWithoutEncrypt
-      );
-
-      // Move email sending to a background process or a queue
-      emailSent
-        .then(() => {
-          send(
-            {
-              data: HTTP_HANDLING_MSGS.successInsertProfessional(email_user),
-              status: 200,
-            },
-            res
-          );
-        })
-        .catch(() => {
-          send(
-            {
-              data: HTTP_HANDLING_MSGS.successInsertProfessionalMailNotSend(
-                email_user
-              ),
-              status: 200,
-            },
-            res
-          );
-        });
+      // Check if the event is emitted successfully
+      if (myEmitter.eventNames().includes("professionalInserted")) {
+        send(
+          {
+            data: HTTP_HANDLING_MSGS.successInsertProfessional(email_user),
+            status: 200,
+          },
+          res
+        );
+      } else {
+        send(
+          {
+            data: HTTP_HANDLING_MSGS.successInsertProfessionalMailNotSend(
+              email_user
+            ),
+            status: 200,
+          },
+          res
+        );
+      }
     } catch (error) {
       if (error.code === "ER_DUP_ENTRY") {
         send(
