@@ -1,7 +1,8 @@
-const { send } = require("@api_bienestar/config/crypto.config");
-const UserService = require("../../services/user");
-const MailerService = require("../../services/mailer");
 const { hashPassword } = require("@src/common/security/bcrypt_encryption");
+const { send } = require("@api_bienestar/config/crypto.config");
+const MailerService = require("../../services/mailer");
+const HTTP_HANDLING_MSGS = require("../../utilities");
+const UserService = require("../../services/user");
 
 class UserController {
   /**
@@ -75,21 +76,47 @@ class UserController {
       id_campuses_field,
     };
     try {
-      const createdProfessional = await UserService.insertProfessional(
-        professional
-      );
-      // Use the WelcomeUserEmailService class to send the welcome email
-      await MailerService.sendWelcomeUserEmail(
+      await UserService.insertProfessional(professional);
+      const emailSent = await MailerService.sendWelcomeUserEmail(
         name_user,
         email_user,
         passwordWithoutEncrypt
       );
-      send({ data: createdProfessional, status: 200 }, res);
+      if (emailSent) {
+        send(
+          {
+            data: HTTP_HANDLING_MSGS.successInsertProfessional(email_user),
+            status: 200,
+          },
+          res
+        );
+      } else {
+        send(
+          {
+            data: HTTP_HANDLING_MSGS.successInsertProfessionalMailNotSend(
+              email_user
+            ),
+            status: 200,
+          },
+          res
+        );
+      }
     } catch (error) {
       if (error.code === "ER_DUP_ENTRY") {
-        send({ error: ["El usuario ya existe"], status: 409 }, res);
+        send(
+          {
+            error: HTTP_HANDLING_MSGS.errorDuplicateEntry(
+              "El usuario ya existe"
+            ),
+            status: 409,
+          },
+          res
+        );
       } else {
-        send({ error: ["Error interno del servidor"], status: 500 }, res);
+        send(
+          { error: HTTP_HANDLING_MSGS.errorInternalServer(error), status: 500 },
+          res
+        );
       }
     }
   }

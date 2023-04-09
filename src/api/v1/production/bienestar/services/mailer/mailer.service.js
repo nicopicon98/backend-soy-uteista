@@ -58,12 +58,13 @@ class MailerService {
       "Bienvenido a Bienestar - Sus credenciales de acceso",
       this.welcomeUserEmailTemplate(name, email, password)
     );
-
     try {
       const info = await this.transporter.sendMail(emailOptions);
       console.log("Correo electrónico enviado: " + info.response);
+      return true;
     } catch (error) {
       console.log(error);
+      return false;
     }
   }
 }
