@@ -47,7 +47,7 @@ userRouter.post(
 
 userRouter.post(
   USER_ROUTES_MODEL.DELETE_USER,
-  (req, res) => res.send("this is working")
+  UserController.deleteUser
 );
 
 module.exports = userRouter;

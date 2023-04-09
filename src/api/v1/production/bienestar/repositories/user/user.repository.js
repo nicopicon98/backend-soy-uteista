@@ -79,6 +79,39 @@ class UserRepository {
     // }
     // return result;
   }
+
+  /**
+   * Check if a user is associated with a user_time_slots_date
+   *
+   * @param {number} id_user - The ID of the user
+   * @returns {boolean} - Returns true if the user is associated with a user_time_slots_date, otherwise false
+   */
+  static async isUserAssociatedWithTimeSlotDate(id_user) {
+    const rows = await mysql.executeQuery(
+      "SELECT COUNT(*) as count FROM user_time_slots_date WHERE id_user = ?",
+      [id_user]
+    );
+    return rows.count > 0;
+  }
+
+  /**
+   * Delete a user by ID
+   *
+   * @param {number} id_user - The ID of the user
+   * @returns {object} - MySQL query result
+   */
+  static async deleteUser(id_user) {
+    const result = await mysql.executeQuery(
+      "DELETE FROM users WHERE id_user = ?",
+      [id_user]
+    );
+
+    if (result.affectedRows === 0) {
+      throw new Error("User not found");
+    }
+
+    return result;
+  }
 }
 
 module.exports = UserRepository;

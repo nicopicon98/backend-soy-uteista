@@ -13,6 +13,9 @@ const HTTP_HANDLING_MSGS = {
   },
   successUpdateUser: "Usuario actualizado satisfactoriamente!",
   errorUserNotFound: "Este usuario que estas intentando actualizar, no existe!",
+  errorDeleteUserUserSlotTimesDateDependency:
+    "Este usuario no se pudo eliminar, ya que tiene un horario asignado!",
+  successDeleteUser: "Usuario eliminado con éxito",
 };
 
 module.exports = HTTP_HANDLING_MSGS;

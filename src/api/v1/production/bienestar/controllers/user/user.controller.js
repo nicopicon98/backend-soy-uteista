@@ -162,6 +162,32 @@ class UserController {
       send({ error: [error.message], status: 500 }, res);
     }
   }
+
+  /**
+   * Delete a user
+   *
+   * @param {object} req - Request object
+   * @param {object} res - Response object
+   * @param {number} req.params.id_user - The ID of the user
+   *
+   * @returns {object} - A message indicating the success or failure of the operation
+   */
+  static async deleteUser(req, res) {
+    const { id_user } = req.params;
+
+    try {
+      await UserService.deleteUser(id_user);
+      send(
+        {
+          data: { message: HTTP_HANDLING_MSGS.successDeleteUser },
+          status: 200,
+        },
+        res
+      );
+    } catch (error) {
+      send({ error: [error.message], status: 500 }, res);
+    }
+  }
 }
 
 module.exports = UserController;
