@@ -14,6 +14,7 @@ bienestar.use(timeSlotRouter);
 bienestar.use(fieldRouter);
 bienestar.use(cryptRouter);
 bienestar.use(userRouter);
+bienestar.use(authRouter);
 
 const bienestarVersion = () => "/api/v1/production/bienestar";
 module.exports = {
