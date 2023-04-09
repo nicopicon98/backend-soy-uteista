@@ -74,10 +74,6 @@ class UserRepository {
     const sql = `UPDATE users SET name_user = ?, location_user = ? WHERE id_user = ?`;
     const values = [name_user, location_user, id_user];
     return mysql.executeQuery(sql, values);
-    // if (result.affectedRows === 0) {
-    //   throw new Error("User not found");
-    // }
-    // return result;
   }
 
   /**
@@ -101,6 +97,7 @@ class UserRepository {
    * @returns {object} - MySQL query result
    */
   static async deleteUser(id_user) {
+    console.log(id_user, "id_user");
     const result = await mysql.executeQuery(
       "DELETE FROM users WHERE id_user = ?",
       [id_user]
