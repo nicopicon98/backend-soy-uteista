@@ -1,4 +1,4 @@
-const { send } = require("@api_bienestar/config/crypto.config");
+const { send } = require("@api_bienestar/config");
 const TimeSlotService = require("@api_bienestar/services/time-slots");
 
 /**

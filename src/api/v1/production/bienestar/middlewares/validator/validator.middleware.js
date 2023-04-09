@@ -1,5 +1,5 @@
 const { validationResult } = require("express-validator");
-const { send } = require("../../config/crypto.config");
+const { send } = require("../../config");
 
 const validationMiddleware = (req, res, next) => {
   const errors = validationResult(req);

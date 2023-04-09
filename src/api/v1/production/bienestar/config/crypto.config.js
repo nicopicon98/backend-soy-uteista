@@ -1,9 +1,7 @@
 const crypto = require("crypto-js");
 
-const secretKey = "REACTANDNODEWORKS4EVER!";
-
 const encrypt = (data) => {
-  const ciphertext = crypto.AES.encrypt(data, secretKey).toString();
+  const ciphertext = crypto.AES.encrypt(data, process.env.SECRET_KEY).toString();
 
   return { content: ciphertext };
 };
@@ -11,7 +9,7 @@ const encrypt = (data) => {
 const decrypt = (json) => {
   const { content } = json;
 
-  const bytes = crypto.AES.decrypt(content, secretKey);
+  const bytes = crypto.AES.decrypt(content, process.env.SECRET_KEY);
 
   try {
     const originalText = JSON.parse(bytes.toString(crypto.enc.Utf8));
@@ -23,7 +21,6 @@ const decrypt = (json) => {
 
 const send = (json, res) => {
   const encryptText = encrypt(JSON.stringify(json));
-
   res.json(encryptText);
 };
 

@@ -1,4 +1,4 @@
-const { send } = require("@api_bienestar/config/crypto.config");
+const { send } = require("@api_bienestar/config");
 const FieldService = require("../../services/field");
 const { HTTP_HANDLING_MSGS } = require("../../utilities");
 
