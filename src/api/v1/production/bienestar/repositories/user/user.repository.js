@@ -1,5 +1,5 @@
 const { mysql } = require("@src/common/conexiones/conexionMysql");
-
+const { HTTP_HANDLING_MSGS } = require("../../utilities");
 class UserRepository {
   /**
    * Get all professionals by campus field ID
@@ -104,7 +104,7 @@ class UserRepository {
     );
 
     if (result.affectedRows === 0) {
-      throw new Error("User not found");
+      throw new Error(HTTP_HANDLING_MSGS.errorUserNotFound);
     }
 
     return result;

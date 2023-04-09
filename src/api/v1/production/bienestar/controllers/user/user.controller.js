@@ -174,7 +174,6 @@ class UserController {
    */
   static async deleteUser(req, res) {
     const { id_user } = req.params;
-
     try {
       await UserService.deleteUser(id_user);
       send(
