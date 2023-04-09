@@ -1,4 +1,5 @@
 const AuthService = require("../../services/auth");
+const { send } = require("@api_bienestar/config");
 
 class AuthController {
   static async login(req, res) {
