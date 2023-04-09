@@ -96,7 +96,7 @@ class UserController {
       } else {
         send(
           {
-            data: HTTP_HANDLING_MSGS.successInsertProfessionalMailNotSend(
+            error: HTTP_HANDLING_MSGS.successInsertProfessionalMailNotSend(
               email_user
             ),
             status: 200,
