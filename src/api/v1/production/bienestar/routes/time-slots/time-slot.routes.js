@@ -16,7 +16,7 @@ const TimeSlotController = require("@api_bienestar/controllers/time-slots");
 timeSlotRouter.post(
   TIME_SLOT_ROUTES_MODEL.GET_ALL,
   getAllTimeSlotsValidationRules(),
-  validateGetSedes,
+  validationMiddleware,
   TimeSlotController.getAllTimeSlots
 );
 
