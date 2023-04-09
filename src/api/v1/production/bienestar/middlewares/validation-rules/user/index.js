@@ -1,12 +1,10 @@
 const {
   getAllProfessionalsByCampusFieldValidationRules,
-  getAllProfessionalsValidationRules,
   insertProfessionalValidationRules,
-  updateUserValidationRules
+  commonIdUserValidationRules
 } = require("./user-validation-rules.middleware");
 module.exports = {
   getAllProfessionalsByCampusFieldValidationRules,
-  getAllProfessionalsValidationRules,
   insertProfessionalValidationRules,
-  updateUserValidationRules
-};
+  commonIdUserValidationRules
+}

@@ -4,9 +4,8 @@ const userRouter = express.Router();
 //middlewares
 const {
   getAllProfessionalsByCampusFieldValidationRules,
-  getAllProfessionalsValidationRules,
   insertProfessionalValidationRules,
-  updateUserValidationRules,
+  commonIdUserValidationRules,
 } = require("../../middlewares/validation-rules/user");
 
 const validationMiddleware = require("../../middlewares/validator");
@@ -26,7 +25,7 @@ userRouter.post(
 
 userRouter.post(
   USER_ROUTES_MODEL.GET_ALL_PROFESSIONALS,
-  getAllProfessionalsValidationRules(),
+  commonIdUserValidationRules(),
   validationMiddleware,
   UserController.getAllProfessionals
 );
@@ -40,13 +39,15 @@ userRouter.post(
 
 userRouter.post(
   USER_ROUTES_MODEL.UPDATE_USER,
-  updateUserValidationRules(),
+  commonIdUserValidationRules(),
   validationMiddleware,
   UserController.updateUser
 );
 
 userRouter.post(
   USER_ROUTES_MODEL.DELETE_USER,
+  commonIdUserValidationRules(),
+  validationMiddleware,
   UserController.deleteUser
 );
 
