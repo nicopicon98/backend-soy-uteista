@@ -37,5 +37,8 @@ userRouter.post(
   UserController.insertProfessional
 );
 
+userRouter.post(USER_ROUTES_MODEL.UPDATE_USER, (req, res) =>
+  res.send("this is working now")
+);
 
 module.exports = userRouter;
