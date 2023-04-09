@@ -2,10 +2,10 @@ const express = require("express");
 const bienestar = express();
 
 //Routers
-const userTimeSlotsDateRouter = require("./routes/user-time-slots-date");
-const timeSlotRouter = require("./routes/time-slots");
+const userTimeSlotsDateRouter = require("./routes/users-time-slots-dates");
+const timeSlotRouter = require("./routes/time-slot");
 const cryptRouter = require("./routes/cryptography");
-const fieldRouter = require("./routes/fields");
+const fieldRouter = require("./routes/field");
 const userRouter = require("./routes/user");
 
 bienestar.use(userTimeSlotsDateRouter);

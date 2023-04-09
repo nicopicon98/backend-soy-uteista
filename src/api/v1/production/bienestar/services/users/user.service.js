@@ -45,11 +45,11 @@ class UserService {
   }
 
   /**
-   * Delete a user if not associated with a user_time_slots_date
+   * Delete a user if not associated with a users_time_slots_dates
    *
    * @param {number} id_user - The ID of the user
    * @returns {object} - MySQL query result
-   * @throws {Error} - Throws an error if user is associated with a user_time_slots_date
+   * @throws {Error} - Throws an error if user is associated with a users_time_slots_dates
    */
   static async deleteUser(id_user) {
     const isUserAssociated =

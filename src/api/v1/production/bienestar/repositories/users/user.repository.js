@@ -77,14 +77,14 @@ class UserRepository {
   }
 
   /**
-   * Check if a user is associated with a user_time_slots_date
+   * Check if a user is associated with a users_time_slots_dates
    *
    * @param {number} id_user - The ID of the user
-   * @returns {boolean} - Returns true if the user is associated with a user_time_slots_date, otherwise false
+   * @returns {boolean} - Returns true if the user is associated with a users_time_slots_dates, otherwise false
    */
   static async isUserAssociatedWithTimeSlotDate(id_user) {
     const rows = await mysql.executeQuery(
-      "SELECT COUNT(*) as count FROM user_time_slots_date WHERE id_user = ?",
+      "SELECT COUNT(*) as count FROM users_time_slots_dates WHERE id_user = ?",
       [id_user]
     );
     return rows.count > 0;

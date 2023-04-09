@@ -6,7 +6,7 @@ const {
   getAllProfessionalsByCampusFieldValidationRules,
   insertProfessionalValidationRules,
   commonIdUserValidationRules,
-} = require("../../middlewares/validation-rules/user");
+} = require("../../middlewares/validation-rules/users");
 
 const validationMiddleware = require("../../middlewares/validator");
 
@@ -14,7 +14,7 @@ const validationMiddleware = require("../../middlewares/validator");
 const USER_ROUTES_MODEL = require("../../models/routes/user");
 
 //controllers
-const UserController = require("../../controllers/user");
+const UserController = require("../../controllers/users");
 
 userRouter.post(
   USER_ROUTES_MODEL.GET_ALL_PROFESSIONALS_BY_CAMPUS_FIELD,

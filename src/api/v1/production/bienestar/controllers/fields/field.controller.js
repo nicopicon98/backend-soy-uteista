@@ -1,5 +1,5 @@
 const { send } = require("@api_bienestar/config");
-const FieldService = require("../../services/field");
+const FieldService = require("../../services/fields");
 const { HTTP_HANDLING_MSGS } = require("../../utilities");
 
 class FieldController {

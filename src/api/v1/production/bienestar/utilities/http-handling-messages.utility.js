@@ -1,5 +1,4 @@
 const HTTP_HANDLING_MSGS = {
-
   //success
   successInsert: (custom_msg = "") => {
     return `Registro: ${custom_msg} insertado con exito`;
@@ -29,11 +28,13 @@ const HTTP_HANDLING_MSGS = {
   errorNotFound: (custom_msg = "") => {
     return `Registro no encontrado: ${custom_msg}`;
   },
+  errorWrongInfo: () => {
+    return "Información errónea, revisa tus credenciales de acceso y vuelve a intentar.";
+  },
 
   //warning
 
   //info
-  
 };
 
 module.exports = HTTP_HANDLING_MSGS;

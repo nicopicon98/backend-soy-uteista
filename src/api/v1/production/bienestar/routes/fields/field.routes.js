@@ -1,17 +1,19 @@
 const express = require("express");
 const fieldRouter = express.Router();
 
-//middlewares
+// middlewares
 const {
   getAllFieldsValidationRules,
   getAllNotInCampusValidationRules,
   insertFieldValidationRules,
   deleteFieldValidationRules,
-} = require("../../middlewares/validation-rules/field");
+} = require("../../middlewares/validation-rules/fields");
 const validationMiddleware = require("../../middlewares/validator");
 
-const FIELD_ROUTES_MODEL = require("../../models/routes/fields");
+// routes
+const FIELD_ROUTES_MODEL = require("../../models/routes/field");
 
+// controller
 const FieldController = require("../../controllers/fields");
 
 fieldRouter.post(

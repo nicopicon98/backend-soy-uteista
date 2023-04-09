@@ -4,29 +4,29 @@ class UserTimeSlotsDateRepository {
   static async getAllByUserId(id_professional) {
     const query = `
       SELECT
-        user_time_slots_date.date,
+        users_time_slots_dates.date,
         GROUP_CONCAT(time_slots.id_time_slot ORDER BY time_slots.id_time_slot) AS time_slot_ids,
         GROUP_CONCAT(time_slots.name_time_slot ORDER BY time_slots.id_time_slot) AS time_slot_names,
-        GROUP_CONCAT(user_time_slots_date.id_user_time_slot_date ORDER BY time_slots.id_time_slot) AS user_time_slot_ids
+        GROUP_CONCAT(users_time_slots_dates.id_user_time_slot_date ORDER BY time_slots.id_time_slot) AS user_time_slot_ids
       FROM
-        user_time_slots_date
-        JOIN users ON user_time_slots_date.id_user = users.id_user
-        JOIN time_slots ON user_time_slots_date.id_time_slot = time_slots.id_time_slot
+        users_time_slots_dates
+        JOIN users ON users_time_slots_dates.id_user = users.id_user
+        JOIN time_slots ON users_time_slots_dates.id_time_slot = time_slots.id_time_slot
       WHERE
         users.id_user = ?
       GROUP BY
-        user_time_slots_date.date
+        users_time_slots_dates.date
       ORDER BY
-        user_time_slots_date.date ASC;
+        users_time_slots_dates.date ASC;
     `;
     return mysql.executeQuery(query, [id_professional]);
   }
 
-  static async insert(id_user, user_time_slots_date) {
-    const { startDate, endDate, time_slots } = user_time_slots_date;
+  static async insert(id_user, users_time_slots_dates) {
+    const { startDate, endDate, time_slots } = users_time_slots_dates;
 
     const sql = `
-      INSERT IGNORE INTO user_time_slots_date (id_user, date, id_time_slot)
+      INSERT IGNORE INTO users_time_slots_dates (id_user, date, id_time_slot)
       VALUES (?, ?, ?)
     `;
     let affectedRows = 0;

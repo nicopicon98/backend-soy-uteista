@@ -2,7 +2,7 @@ const { hashPassword } = require("@src/common/security/bcrypt_encryption");
 const { send } = require("@api_bienestar/config");
 const MailerService = require("../../services/mailer");
 const { HTTP_HANDLING_MSGS } = require("../../utilities");
-const UserService = require("../../services/user");
+const UserService = require("../../services/users");
 
 class UserController {
   /**

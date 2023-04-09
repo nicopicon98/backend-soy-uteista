@@ -1,4 +1,4 @@
-const UserTimeSlotsDateRepository = require('../../repositories/user-time-slots-date');
+const UserTimeSlotsDateRepository = require('../../repositories/users-time-slots-dates');
 
 class UserTimeSlotsDateService {
   static async getAllByProfessional(id_professional) {
@@ -16,8 +16,8 @@ class UserTimeSlotsDateService {
     });
   }
 
-  static async insert(id_user, user_time_slots_date) {
-    return UserTimeSlotsDateRepository.insert(id_user, user_time_slots_date);
+  static async insert(id_user, users_time_slots_dates) {
+    return UserTimeSlotsDateRepository.insert(id_user, users_time_slots_dates);
   }
 }
 

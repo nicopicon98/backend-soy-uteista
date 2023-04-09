@@ -1,4 +1,4 @@
-const { sendService, encrypt } = require("@api_bienestar/config");
+const { sendService } = require("@api_bienestar/config");
 const express = require("express");
 const cryptRouter = express.Router();
 
