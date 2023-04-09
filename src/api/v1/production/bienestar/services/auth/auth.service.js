@@ -1,4 +1,4 @@
-const HTTP_HANDLING_MSGS = require("../../utilities");
+const { HTTP_HANDLING_MSGS } = require("../../utilities");
 const AuthRepository = require("../../repositories/auth");
 
 class AuthService {
