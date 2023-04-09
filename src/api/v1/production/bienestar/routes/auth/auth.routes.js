@@ -12,3 +12,5 @@ authRouter.post(
   AUTH_ROUTES_MODEL.LOGIN,
   (req, res) => res.send("it's working")
 )
+
+module.exports = authRouter;
