@@ -12,7 +12,9 @@ class FieldService {
   static async insert(name_field) {
     const existingField = await FieldRepository.getByName(name_field);
     if (existingField) {
-      throw new Error("Field already exists.");
+      throw new Error(
+        HTTP_HANDLING_MSGS.errorDuplicateEntry("Este servicio ya se encuentra registrado")
+      );
     }
     return FieldRepository.insert(name_field);
   }
@@ -21,7 +23,7 @@ class FieldService {
     const existingField = await FieldRepository.get(id_field);
     if (!existingField) {
       throw new Error(
-        HTTP_HANDLING_MSGS.errorDuplicateEntry("Este servicio ya existe")
+        HTTP_HANDLING_MSGS.errorNotFound("Este servicio no se encuentra registrado")
       );
     }
     const fieldInCampus = await FieldRepository.isFieldInCampus(id_field);

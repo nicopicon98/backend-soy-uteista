@@ -1,5 +1,6 @@
 const { send } = require("@api_bienestar/config/crypto.config");
 const FieldService = require("../../services/field");
+const { HTTP_HANDLING_MSGS } = require("../../utilities");
 
 class FieldController {
   /**
@@ -56,7 +57,7 @@ class FieldController {
       await FieldService.insert(name_field);
       send(
         {
-          data: { message: `Field '${name_field}' has been inserted.` },
+          data: HTTP_HANDLING_MSGS.successInsert(name_field),
           status: 200,
         },
         res

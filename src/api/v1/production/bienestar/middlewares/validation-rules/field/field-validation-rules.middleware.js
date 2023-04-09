@@ -1,4 +1,4 @@
-const { body, param } = require("express-validator");
+const { body } = require("express-validator");
 
 const getAllFieldsValidationRules = () => {
   return [
@@ -44,5 +44,5 @@ module.exports = {
   getAllFieldsValidationRules,
   insertFieldValidationRules,
   deleteFieldValidationRules,
-  getAllNotInCampusValidationRules
+  getAllNotInCampusValidationRules,
 };
