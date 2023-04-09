@@ -52,8 +52,19 @@ const insertProfessionalValidationRules = () => {
   ];
 };
 
+const updateUserValidationRules = () => {
+  return [
+    body("id_user")
+      .notEmpty()
+      .withMessage("El campo id_user es obligatorio")
+      .isInt()
+      .withMessage("El campo id_user debe ser un número entero"),
+  ];
+};
+
 module.exports = {
   getAllProfessionalsByCampusFieldValidationRules,
   getAllProfessionalsValidationRules,
   insertProfessionalValidationRules,
+  updateUserValidationRules
 };

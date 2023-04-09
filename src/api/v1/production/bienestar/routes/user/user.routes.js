@@ -6,6 +6,7 @@ const {
   getAllProfessionalsByCampusFieldValidationRules,
   getAllProfessionalsValidationRules,
   insertProfessionalValidationRules,
+  updateUserValidationRules,
 } = require("../../middlewares/validation-rules/user");
 
 const validationMiddleware = require("../../middlewares/validator");
@@ -37,6 +38,11 @@ userRouter.post(
   UserController.insertProfessional
 );
 
-userRouter.post(USER_ROUTES_MODEL.UPDATE_USER, UserController.updateUser);
+userRouter.post(
+  USER_ROUTES_MODEL.UPDATE_USER,
+  updateUserValidationRules(),
+  validationMiddleware,
+  UserController.updateUser
+);
 
 module.exports = userRouter;
