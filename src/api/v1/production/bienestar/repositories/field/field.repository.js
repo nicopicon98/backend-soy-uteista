@@ -32,7 +32,6 @@ class FieldRepository {
   static async getByName(name_field) {
     const query = "SELECT * FROM fields WHERE LOWER(name_field) = LOWER(?)";
     const result = await mysql.executeQuery(query, [name_field]);
-    console.log(result, "query_result")
     return result;
   }
 
