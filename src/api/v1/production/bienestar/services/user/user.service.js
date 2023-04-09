@@ -52,7 +52,8 @@ class UserService {
    * @throws {Error} - Throws an error if user is associated with a user_time_slots_date
    */
   static async deleteUser(id_user) {
-    const isUserAssociated = await UserRepository.isUserAssociatedWithTimeSlotDate(id_user);
+    const isUserAssociated =
+      await UserRepository.isUserAssociatedWithTimeSlotDate(id_user);
 
     if (isUserAssociated) {
       throw new Error(

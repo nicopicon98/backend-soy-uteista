@@ -173,7 +173,7 @@ class UserController {
    * @returns {object} - A message indicating the success or failure of the operation
    */
   static async deleteUser(req, res) {
-    const { id_user } = req.params;
+    const { id_user } = req.body;
     try {
       await UserService.deleteUser(id_user);
       send(

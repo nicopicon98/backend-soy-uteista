@@ -97,7 +97,6 @@ class UserRepository {
    * @returns {object} - MySQL query result
    */
   static async deleteUser(id_user) {
-    console.log(id_user, "id_user");
     const result = await mysql.executeQuery(
       "DELETE FROM users WHERE id_user = ?",
       [id_user]
