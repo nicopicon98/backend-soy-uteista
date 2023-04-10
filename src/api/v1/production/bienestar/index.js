@@ -10,6 +10,7 @@ const userRouter = require("./routes/users");
 const authRouter = require('./routes/auth');
 const campusRouter = require('./routes/campuses');
 const appointmentRouter = require('./routes/appointments');
+const campusFieldRouter = require('./routes/campuses_fields');
 
 bienestar.use(userTimeSlotsDateRouter);
 bienestar.use(timeSlotRouter);
@@ -20,6 +21,7 @@ bienestar.use(userRouter);
 bienestar.use(authRouter);
 bienestar.use(campusRouter);
 bienestar.use(appointmentRouter);
+bienestar.use(campusFieldRouter);
 
 const bienestarVersion = () => "/api/v1/production/bienestar";
 module.exports = {

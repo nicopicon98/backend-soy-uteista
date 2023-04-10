@@ -7,14 +7,24 @@ const campusesFieldsRouter = express.Router();
 // } = require("../../middlewares/validation-rules/auth");
 // const validationMiddleware = require("../../middlewares/validator");
 //routes model
-// const APPOINTMENT_ROUTES_MODEL = require("../../models/routes/appointments");
+const CAMPUS_FIELD_ROUTES_MODEL = require("../../models/routes/campuses-fields");
 
 //controllers
-// const AppointmentController = require("../../controllers/appointments");
+// const CampusFieldController = require("../../controllers/campuses-fields");
 
 campusesFieldsRouter.post(
-  APPOINTMENT_ROUTES_MODEL.GET_UPCOMING_BY_PROFESSIONAL,
-  AppointmentController.login
+  CAMPUS_FIELD_ROUTES_MODEL.GET_ALL_BY_CAMPUS,
+  (req, res) => res.send("get all by campus is working")
+);
+
+campusesFieldsRouter.post(
+  CAMPUS_FIELD_ROUTES_MODEL.INSERT,
+  (req, res) => res.send("insert it's working")
+);
+
+campusesFieldsRouter.post(
+  CAMPUS_FIELD_ROUTES_MODEL.DELETE,
+  (req, res) => res.send("delete it's working")
 );
 
 module.exports = campusesFieldsRouter;
