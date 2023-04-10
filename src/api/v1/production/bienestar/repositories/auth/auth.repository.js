@@ -7,7 +7,7 @@ class AuthRepository {
   }
   static async getDetailedInfo(id_user) {
     const query = ` SELECT 
-      users.id_user, users.name_user, users.email_user, users.location_user,
+      users.id_user, users.registration_date,  users.name_user, users.email_user, users.location_user,
       campuses.name_campus, roles.name_role, fields.name_field
       FROM users
       INNER JOIN campuses_fields ON users.id_campus_field = campuses_fields.id_campus_field
