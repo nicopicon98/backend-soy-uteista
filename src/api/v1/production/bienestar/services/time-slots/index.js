@@ -1,2 +1,2 @@
-const TimeSlotService = require('./time-slot.service')
-module.exports = TimeSlotService
+const TimeSlotService = require("./time-slot.service");
+module.exports = TimeSlotService;

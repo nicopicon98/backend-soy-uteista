@@ -1,3 +1,3 @@
-const TimeSlotRepository = require('./time-slot.repository')
+const TimeSlotRepository = require("./time-slot.repository");
 
-module.exports = TimeSlotRepository
+module.exports = TimeSlotRepository;

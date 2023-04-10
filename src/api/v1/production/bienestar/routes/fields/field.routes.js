@@ -7,7 +7,7 @@ const {
   getAllNotInCampusValidationRules,
   insertFieldValidationRules,
   deleteFieldValidationRules,
-  getAllByCampusValidationRules
+  getAllByCampusValidationRules,
 } = require("../../middlewares/validation-rules/fields");
 const validationMiddleware = require("../../middlewares/validator");
 

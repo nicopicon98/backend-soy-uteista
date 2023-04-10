@@ -7,10 +7,10 @@ const timeSlotRouter = require("./routes/time-slots");
 const cryptRouter = require("./routes/cryptography");
 const fieldRouter = require("./routes/fields");
 const userRouter = require("./routes/users");
-const authRouter = require('./routes/auth');
-const campusRouter = require('./routes/campuses');
-const appointmentRouter = require('./routes/appointments');
-const campusFieldRouter = require('./routes/campuses_fields');
+const authRouter = require("./routes/auth");
+const campusRouter = require("./routes/campuses");
+const appointmentRouter = require("./routes/appointments");
+const campusFieldRouter = require("./routes/campuses_fields");
 
 bienestar.use(userTimeSlotsDateRouter);
 bienestar.use(timeSlotRouter);

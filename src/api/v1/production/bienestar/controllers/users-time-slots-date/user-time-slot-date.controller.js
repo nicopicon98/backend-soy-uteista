@@ -25,7 +25,10 @@ class UserTimeSlotsDateController {
   static async insert(req, res) {
     try {
       const { id_user, users_time_slots_dates } = req.body;
-      const result = await UserTimeSlotsDateService.insert(id_user, users_time_slots_dates);
+      const result = await UserTimeSlotsDateService.insert(
+        id_user,
+        users_time_slots_dates
+      );
       send({ data: result, status: 201 }, res);
     } catch (error) {
       send({ error: [error.message], status: 500 }, res);

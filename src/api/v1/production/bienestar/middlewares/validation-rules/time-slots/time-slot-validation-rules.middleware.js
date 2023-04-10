@@ -22,5 +22,5 @@ const getTimeSlotsByProfessionalValidationRules = () => {
 
 module.exports = {
   getAllTimeSlotsValidationRules,
-  getTimeSlotsByProfessionalValidationRules
+  getTimeSlotsByProfessionalValidationRules,
 };

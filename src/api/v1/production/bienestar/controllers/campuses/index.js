@@ -1,2 +1,2 @@
-const CampusController = require('./campus.controller');
-module.exports = CampusController
+const CampusController = require("./campus.controller");
+module.exports = CampusController;

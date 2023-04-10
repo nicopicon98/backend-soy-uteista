@@ -1,2 +1,2 @@
-const appointmentsRouter = require('./appointment.routes');
-module.exports = appointmentsRouter
+const appointmentsRouter = require("./appointment.routes");
+module.exports = appointmentsRouter;

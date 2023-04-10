@@ -2,29 +2,38 @@ const express = require("express");
 const campusesFieldsRouter = express.Router();
 
 //middlewares
-// const {
-//   loginValidationRules,
-// } = require("../../middlewares/validation-rules/auth");
-// const validationMiddleware = require("../../middlewares/validator");
+const {
+  getAllByCampusValidationRules,
+  insertValidationRules,
+  deleteValidationRules,
+} = require("../../middlewares/validation-rules/auth");
+const validationMiddleware = require("../../middlewares/validator");
+
 //routes model
 const CAMPUS_FIELD_ROUTES_MODEL = require("../../models/routes/campuses-fields");
 
 //controllers
-// const CampusFieldController = require("../../controllers/campuses-fields");
+const CampusFieldController = require("../../controllers/campuses-fields");
 
 campusesFieldsRouter.post(
   CAMPUS_FIELD_ROUTES_MODEL.GET_ALL_BY_CAMPUS,
-  (req, res) => res.send("get all by campus is working")
+  getAllByCampusValidationRules(),
+  validationMiddleware,
+  CampusFieldController.getAllByCampus
 );
 
 campusesFieldsRouter.post(
   CAMPUS_FIELD_ROUTES_MODEL.INSERT,
-  (req, res) => res.send("insert it's working")
+  insertValidationRules(),
+  validationMiddleware,
+  CampusFieldController.insert
 );
 
 campusesFieldsRouter.post(
   CAMPUS_FIELD_ROUTES_MODEL.DELETE,
-  (req, res) => res.send("delete it's working")
+  deleteValidationRules(),
+  validationMiddleware,
+  CampusFieldController.delete
 );
 
 module.exports = campusesFieldsRouter;

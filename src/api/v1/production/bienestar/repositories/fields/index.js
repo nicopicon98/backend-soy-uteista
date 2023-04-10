@@ -1,2 +1,2 @@
-const FieldRepository = require('./field.repository');
-module.exports = FieldRepository
+const FieldRepository = require("./field.repository");
+module.exports = FieldRepository;

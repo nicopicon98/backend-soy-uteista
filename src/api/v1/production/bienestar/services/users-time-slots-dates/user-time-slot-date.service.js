@@ -1,8 +1,10 @@
-const UserTimeSlotsDateRepository = require('../../repositories/users-time-slots-dates');
+const UserTimeSlotsDateRepository = require("../../repositories/users-time-slots-dates");
 
 class UserTimeSlotsDateService {
   static async getAllByProfessional(id_professional) {
-    const rows = await UserTimeSlotsDateRepository.getAllByUserId(id_professional)
+    const rows = await UserTimeSlotsDateRepository.getAllByUserId(
+      id_professional
+    );
     return rows.map((row) => {
       const timeSlotIds = row.time_slot_ids.split(",");
       const timeSlotNames = row.time_slot_names.split(",");

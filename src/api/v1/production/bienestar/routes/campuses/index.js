@@ -1,2 +1,2 @@
-const campusRouter = require('./campus.routes');
+const campusRouter = require("./campus.routes");
 module.exports = campusRouter;

@@ -18,6 +18,6 @@ campusRouter.post(
   getAllCampusesValidationRules(),
   validationMiddleware,
   CampusController.getAll
-)
+);
 
 module.exports = campusRouter;

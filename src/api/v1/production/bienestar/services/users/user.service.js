@@ -57,7 +57,7 @@ class UserService {
 
     if (isUserAssociated) {
       throw new Error(
-        HTTP_HANDLING_MSGS.errorDeleteDependency('profesional', 'horario')
+        HTTP_HANDLING_MSGS.errorDeleteDependency("profesional", "horario")
       );
     }
 

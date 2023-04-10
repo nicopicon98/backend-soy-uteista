@@ -1,7 +1,10 @@
 const crypto = require("crypto-js");
 
 const encrypt = (data) => {
-  const ciphertext = crypto.AES.encrypt(data, process.env.SECRET_KEY).toString();
+  const ciphertext = crypto.AES.encrypt(
+    data,
+    process.env.SECRET_KEY
+  ).toString();
 
   return { content: ciphertext };
 };

@@ -55,5 +55,5 @@ const insertProfessionalValidationRules = () => {
 module.exports = {
   getAllProfessionalsByCampusFieldValidationRules,
   insertProfessionalValidationRules,
-  commonIdUserValidationRules
+  commonIdUserValidationRules,
 };

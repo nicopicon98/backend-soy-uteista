@@ -3,12 +3,12 @@ const {
   insertFieldValidationRules,
   deleteFieldValidationRules,
   getAllNotInCampusValidationRules,
-  getAllByCampusValidationRules
+  getAllByCampusValidationRules,
 } = require("./field-validation-rules.middleware");
 module.exports = {
   getAllFieldsValidationRules,
   insertFieldValidationRules,
   deleteFieldValidationRules,
   getAllNotInCampusValidationRules,
-  getAllByCampusValidationRules
+  getAllByCampusValidationRules,
 };

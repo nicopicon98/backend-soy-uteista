@@ -1,2 +1,2 @@
-const CampusFieldController = require('./campus-field.controller');
-module.exports = CampusFieldController
+const CampusFieldController = require("./campus-field.controller");
+module.exports = CampusFieldController;

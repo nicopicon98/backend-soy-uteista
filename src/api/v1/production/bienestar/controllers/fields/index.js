@@ -1,2 +1,2 @@
-const FieldController = require('./field.controller');
-module.exports = FieldController
+const FieldController = require("./field.controller");
+module.exports = FieldController;

@@ -1,5 +1,5 @@
 const AUTH_ROUTES_MODEL = {
-  LOGIN : '/login'
+  LOGIN: "/login",
 };
 
 module.exports = AUTH_ROUTES_MODEL;

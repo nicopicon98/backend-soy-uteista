@@ -28,9 +28,13 @@ class AppointmentService {
   static updateAttended(id_appointment, attended) {
     return AppointmentRepository.updateAttended(id_appointment, attended);
   }
-  
+
   static updateRejected(id_appointment, rejected_by, rejected_reason) {
-    return AppointmentRepository.updateRejected(id_appointment, rejected_by, rejected_reason);
+    return AppointmentRepository.updateRejected(
+      id_appointment,
+      rejected_by,
+      rejected_reason
+    );
   }
 }
 

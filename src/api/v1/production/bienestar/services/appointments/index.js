@@ -1,2 +1,2 @@
-const AppointmentService = require('./appointment.service');
-module.exports = AppointmentService
+const AppointmentService = require("./appointment.service");
+module.exports = AppointmentService;

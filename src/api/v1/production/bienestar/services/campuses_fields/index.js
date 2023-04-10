@@ -1,2 +1,2 @@
-const CampusFieldService = require('./campus-field.service');
-module.exports = CampusFieldService
+const CampusFieldService = require("./campus-field.service");
+module.exports = CampusFieldService;

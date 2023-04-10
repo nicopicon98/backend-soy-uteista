@@ -1,2 +1,2 @@
-const FieldService = require('./field.service');
-module.exports = FieldService
+const FieldService = require("./field.service");
+module.exports = FieldService;

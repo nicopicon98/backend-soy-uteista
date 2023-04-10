@@ -1,2 +1,2 @@
-const cryptRouter = require('./cryptography.routes');
+const cryptRouter = require("./cryptography.routes");
 module.exports = cryptRouter;

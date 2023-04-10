@@ -1,18 +1,42 @@
 const { body } = require("express-validator");
 
-const exampleValidationRules = () => {
+const getAllByCampusValidationRules = () => {
   return [
-    body("email_user")
+    body("id_campus")
       .notEmpty()
-      .withMessage("El campo email_user es obligatorio")
-      .isEmail()
-      .withMessage("El campo email_user debe ser un correo electrónico válido"),
-    body("password_user")
+      .withMessage("El campo id_campus es obligatorio")
+      .isInt()
+      .withMessage("El campo id_campus debe ser un número entero válido"),
+  ];
+};
+
+const insertValidationRules = () => {
+  return [
+    body("id_campus")
       .notEmpty()
-      .withMessage("El campo password_user es obligatorio")
+      .withMessage("El campo id_campus es obligatorio")
+      .isInt()
+      .withMessage("El campo id_campus debe ser un número entero válido"),
+    body("id_field")
+      .notEmpty()
+      .withMessage("El campo id_field es obligatorio")
+      .isInt()
+      .withMessage("El campo id_field debe ser un número entero válido"),
+  ];
+};
+
+const deleteValidationRules = () => {
+  return [
+    body("id_campus_field")
+      .notEmpty()
+      .withMessage("El campo id_campus_field es obligatorio")
+      .isInt()
+      .withMessage("El campo id_campus_field debe ser un número entero válido"),
   ];
 };
 
 module.exports = {
-  loginValidationRules,
+  getAllByCampusValidationRules,
+  insertValidationRules,
+  deleteValidationRules,
 };
