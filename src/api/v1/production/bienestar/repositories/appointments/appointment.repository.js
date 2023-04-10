@@ -182,7 +182,7 @@ LIMIT 1
   static async updateRejected(id_appointment, rejected_by, rejected_reason) {
     const query = `
       UPDATE appointments
-      SET rejected_by = ?, rejected_reason = ?
+      SET rejected_by = ?, rejected_reason = ?, rejected = 1
       WHERE id_appointment = ?;
     `;
     const result = await mysql.executeQuery(query, [
