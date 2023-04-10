@@ -8,7 +8,7 @@ class CampusFieldRepository {
     JOIN fields f ON f.id_field = cf.id_field
     ORDER BY c.id_campus
     `;
-    return mysql.executeQuery(query, [id_campus]);
+    return mysql.executeQuery(query);
   }
 
   static async insert(id_campus, id_field) {
