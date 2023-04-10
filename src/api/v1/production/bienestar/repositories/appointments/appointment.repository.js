@@ -37,6 +37,8 @@ class AppointmentRepository {
       SELECT
         a.photo_student,
         a.name_student,
+        a.id_appointment,
+        a.booked_by,
         a.registration_date,
         a.phone_student,
         a.attended,
