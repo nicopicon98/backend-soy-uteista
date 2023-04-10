@@ -21,7 +21,7 @@ const CAMPUS_ROUTES_MODEL = require("../../models/routes/campuses");
 // );
 
 campusRouter.post(
-  CAMPUS_ROUTES_MODEL.CAMPUS_ROUTES_MODEL,
+  CAMPUS_ROUTES_MODEL.GET_ALL,
   (req, res) => res.send("it's working from campus")
 )
 
