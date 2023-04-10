@@ -19,14 +19,14 @@ class AppointmentRepository {
       time_slots ts
       ON ut.id_time_slot = ts.id_time_slot
     WHERE
-      ut.date >= CURDATE() AND ut.id_user = ?
+      ut.date >= CURDATE() AND ut.id_user = 76
     ORDER BY
       ut.date ASC,
       SUBSTRING_INDEX(ts.name_time_slot, ' - ', 1) ASC
-    LIMIT 1
+    LIMIT 1;
       `;
 
-    const [result] = await mysql.executeQuery(query, [id_user]);
+    const result = await mysql.executeQuery(query, [id_user]);
 
     if (!result.length) {
       return "No tienes citas pendientes";
