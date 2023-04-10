@@ -11,7 +11,7 @@ class FieldRepository {
     return mysql.executeQuery(query);
   }
 
-  static async getAllFieldsByCampus(id_campus) {
+  static async getAllByCampus(id_campus) {
     const query = `
       SELECT f.*
       FROM fields f
