@@ -58,6 +58,7 @@ ORDER BY
 LIMIT 1
     `;
     const result = await mysql.executeQuery(query, [id_user]);
+    console.log(result)
     if (!result.length) {
       return "No tienes ninguna cita previa";
     }
