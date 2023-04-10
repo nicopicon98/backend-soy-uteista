@@ -13,10 +13,10 @@ class FieldRepository {
 
   static async getAllByCampus(id_campus) {
     const query = `
-      SELECT f.*
-      FROM fields f
-      JOIN campuses_fields cf ON f.id_field = cf.id_field
-      WHERE cf.id_campus = ?
+    SELECT f.name_field, cf.id_campus_field
+    FROM fields f
+    JOIN campuses_fields cf ON f.id_field = cf.id_field
+    WHERE cf.id_campus = ?
     `;
     return mysql.executeQuery(query, [id_campus]);
   }
