@@ -96,6 +96,7 @@ LIMIT 1
   }
 
   static async insert(appointmentData) {
+    console.log(appointmentData, "from controller")
     const {
       booked_by,
       phone_student,
@@ -116,7 +117,7 @@ LIMIT 1
       name_student,
       id_user_time_slot_date,
     ]);
-  
+    console.log(result, "result")
     return result.insertId;
   }
 }

@@ -39,7 +39,8 @@ class AppointmentController {
   static async insert(req, res) {
     try {
       const appointmentData = req.body;
-      const result = await appointmentService.insert(appointmentData);
+      console.log(appointmentData, "from controller")
+      const result = await AppointmentService.insert(appointmentData);
       send({ data: result, status: 201 }, res);
     } catch (error) {
       send({ error: [error.message], status: 500 }, res);
