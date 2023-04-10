@@ -103,6 +103,7 @@ LIMIT 1
         a.registration_date,
         a.phone_student,
         a.attended,
+        a.id_appointment,
         ut.date,
         ts.name_time_slot
       FROM
@@ -125,6 +126,7 @@ LIMIT 1
         a.name_student,
         a.registration_date,
         a.phone_student,
+        a.id_appointment,
         a.attended,
         ut.date,
         ts.name_time_slot
@@ -165,6 +167,30 @@ LIMIT 1
       name_student,
       id_user_time_slot_date,
     ]);
+  }
+
+  static async updateAttended(id_appointment, attended) {
+    const query = `
+      UPDATE appointments
+      SET attended = ?
+      WHERE id_appointment = ?;
+    `;
+    const result = await mysql.executeQuery(query, [attended, id_appointment]);
+    return result;
+  }
+
+  static async updateRejected(id_appointment, rejected_by, rejected_reason) {
+    const query = `
+      UPDATE appointments
+      SET rejected_by = ?, rejected_reason = ?
+      WHERE id_appointment = ?;
+    `;
+    const result = await mysql.executeQuery(query, [
+      rejected_by,
+      rejected_reason,
+      id_appointment,
+    ]);
+    return result;
   }
 }
 

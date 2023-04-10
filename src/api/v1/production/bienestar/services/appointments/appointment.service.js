@@ -24,6 +24,14 @@ class AppointmentService {
   static insert(appointmentData) {
     return AppointmentRepository.insert(appointmentData);
   }
+
+  static updateAttended(id_appointment, attended) {
+    return AppointmentRepository.updateAttended(id_appointment, attended);
+  }
+  
+  static updateRejected(id_appointment, rejected_by, rejected_reason) {
+    return AppointmentRepository.updateRejected(id_appointment, rejected_by, rejected_reason);
+  }
 }
 
 module.exports = AppointmentService;

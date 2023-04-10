@@ -38,6 +38,29 @@ class AppointmentController {
     }
   }
 
+  static async getAllLastMonthToNowByProfessional(req, res) {
+    try {
+      const { id_user } = req.body;
+      const appointments =
+        await AppointmentService.getAllLastMonthToNowByProfessional(id_user);
+      send({ data: appointments, status: 200 }, res);
+    } catch (error) {
+      send({ error: [error.message], status: 500 }, res);
+    }
+  }
+
+  static async getAllLastByProfessional(req, res) {
+    try {
+      const { id_user } = req.body;
+      const appointments = await AppointmentService.getAllLastByProfessional(
+        id_user
+      );
+      send({ data: appointments, status: 200 }, res);
+    } catch (error) {
+      send({ error: [error.message], status: 500 }, res);
+    }
+  }
+
   static async insert(req, res) {
     try {
       const appointmentData = req.body;
@@ -58,24 +81,39 @@ class AppointmentController {
     }
   }
 
-  static async getAllLastMonthToNowByProfessional(req, res) {
+  static async updateAttended(req, res) {
     try {
-      const { id_user } = req.body;
-      const appointments =
-        await AppointmentService.getAllLastMonthToNowByProfessional(id_user);
-      send({ data: appointments, status: 200 }, res);
+      const { id_appointment, attended } = req.body;
+      await AppointmentService.updateAttended(id_appointment, attended);
+      send(
+        {
+          data: {
+            message: "Appointment attended status updated successfully.",
+          },
+          status: 200,
+        },
+        res
+      );
     } catch (error) {
       send({ error: [error.message], status: 500 }, res);
     }
   }
 
-  static async getAllLastByProfessional(req, res) {
+  static async updateRejected(req, res) {
     try {
-      const { id_user } = req.body;
-      const appointments = await AppointmentService.getAllLastByProfessional(
-        id_user
+      const { id_appointment, rejected_by, rejected_reason } = req.body;
+      await AppointmentService.updateRejected(
+        id_appointment,
+        rejected_by,
+        rejected_reason
       );
-      send({ data: appointments, status: 200 }, res);
+      send(
+        {
+          data: { message: "Appointment rejection updated successfully." },
+          status: 200,
+        },
+        res
+      );
     } catch (error) {
       send({ error: [error.message], status: 500 }, res);
     }
