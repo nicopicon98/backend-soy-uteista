@@ -6,7 +6,7 @@ const {
   getAllByCampusValidationRules,
   insertValidationRules,
   deleteValidationRules,
-} = require("../../middlewares/validation-rules/auth");
+} = require("../../middlewares/validation-rules/campuses-fields");
 const validationMiddleware = require("../../middlewares/validator");
 
 //routes model
