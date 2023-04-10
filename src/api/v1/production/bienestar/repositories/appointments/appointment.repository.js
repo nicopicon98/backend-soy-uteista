@@ -23,11 +23,11 @@ class AppointmentRepository {
     ORDER BY
       ut.date ASC,
       SUBSTRING_INDEX(ts.name_time_slot, ' - ', 1) ASC
-    LIMIT 1;
+    LIMIT 1
       `;
 
     const result = await mysql.executeQuery(query, [id_user]);
-
+    console.log(result, "result")
     if (!result.length) {
       return "No tienes citas pendientes";
     }
