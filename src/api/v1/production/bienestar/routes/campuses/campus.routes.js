@@ -24,3 +24,5 @@ campusRouter.post(
   '/get-all-campuses',
   (req, res) => res.send("it's working from campus")
 )
+
+module.exports = campusRouter;
