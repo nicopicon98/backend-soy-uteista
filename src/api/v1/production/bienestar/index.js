@@ -12,11 +12,11 @@ const campusRouter = require('./routes/campuses');
 
 bienestar.use(userTimeSlotsDateRouter);
 bienestar.use(timeSlotRouter);
+bienestar.use(campusRouter);
 bienestar.use(fieldRouter);
 bienestar.use(cryptRouter);
 bienestar.use(userRouter);
 bienestar.use(authRouter);
-bienestar.use(campusRouter);
 
 const bienestarVersion = () => "/api/v1/production/bienestar";
 module.exports = {
