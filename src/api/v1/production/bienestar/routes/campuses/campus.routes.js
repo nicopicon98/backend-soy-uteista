@@ -11,7 +11,7 @@ const validationMiddleware = require("../../middlewares/validator");
 const CAMPUS_ROUTES_MODEL = require("../../models/routes/campuses");
 
 // controller
-// const CampusController = require("../../controllers/campuses");
+const CampusController = require("../../controllers/campuses");
 
 // campusRouter.post(
 //   FIELD_ROUTES_MODEL.GET_ALL,
@@ -22,7 +22,7 @@ const CAMPUS_ROUTES_MODEL = require("../../models/routes/campuses");
 
 campusRouter.post(
   CAMPUS_ROUTES_MODEL.GET_ALL,
-  (req, res) => res.send("it's working from campus")
+  CampusController.getAll
 )
 
 module.exports = campusRouter;

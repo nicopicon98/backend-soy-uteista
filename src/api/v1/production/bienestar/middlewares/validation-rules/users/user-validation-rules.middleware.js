@@ -44,11 +44,11 @@ const insertProfessionalValidationRules = () => {
       .withMessage("El campo location_user es obligatorio")
       .isString()
       .withMessage("El campo location_user debe ser una cadena de caracteres"),
-    body("id_campuses_field")
+    body("id_campus_field")
       .notEmpty()
-      .withMessage("El campo id_campuses_field es obligatorio")
+      .withMessage("El campo id_campus_field es obligatorio")
       .isInt()
-      .withMessage("El campo id_campuses_field debe ser un número entero"),
+      .withMessage("El campo id_campus_field debe ser un número entero"),
   ];
 };
 

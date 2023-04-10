@@ -54,7 +54,7 @@ class UserController {
    * @param {string} req.body.email_user - The email of the user
    * @param {string} req.body.password_user - The password of the user
    * @param {string} req.body.location_user - The location of the user
-   * @param {string} req.body.id_campuses_field - The ID of the campus field
+   * @param {string} req.body.id_campus_field - The ID of the campus field
    *
    * @returns {object} - The inserted professional
    */
@@ -64,7 +64,7 @@ class UserController {
       email_user,
       password_user,
       location_user,
-      id_campuses_field,
+      id_campus_field,
     } = req.body;
     const passwordWithoutEncrypt = password_user;
     const password_user_hashed = await hashPassword(password_user);
@@ -73,7 +73,7 @@ class UserController {
       email_user,
       password_user: password_user_hashed,
       location_user,
-      id_campuses_field,
+      id_campus_field,
     };
     try {
       await UserService.insertProfessional(professional);
