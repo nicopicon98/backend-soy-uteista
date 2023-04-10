@@ -1,12 +1,12 @@
 const { mysql } = require("@src/common/conexiones/conexionMysql");
 class CampusFieldRepository {
-  static async getAllByCampus(id_campus) {
+  static async getAllByCampus() {
     const query = `
-      SELECT c.id_campus, c.name_campus, f.id_field, f.name_field, cf.id_campus_field
-      FROM campuses c
-      JOIN campuses_fields cf ON c.id_campus = cf.id_campus
-      JOIN fields f ON f.id_field = cf.id_field
-      WHERE c.id_campus = ?
+    SELECT c.id_campus, c.name_campus, f.id_field, f.name_field, cf.id_campus_field
+    FROM campuses c
+    JOIN campuses_fields cf ON c.id_campus = cf.id_campus
+    JOIN fields f ON f.id_field = cf.id_field
+    ORDER BY c.id_campus
     `;
     return mysql.executeQuery(query, [id_campus]);
   }

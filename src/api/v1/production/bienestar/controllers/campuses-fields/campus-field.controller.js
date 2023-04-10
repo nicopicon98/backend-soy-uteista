@@ -2,9 +2,9 @@ const CampusFieldService = require("../../services/campuses_fields");
 
 class CampusFieldController {
   static async getAllByCampus(req, res) {
-    const { id_campus } = req.body;
+    const { id_user } = req.body;
     try {
-      const campusesFields = await CampusFieldService.getAllByCampus(id_campus);
+      const campusesFields = await CampusFieldService.getAllByCampus();
       send({ data: campusesFields, status: 200 }, res);
     } catch (error) {
       send({ error: [error.message], status: 500 }, res);

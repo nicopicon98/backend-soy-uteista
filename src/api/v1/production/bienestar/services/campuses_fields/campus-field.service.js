@@ -2,8 +2,8 @@ const CampusFieldRepository = require("../../repositories/campuses-fields");
 const UserRepository = require("../../repositories/users");
 
 class CampusFieldService {
-  static async getAllByCampus(id_campus) {
-    return CampusFieldRepository.getAllByCampus(id_campus);
+  static async getAllByCampus() {
+    return CampusFieldRepository.getAllByCampus();
   }
 
   static async insert(id_campus, id_field) {
