@@ -22,4 +22,9 @@ appointmentsRouter.post(
   AppointmentController.getLastAppointmentByProfessional
 );
 
+appointmentsRouter.post(
+  APPOINTMENT_ROUTES_MODEL.GET_ALL_UPCOMING_BY_PROFESSIONAL,
+  AppointmentController.getUpcomingAppointmentsByProfessional
+);
+
 module.exports = appointmentsRouter;

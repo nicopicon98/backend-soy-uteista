@@ -5,9 +5,14 @@ class AppointmentService {
     return AppointmentRepository.getUpcomingAppointmentByProfessional(id_user);
   }
 
+  static getUpcomingAppointmentsByProfessional(id_user) {
+    return AppointmentRepository.getUpcomingAppointmentsByProfessional(id_user);
+  }
+
   static getLastAppointmentByProfessional(id_user) {
     return AppointmentRepository.getLastAppointmentByProfessional(id_user);
   }
+
 }
 
 module.exports = AppointmentService;

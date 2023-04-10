@@ -14,6 +14,17 @@ class AppointmentController {
     }
   }
 
+  static async getUpcomingAppointmentsByProfessional(req, res) {
+    try {
+      const { id_user } = req.body;
+      const appointments =
+        await AppointmentService.getUpcomingAppointmentsByProfessional(id_user);
+      send({ data: appointments, status: 200 }, res);
+    } catch (error) {
+      send({ error: [error.message], status: 500 }, res);
+    }
+  }
+
   static async getLastAppointmentByProfessional(req, res) {
     try {
       const { id_user } = req.body;
