@@ -6,10 +6,10 @@ class CampusController {
   static async getAll(req, res) {
     const { id_user } = req.body;
     try {
-      const resp = await CampusService.getAll();
-      send({ data: resp, status: 200 });
+      const campuses = await CampusService.getAll();
+      send({ data: campuses, status: 200 }, res);
     } catch (error) {
-      send({ data: [error.message], status: 500 });
+      send({ error: [error.message], status: 500 }, res);
     }
   }
 }
