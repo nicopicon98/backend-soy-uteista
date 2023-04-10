@@ -9,7 +9,7 @@ class UserService {
    * @returns {Array} - Array of professionals with related campus and field data
    */
   static async getAllProfessionalsByCampusField(id_campus_field) {
-    return UserRepository.getAllByCampusField(id_campus_field);
+    return UserRepository.getAllProfessionalsByCampusField(id_campus_field);
   }
 
   /**
