@@ -28,9 +28,9 @@ class AppointmentRepository {
 
     const result = await mysql.executeQuery(query, [id_user]);
     console.log(result, "result")
-    // if (!result.length) {
-    //   return "No tienes citas pendientes";
-    // }
+    if (!result.length) {
+      return "No tienes citas pendientes";
+    }
     return result[0];
   }
 }
