@@ -28,8 +28,19 @@ appointmentsRouter.post(
 );
 
 appointmentsRouter.post(
+  APPOINTMENT_ROUTES_MODEL.GET_ALL_LAST_BY_PROFESSIONAL,
+  AppointmentController.getAllLastByProfessional
+);
+
+appointmentsRouter.post(
+  APPOINTMENT_ROUTES_MODEL.GET_ALL_LAST_MONTH_TO_NOW_BY_PROFESSIONAL,
+  AppointmentController.getAllLastMonthToNowByProfessional
+);
+
+appointmentsRouter.post(
   APPOINTMENT_ROUTES_MODEL.INSERT,
   AppointmentController.insert
 );
 
 module.exports = appointmentsRouter;
+

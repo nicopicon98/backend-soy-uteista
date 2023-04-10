@@ -45,12 +45,37 @@ class AppointmentController {
       await AppointmentService.insert(appointmentData);
       send(
         {
-          data: HTTP_HANDLING_MSGS.successInsert("cita", ". Podrás revisar el estado de tu cita desde el apartado 'mis citas'."),
+          data: HTTP_HANDLING_MSGS.successInsert(
+            "cita",
+            ". Podrás revisar el estado de tu cita desde el apartado 'mis citas'."
+          ),
           status: 200,
         },
         res
       );
-      send({ data: result, status: 201 }, res);
+    } catch (error) {
+      send({ error: [error.message], status: 500 }, res);
+    }
+  }
+
+  static async getAllLastMonthToNowByProfessional(req, res) {
+    try {
+      const { id_user } = req.body;
+      const appointments =
+        await AppointmentService.getAllLastMonthToNowByProfessional(id_user);
+      send({ data: appointments, status: 200 }, res);
+    } catch (error) {
+      send({ error: [error.message], status: 500 }, res);
+    }
+  }
+
+  static async getAllLastByProfessional(req, res) {
+    try {
+      const { id_user } = req.body;
+      const appointments = await AppointmentService.getAllLastByProfessional(
+        id_user
+      );
+      send({ data: appointments, status: 200 }, res);
     } catch (error) {
       send({ error: [error.message], status: 500 }, res);
     }
