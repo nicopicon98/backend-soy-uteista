@@ -1,4 +1,5 @@
 const CampusFieldService = require("../../services/campuses_fields");
+const { send } = require("@api_bienestar/config");
 
 class CampusFieldController {
   static async getAllByCampus(req, res) {
