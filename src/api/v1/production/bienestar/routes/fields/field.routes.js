@@ -7,6 +7,7 @@ const {
   getAllNotInCampusValidationRules,
   insertFieldValidationRules,
   deleteFieldValidationRules,
+  getAllByCampusValidationRules
 } = require("../../middlewares/validation-rules/fields");
 const validationMiddleware = require("../../middlewares/validator");
 
@@ -21,6 +22,13 @@ fieldRouter.post(
   getAllFieldsValidationRules(),
   validationMiddleware,
   FieldController.getAll
+);
+
+fieldRouter.post(
+  FIELD_ROUTES_MODEL.GET_ALL_BY_CAMPUS,
+  getAllByCampusValidationRules(),
+  validationMiddleware,
+  FieldController.getAllByCampus
 );
 
 fieldRouter.post(

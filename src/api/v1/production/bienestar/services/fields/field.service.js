@@ -11,6 +11,10 @@ class FieldService {
     return FieldRepository.getAll();
   }
 
+  static async getAllFieldsByCampus(id_campus) {
+    return FieldRepository.getAllFieldsByCampus(id_campus);
+  }
+
   /**
    * Get all fields not associated with a specific campus
    *

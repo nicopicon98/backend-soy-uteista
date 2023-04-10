@@ -20,6 +20,16 @@ const getAllNotInCampusValidationRules = () => {
   ];
 };
 
+const getAllByCampusValidationRules = () => {
+  return [
+    body("id_campus")
+      .notEmpty()
+      .withMessage("El campo id_campus es obligatorio")
+      .isInt()
+      .withMessage("El campo id_campus debe ser un número entero"),
+  ];
+};
+
 const insertFieldValidationRules = () => {
   return [
     body("name_field")
@@ -41,6 +51,7 @@ const deleteFieldValidationRules = () => {
 };
 
 module.exports = {
+  getAllByCampusValidationRules,
   getAllFieldsValidationRules,
   insertFieldValidationRules,
   deleteFieldValidationRules,

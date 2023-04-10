@@ -11,6 +11,16 @@ class FieldRepository {
     return mysql.executeQuery(query);
   }
 
+  static async getAllFieldsByCampus(id_campus) {
+    const query = `
+      SELECT f.*
+      FROM fields f
+      JOIN campuses_fields cf ON f.id_field = cf.id_field
+      WHERE cf.id_campus = ?
+    `;
+    return mysql.executeQuery(query, [id_campus]);
+  }
+
   /**
    * Get all fields that are not associated with a given campus
    *

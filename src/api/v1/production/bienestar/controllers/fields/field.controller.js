@@ -21,6 +21,16 @@ class FieldController {
     }
   }
 
+  static async getAllByCampus(req, res) {
+    const { id_campus } = req.body;
+    try {
+      const fields = await FieldService.getAllByCampus(id_campus);
+      send({ data: fields, status: 200 }, res);
+    } catch (error) {
+      send({ error: [error.message], status: 500 }, res);
+    }
+  }
+
   /**
    * Get all fields not in a campus
    *

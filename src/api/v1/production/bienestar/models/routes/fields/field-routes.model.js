@@ -1,5 +1,6 @@
 const FIELD_ROUTES_MODEL = {
   GET_ALL: "/get-all-fields",
+  GET_ALL_BY_CAMPUS: "/get-all-fields-by-campus",
   GET_ALL_NOT_IN_CAMPUS: "/get-all-fields-not-in-campus",
   INSERT: "/insert-field",
   DELETE: "/delete-field",
