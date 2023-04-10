@@ -19,7 +19,7 @@ class AppointmentRepository {
       time_slots ts
       ON ut.id_time_slot = ts.id_time_slot
     WHERE
-      ut.date >= CURDATE() AND ut.id_user = 76
+      ut.date >= CURDATE() AND ut.id_user = ?
     ORDER BY
       ut.date ASC,
       SUBSTRING_INDEX(ts.name_time_slot, ' - ', 1) ASC
