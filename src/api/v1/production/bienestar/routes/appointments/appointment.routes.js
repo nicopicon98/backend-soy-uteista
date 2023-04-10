@@ -14,17 +14,22 @@ const AppointmentController = require("../../controllers/appointments");
 
 appointmentsRouter.post(
   APPOINTMENT_ROUTES_MODEL.GET_UPCOMING_BY_PROFESSIONAL,
-  AppointmentController.getUpcomingAppointmentByProfessional
+  AppointmentController.getUpcomingByProfessional
 );
 
 appointmentsRouter.post(
   APPOINTMENT_ROUTES_MODEL.GET_LAST_BY_PROFESSIONAL,
-  AppointmentController.getLastAppointmentByProfessional
+  AppointmentController.getLastByProfessional
 );
 
 appointmentsRouter.post(
   APPOINTMENT_ROUTES_MODEL.GET_ALL_UPCOMING_BY_PROFESSIONAL,
-  AppointmentController.getUpcomingAppointmentsByProfessional
+  AppointmentController.getAllUpcomingByProfessional
+);
+
+appointmentsRouter.post(
+  APPOINTMENT_ROUTES_MODEL.INSERT,
+  AppointmentController.insert
 );
 
 module.exports = appointmentsRouter;

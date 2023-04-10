@@ -1,7 +1,7 @@
 const { mysql } = require("@src/common/conexiones/conexionMysql");
 
 class AppointmentRepository {
-  static async getUpcomingAppointmentByProfessional(id_user) {
+  static async getUpcomingByProfessional(id_user) {
     const query = `
       SELECT
       a.photo_student,
@@ -32,7 +32,7 @@ class AppointmentRepository {
     return result[0];
   }
 
-  static async getUpcomingAppointmentsByProfessional(id_user) {
+  static async getAllUpcomingByProfessional(id_user) {
     const query = `
       SELECT
         a.photo_student,
@@ -51,7 +51,7 @@ class AppointmentRepository {
         time_slots ts
         ON ut.id_time_slot = ts.id_time_slot
       WHERE
-        ut.date >= CURDATE() AND ut.id_user = ?
+        ut.date >= CURDATE() AND ut.id_user = 76
       ORDER BY
         ut.date ASC,
         SUBSTRING_INDEX(ts.name_time_slot, ' - ', 1) ASC`;
@@ -62,7 +62,7 @@ class AppointmentRepository {
     return result;
   }
 
-  static async getLastAppointmentByProfessional(id_user) {
+  static async getLastByProfessional(id_user) {
     const query = `
     SELECT
   a.photo_student,
@@ -93,6 +93,31 @@ LIMIT 1
       return "No tienes ninguna cita previa";
     }
     return result[0];
+  }
+
+  static async insert(appointmentData) {
+    const {
+      booked_by,
+      phone_student,
+      photo_student,
+      name_student,
+      id_user_time_slot_date,
+    } = appointmentData;
+  
+    const query = `
+      INSERT INTO appointments (booked_by, phone_student, photo_student, name_student, id_user_time_slot_date)
+      VALUES (?, ?, ?, ?, ?)
+    `;
+  
+    const result = await mysql.executeQuery(query, [
+      booked_by,
+      phone_student,
+      photo_student,
+      name_student,
+      id_user_time_slot_date,
+    ]);
+  
+    return result.insertId;
   }
 }
 

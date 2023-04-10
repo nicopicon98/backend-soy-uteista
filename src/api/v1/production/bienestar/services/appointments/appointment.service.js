@@ -1,18 +1,23 @@
 const AppointmentRepository = require('../../repositories/appointments');
 
 class AppointmentService {
-  static getUpcomingAppointmentByProfessional(id_user) {
-    return AppointmentRepository.getUpcomingAppointmentByProfessional(id_user);
+  static getUpcomingByProfessional(id_user) {
+    return AppointmentRepository.getUpcomingByProfessional(id_user);
   }
 
-  static getUpcomingAppointmentsByProfessional(id_user) {
-    return AppointmentRepository.getUpcomingAppointmentsByProfessional(id_user);
+  static getAllUpcomingByProfessional(id_user) {
+    return AppointmentRepository.getAllUpcomingByProfessional(id_user);
   }
 
-  static getLastAppointmentByProfessional(id_user) {
-    return AppointmentRepository.getLastAppointmentByProfessional(id_user);
+  static getLastByProfessional(id_user) {
+    return AppointmentRepository.getLastByProfessional(id_user);
   }
 
+  static insert(appointmentData) {
+    return AppointmentRepository.insert(appointmentData);
+  }
+
+  
 }
 
 module.exports = AppointmentService;
