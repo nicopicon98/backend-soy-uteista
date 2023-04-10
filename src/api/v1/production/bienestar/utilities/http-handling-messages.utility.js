@@ -1,7 +1,7 @@
 const HTTP_HANDLING_MSGS = {
   //success
-  successInsert: (custom_msg = "") => {
-    return `Registro: ${custom_msg} insertado con exito`;
+  successInsert: (custom_msg = "", extra_info = "") => {
+    return `Registro: ${custom_msg} insertado con exito${extra_info}`;
   },
   successUpdate: (custom_msg = "") => {
     return `Registro: ${custom_msg} modificado con exito`;

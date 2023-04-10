@@ -14,7 +14,6 @@ class AppointmentService {
   }
 
   static insert(appointmentData) {
-    console.log(appointmentData, "from service")
     return AppointmentRepository.insert(appointmentData);
   }
 

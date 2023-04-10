@@ -110,15 +110,13 @@ LIMIT 1
       VALUES (?, ?, ?, ?, ?)
     `;
   
-    const result = await mysql.executeQuery(query, [
+    return mysql.executeQuery(query, [
       booked_by,
       phone_student,
       photo_student,
       name_student,
       id_user_time_slot_date,
     ]);
-    console.log(result, "result")
-    return result.insertId;
   }
 }
 
