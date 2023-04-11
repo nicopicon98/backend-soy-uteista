@@ -39,6 +39,7 @@ class AppointmentRepository {
         a.name_student,
         a.id_appointment,
         a.booked_by,
+        a.rejected,
         a.registration_date,
         a.phone_student,
         a.attended,
