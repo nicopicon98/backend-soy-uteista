@@ -128,6 +128,7 @@ LIMIT 1
         a.name_student,
         a.registration_date,
         a.phone_student,
+        a.rejected,
         a.id_appointment,
         a.attended,
         ut.date,

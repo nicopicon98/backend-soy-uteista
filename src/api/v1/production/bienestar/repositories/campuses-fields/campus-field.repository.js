@@ -1,4 +1,5 @@
 const { mysql } = require("@src/common/conexiones/conexionMysql");
+
 class CampusFieldRepository {
   static async getAllByCampus() {
     const query = `
