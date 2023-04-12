@@ -35,8 +35,12 @@ class UserRepository {
   static async getAllProfessionals(_id_user) {
     const query = `SELECT 
         id_user, name_user, email_user, location_user, 
-        id_role, id_campus_field, registration_date
+        id_role, users.id_campus_field, registration_date,
+        fields.name_field, campuses.name_campus
         FROM users 
+        INNER JOIN campuses_fields ON users.id_campus_field = campuses_fields.id_campus_field
+        INNER JOIN fields ON campuses_fields.id_field = fields.id_field
+        INNER JOIN campuses ON campuses_fields.id_campus = campuses.id_campus
         WHERE id_role = 2`;
     return mysql.executeQuery(query);
   }
