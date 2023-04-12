@@ -24,18 +24,18 @@ class UserTimeSlotsDateRepository {
 
   static async insert(id_user, user_time_slots_date) {
     const { startDate, endDate, time_slots } = user_time_slots_date;
-
+  
     const checkSql = `
       SELECT * FROM users_time_slots_dates WHERE id_user = ? AND date = ? AND id_time_slot = ?
     `;
-
+  
     const sql = `
-      INSERT IGNORE INTO users_time_slots_dates (id_user, date, id_time_slot)
+      INSERT INTO users_time_slots_dates (id_user, date, id_time_slot)
       VALUES (?, ?, ?)
     `;
-
+  
     let affectedRows = 0;
-
+  
     for (
       let date = new Date(startDate);
       date <= new Date(endDate);
@@ -47,33 +47,41 @@ class UserTimeSlotsDateRepository {
           date,
           id_time_slot,
         ]);
-
+  
         if (existingRow.length > 0) {
           return {
             message:
               "Error: El usuario ya tiene una reserva para la fecha y horario seleccionados.",
           };
         }
-
-        const rows = await mysql.executeQuery(sql, [
-          id_user,
-          date,
-          id_time_slot,
-        ]);
-
-        affectedRows += rows.affectedRows;
+  
+        try {
+          const rows = await mysql.executeQuery(sql, [
+            id_user,
+            date,
+            id_time_slot,
+          ]);
+          affectedRows += rows.affectedRows;
+        } catch (error) {
+          if (error.code === "ER_DUP_ENTRY") {
+            return {
+              message:
+                "Error: El usuario ya tiene una reserva para la fecha y horario seleccionados.",
+            };
+          } else {
+            return {
+              message: "Error inesperado al insertar las reservas de horarios para el usuario.",
+            };
+          }
+        }
       }
     }
-
+  
     return affectedRows > 0
-      ? {
-          message:
-            "Reservas de horarios para el usuario insertadas correctamente",
-        }
-      : {
-          message: "Error al insertar las reservas de horarios para el usuario",
-        };
+      ? { message: "Reservas de horarios para el usuario insertadas correctamente" }
+      : { message: "Error al insertar las reservas de horarios para el usuario" };
   }
+  
 }
 
 module.exports = UserTimeSlotsDateRepository;
