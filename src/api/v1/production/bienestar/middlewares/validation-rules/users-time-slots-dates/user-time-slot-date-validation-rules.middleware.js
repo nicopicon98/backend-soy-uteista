@@ -17,24 +17,24 @@ const insertUserTimeSlotsDateValidationRules = () => {
       .withMessage("El campo id_user es obligatorio")
       .isInt()
       .withMessage("El campo id_campus_area debe ser un número entero"),
-    body("users_time_slots_dates.startDate")
+    body("user_time_slots_date.startDate")
       .notEmpty()
       .withMessage("El campo startDate es obligatorio")
       .isISO8601()
       .withMessage(
         "El campo startDate debe ser una fecha válida en formato ISO 8601"
       ),
-    body("users_time_slots_dates.endDate")
+    body("user_time_slots_date.endDate")
       .notEmpty()
       .withMessage("El campo endDate es obligatorio")
       .isISO8601()
       .withMessage(
         "El campo endDate debe ser una fecha válida en formato ISO 8601"
       ),
-    body("users_time_slots_dates.time_slots")
+    body("user_time_slots_date.time_slots")
       .isArray({ min: 1 })
       .withMessage("El campo time_slots debe ser un array no vacío"),
-    body("users_time_slots_dates.time_slots.*")
+    body("user_time_slots_date.time_slots.*")
       .isInt()
       .withMessage(
         "Cada elemento del array time_slots debe ser un número entero"
