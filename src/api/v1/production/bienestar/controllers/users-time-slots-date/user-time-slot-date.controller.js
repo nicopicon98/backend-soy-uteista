@@ -24,10 +24,10 @@ class UserTimeSlotsDateController {
 
   static async insert(req, res) {
     try {
-      const { id_user, users_time_slots_date } = req.body;
+      const { id_user, user_time_slots_date } = req.body;
       const result = await UserTimeSlotsDateService.insert(
         id_user,
-        users_time_slots_date
+        user_time_slots_date
       );
       send({ data: result, status: 201 }, res);
     } catch (error) {
