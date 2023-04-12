@@ -22,31 +22,57 @@ class UserTimeSlotsDateRepository {
     return mysql.executeQuery(query, [id_professional]);
   }
 
-  static async insert(id_user, users_time_slots_dates) {
-    const { startDate, endDate, time_slots } = users_time_slots_dates;
+  static async insert(id_user, user_time_slots_date) {
+    const { startDate, endDate, time_slots } = user_time_slots_date;
+
+    const checkSql = `
+      SELECT * FROM users_time_slots_dates WHERE id_user = ? AND date = ? AND id_time_slot = ?
+    `;
 
     const sql = `
       INSERT IGNORE INTO users_time_slots_dates (id_user, date, id_time_slot)
       VALUES (?, ?, ?)
     `;
+
     let affectedRows = 0;
+
     for (
       let date = new Date(startDate);
       date <= new Date(endDate);
       date.setDate(date.getDate() + 1)
     ) {
       for (const id_time_slot of time_slots) {
+        const existingRow = await mysql.executeQuery(checkSql, [
+          id_user,
+          date,
+          id_time_slot,
+        ]);
+
+        if (existingRow.length > 0) {
+          return {
+            message:
+              "Error: El usuario ya tiene una reserva para la fecha y horario seleccionados.",
+          };
+        }
+
         const rows = await mysql.executeQuery(sql, [
           id_user,
           date,
           id_time_slot,
         ]);
+
         affectedRows += rows.affectedRows;
       }
     }
+
     return affectedRows > 0
-      ? { message: "User time slots date inserted successfully" }
-      : { message: "Failed to insert user time slots date" };
+      ? {
+          message:
+            "Reservas de horarios para el usuario insertadas correctamente",
+        }
+      : {
+          message: "Error al insertar las reservas de horarios para el usuario",
+        };
   }
 }
 
