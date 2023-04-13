@@ -53,7 +53,7 @@ class UserTimeSlotsDateRepository {
       }
       return "Insertado con exito";
     } catch (error) {
-      throw new Error("Ocurrio un problema al insertar"+JSON.stringify(error, null, 2));
+      throw new Error("Ocurrio un problema al insertar"+JSON.stringify(error.message, null, 2));
     }
   }
 }
