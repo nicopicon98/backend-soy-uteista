@@ -22,7 +22,7 @@ class UserTimeSlotsDateRepository {
     return mysql.executeQuery(query, [id_professional]);
   }
 
-  daysBetween(startDateString, endDateString) {
+  static daysBetween(startDateString, endDateString) {
     const startDate = new Date(startDateString);
     const endDate = new Date(endDateString);
 
@@ -40,7 +40,7 @@ class UserTimeSlotsDateRepository {
       INSERT INTO users_time_slots_dates (id_user, date, id_time_slot)
       VALUES (?, ?, ?)
     `;
-    const distance = daysBetween(startDate, endDate);
+    const distance = UserTimeSlotsDateRepository.daysBetween(startDate, endDate);
     const startDateFormmatted = new Date(startDate);
     let cont = 0;
     try {
