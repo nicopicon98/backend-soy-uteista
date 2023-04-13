@@ -33,56 +33,30 @@ class UserTimeSlotsDateRepository {
       INSERT INTO users_time_slots_dates (id_user, date, id_time_slot)
       VALUES (?, ?, ?)
     `;
+    const start = new Date(startDate);
+    const end = new Date(endDate);
 
-    let affectedRows = 0;
-
-    for (
-      let date = new Date(startDate);
-      date <= new Date(endDate);
-      date.setDate(date.getDate() + 1)
-    ) {
-      for (const id_time_slot of time_slots) {
-        const existingRow = await mysql.executeQuery(checkSql, [
-          id_user,
-          date,
-          id_time_slot,
-        ]);
-
-        if (existingRow.length > 0) {
-          throw new Error(
-            "Error: El usuario ya tiene una reserva para la fecha y horario seleccionados."
-          );
-        }
-
-        try {
-          const rows = await mysql.executeQuery(sql, [
+    try {
+      for (let date = start; date <= end; date.setDate(date.getDate() + 1)) {
+        for (const time_slot of time_slots) {
+          const rows = await mysql.executeQuery(checkSql, [
             id_user,
-            date,
-            id_time_slot,
+            date.toISOString().substring(0, 10),
+            time_slot,
           ]);
-          affectedRows += rows.affectedRows;
-        } catch (error) {
-          if (error.code === "ER_DUP_ENTRY") {
-            throw new Error(
-              "Error: El usuario ya tiene una reserva para la fecha y horario seleccionados."
-            );
-          } else {
-            throw new Error(
-              "Error inesperado al insertar las reservas de horarios para el usuario."
-            );
+          if (rows.length === 0) {
+            await mysql.executeQuery(sql, [
+              id_user,
+              date.toISOString().substring(0, 10),
+              time_slot,
+            ]);
           }
         }
       }
+      return "Insertado con exito"
+    } catch (error) {
+      throw new Error("Ocurrio un problema al insertar")
     }
-
-    return affectedRows > 0
-      ? {
-          message:
-            "Reservas de horarios para el usuario insertadas correctamente",
-        }
-      : {
-          message: "Error al insertar las reservas de horarios para el usuario",
-        };
   }
 }
 
