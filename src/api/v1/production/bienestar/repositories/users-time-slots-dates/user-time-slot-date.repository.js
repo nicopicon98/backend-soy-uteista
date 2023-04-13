@@ -40,20 +40,29 @@ class UserTimeSlotsDateRepository {
       INSERT INTO users_time_slots_dates (id_user, date, id_time_slot)
       VALUES (?, ?, ?)
     `;
-    const distance = UserTimeSlotsDateRepository.daysBetween(startDate, endDate);
-    const startDateFormmatted = new Date(startDate);
-    let cont = 0;
+    const distance = UserTimeSlotsDateRepository.daysBetween(
+      startDate,
+      endDate
+    );
+    const startDateFormatted = new Date(startDate);
+
     try {
       for (let i = 0; i <= distance; i++) {
         for (let j = 0; j < time_slots.length; j++) {
-          startDateFormmatted.setDate(startDateFormmatted.getDate() + cont);
-          await mysql.executeQuery(sql, [id_user, startDateFormmatted, time_slots[j]]);
+          await mysql.executeQuery(sql, [
+            id_user,
+            startDateFormatted,
+            time_slots[j],
+          ]);
         }
-        cont++;
+        startDateFormatted.setDate(startDateFormatted.getDate() + 1);
       }
       return "Insertado con exito";
     } catch (error) {
-      throw new Error("Ocurrio un problema al insertar"+JSON.stringify(error.message, null, 2));
+      throw new Error(
+        "Ocurrio un problema al insertar" +
+          JSON.stringify(error.message, null, 2)
+      );
     }
   }
 }
