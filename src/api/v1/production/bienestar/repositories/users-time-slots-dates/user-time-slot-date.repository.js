@@ -22,40 +22,38 @@ class UserTimeSlotsDateRepository {
     return mysql.executeQuery(query, [id_professional]);
   }
 
+  daysBetween(startDateString, endDateString) {
+    const startDate = new Date(startDateString);
+    const endDate = new Date(endDateString);
+
+    // Calculate the difference in milliseconds
+    const diffMilliseconds = Math.abs(endDate - startDate);
+
+    // Convert milliseconds to days and return the result
+    return Math.ceil(diffMilliseconds / (1000 * 60 * 60 * 24));
+  }
+
   static async insert(id_user, user_time_slots_date) {
     const { startDate, endDate, time_slots } = user_time_slots_date;
-    // return { id_user, user_time_slots_date };
-    const checkSql = `
-      SELECT * FROM users_time_slots_dates WHERE id_user = ? AND date = ? AND id_time_slot = ?
-    `;
 
     const sql = `
       INSERT INTO users_time_slots_dates (id_user, date, id_time_slot)
       VALUES (?, ?, ?)
     `;
-    const start = new Date(startDate);
-    const end = new Date(endDate);
-
+    const distance = daysBetween(startDate, endDate);
+    const startDateFormmatted = new Date(startDate);
+    let cont = 0;
     try {
-      for (let date = start; date <= end; date.setDate(date.getDate() + 1)) {
-        for (const time_slot of time_slots) {
-          const rows = await mysql.executeQuery(checkSql, [
-            id_user,
-            date.toISOString().substring(0, 10),
-            time_slot,
-          ]);
-          if (rows.length === 0) {
-            await mysql.executeQuery(sql, [
-              id_user,
-              date.toISOString().substring(0, 10),
-              time_slot,
-            ]);
-          }
+      for (i = 0; i <= distance; i++) {
+        for (j = 0; j < time_slots.length; j++) {
+          startDateFormmatted.setDate(startDateFormmatted.getDate() + cont);
+          await mysql.executeQuery(sql, [id_user, startDateFormmatted, time_slots[j]]);
         }
+        cont++;
       }
-      return "Insertado con exito"
+      return "Insertado con exito";
     } catch (error) {
-      throw new Error("Ocurrio un problema al insertar")
+      throw new Error("Ocurrio un problema al insertar");
     }
   }
 }
