@@ -44,8 +44,8 @@ class UserTimeSlotsDateRepository {
     const startDateFormmatted = new Date(startDate);
     let cont = 0;
     try {
-      for (i = 0; i <= distance; i++) {
-        for (j = 0; j < time_slots.length; j++) {
+      for (const i = 0; i <= distance; i++) {
+        for (const j = 0; j < time_slots.length; j++) {
           startDateFormmatted.setDate(startDateFormmatted.getDate() + cont);
           await mysql.executeQuery(sql, [id_user, startDateFormmatted, time_slots[j]]);
         }
