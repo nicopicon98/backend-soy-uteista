@@ -45,13 +45,12 @@ class UserTimeSlotsDateRepository {
       endDate
     );
     const startDateFormatted = new Date(startDate);
-
     try {
       for (let i = 0; i <= distance; i++) {
         for (let j = 0; j < time_slots.length; j++) {
           await mysql.executeQuery(sql, [
             id_user,
-            startDateFormatted,
+            startDateFormatted.toISOString().substring(0, 10),
             time_slots[j],
           ]);
         }
