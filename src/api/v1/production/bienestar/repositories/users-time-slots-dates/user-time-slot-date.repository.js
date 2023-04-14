@@ -72,11 +72,10 @@ class UserTimeSlotsDateRepository {
         "SELECT * FROM users_time_slots_dates WHERE id_user_time_slot_date = ?",
         [id_user_time_slot_date]
       );
-
+      console.log(row)
       if (!row.length) {
         throw new Error("No se encontró un horario con ese ID.");
       }
-
       if (row.rejected === 0) {
         throw new Error(
           "No se puede eliminar una cita que no ha sido rechazada."
