@@ -64,6 +64,19 @@ class UserTimeSlotsDateRepository {
       );
     }
   }
+
+  static async delete(id_user_time_slot_date) {
+    try {
+      return mysql.executeQuery(
+        "DELETE FROM users_time_slots_dates WHERE id_user_time_slot_date = ?",
+        [id_user_time_slot_date]
+      );
+    } catch (error) {
+      throw new Error(
+        "Ocurrio un error al eliminar esta cita: " + error.message
+      );
+    }
+  }
 }
 
 module.exports = UserTimeSlotsDateRepository;

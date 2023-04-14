@@ -28,5 +28,9 @@ userTimeSlotsDateRouter.post(
   validationMiddleware,
   UserTimeSlotsDateController.insert
 );
+userTimeSlotsDateRouter.post(
+  USERS_TIME_SLOTS_DATES_ROUTES.DELETE,
+  UserTimeSlotsDateController.delete
+);
 
 module.exports = userTimeSlotsDateRouter;

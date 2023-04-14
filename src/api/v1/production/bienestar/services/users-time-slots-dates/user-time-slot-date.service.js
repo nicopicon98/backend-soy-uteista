@@ -21,6 +21,10 @@ class UserTimeSlotsDateService {
   static async insert(id_user, user_time_slots_date) {
     return UserTimeSlotsDateRepository.insert(id_user, user_time_slots_date);
   }
+
+  static async delete(id_user_time_slot_date) {
+    return await UserTimeSlotsDateRepository.delete(id_user_time_slot_date);
+  }
 }
 
 module.exports = UserTimeSlotsDateService;

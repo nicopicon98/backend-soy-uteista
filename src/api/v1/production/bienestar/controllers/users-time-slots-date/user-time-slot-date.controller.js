@@ -34,6 +34,18 @@ class UserTimeSlotsDateController {
       send({ error: [error.message], status: 500 }, res);
     }
   }
+
+  static async delete(req, res) {
+    try {
+      const { id_user_time_slot_date } = req.body;
+      const result = await UserTimeSlotsDateService.delete(
+        id_user_time_slot_date
+      );
+      send({ data: result, status: 200 }, res);
+    } catch (error) {
+      send({ error: [error.message], status: 500 }, res);
+    }
+  }
 }
 
 module.exports = UserTimeSlotsDateController;
