@@ -68,31 +68,33 @@ class UserTimeSlotsDateRepository {
   static async delete(id_user_time_slot_date) {
     try {
       // Check if the register exists
-      const row = await mysql.executeQuery(
+      const [row] = await mysql.executeQuery(
         "SELECT * FROM users_time_slots_dates WHERE id_user_time_slot_date = ?",
         [id_user_time_slot_date]
       );
-      console.log(row)
-      if (!row.length) {
+      console.log(row);
+      if (!row) {
         throw new Error("No se encontró un horario con ese ID.");
       }
-      if (row.rejected === 0) {
-        throw new Error(
-          "No se puede eliminar una cita que no ha sido rechazada."
-        );
-      }
-
-      // Delete the register if it exists and has rejected = 1
+  
+      // Delete the register if it exists
       return mysql.executeQuery(
         "DELETE FROM users_time_slots_dates WHERE id_user_time_slot_date = ?",
         [id_user_time_slot_date]
       );
     } catch (error) {
-      throw new Error(
-        "Ocurrió un error al eliminar esta cita: " + error.message
-      );
+      if (error.code === 'ER_ROW_IS_REFERENCED_2' || error.errno === 1451) {
+        throw new Error(
+          "No se puede eliminar este horario debido a que existen citas vinculadas a este. Puedes rechazarla en el apartado de citas"
+        );
+      } else {
+        throw new Error(
+          "Ocurrió un error al eliminar esta cita: " + error.message
+        );
+      }
     }
   }
+  
 }
 
 module.exports = UserTimeSlotsDateRepository;
