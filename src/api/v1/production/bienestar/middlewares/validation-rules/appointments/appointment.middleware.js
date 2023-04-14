@@ -54,9 +54,7 @@ const insertValidationRules = () => {
   return [
     body("booked_by")
       .notEmpty()
-      .withMessage("El campo booked_by es obligatorio")
-      .isInt()
-      .withMessage("El campo booked_by debe ser un entero"),
+      .withMessage("El campo booked_by es obligatorio"),
     body("phone_student")
       .notEmpty()
       .withMessage("El campo phone_student es obligatorio")
