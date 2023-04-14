@@ -82,7 +82,7 @@ class UserTimeSlotsDateRepository {
         [id_user_time_slot_date]
       );
     } catch (error) {
-      console.log(error.code)
+      console.log(error, "error")
       if (error.code === 'ER_ROW_IS_REFERENCED_2' || error.errno === 1451) {
         throw new Error(
           "No se puede eliminar este horario debido a que existen citas vinculadas a este. Puedes rechazarla en el apartado de citas"
