@@ -74,7 +74,7 @@ class UserTimeSlotsDateRepository {
       );
 
       if (!row.length) {
-        throw new Error("No se encontró una cita con ese ID.");
+        throw new Error("No se encontró un horario con ese ID.");
       }
 
       if (row.rejected === 0) {

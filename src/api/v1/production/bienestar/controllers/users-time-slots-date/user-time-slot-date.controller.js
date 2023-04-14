@@ -41,7 +41,7 @@ class UserTimeSlotsDateController {
       const result = await UserTimeSlotsDateService.delete(
         id_user_time_slot_date
       );
-      send({ data: result, status: 200 }, res);
+      send({ data: "Franja horaria eliminada con exito", status: 200 }, res);
     } catch (error) {
       send({ error: [error.message], status: 500 }, res);
     }
