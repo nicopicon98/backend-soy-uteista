@@ -73,7 +73,7 @@ class UserTimeSlotsDateRepository {
       );
     } catch (error) {
       throw new Error(
-        "Ocurrio un error al eliminar esta cita: " + error.message
+        "Ocurrió un error al eliminar esta cita: " + error.message
       );
     }
   }
