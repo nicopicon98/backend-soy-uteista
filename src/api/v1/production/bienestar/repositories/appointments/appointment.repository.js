@@ -168,7 +168,7 @@ LIMIT 1
 
     const query = `
       INSERT INTO appointments (booked_by, rejected, phone_student, photo_student, name_student, id_user_time_slot_date)
-      VALUES (?, 1, ?, ?, ?, ?)
+      VALUES (?, 0, ?, ?, ?, ?)
     `;
 
     return mysql.executeQuery(query, [

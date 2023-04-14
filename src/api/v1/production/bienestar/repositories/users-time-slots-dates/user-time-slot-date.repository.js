@@ -66,7 +66,6 @@ class UserTimeSlotsDateRepository {
   }
 
   static async delete(id_user_time_slot_date) {
-    console.log(id_user_time_slot_date, "id_user_time_slot_date")
     try {
       // Check if the register exists
       const [row] = await mysql.executeQuery(
