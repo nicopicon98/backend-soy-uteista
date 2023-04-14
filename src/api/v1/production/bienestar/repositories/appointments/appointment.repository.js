@@ -67,7 +67,7 @@ ORDER BY
 `;
     const result = await mysql.executeQuery(query, [id_user]);
     if (!result.length) {
-      return "No tienes citas pendientes";
+      return "";
     }
     return result;
   }
