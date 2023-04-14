@@ -80,7 +80,7 @@ class UserTimeSlotsDateRepository {
   static async delete(id_user_time_slot_date) {
     try {
       // Check if the register exists
-      const row = await executeQueryAsync(
+      const row = await UserTimeSlotsDateRepository.executeQueryAsync(
         "SELECT * FROM users_time_slots_dates WHERE id_user_time_slot_date = ?",
         [id_user_time_slot_date]
       );
