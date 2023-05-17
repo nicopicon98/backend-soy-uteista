@@ -129,7 +129,7 @@ const findDependencia = async (req, res = response) => {
   const materias3 = groupBy(dependencias, "dependenciaNombre");
 
   const array2 = [];
-  //organizar por materias
+  //organizar por materia
   for (const x in materias3) {
     let key = x;
     let value = materias3[x];
