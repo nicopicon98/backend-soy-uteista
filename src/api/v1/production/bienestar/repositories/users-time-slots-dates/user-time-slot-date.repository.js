@@ -75,7 +75,6 @@ class UserTimeSlotsDateRepository {
       if (!row) {
         throw new Error("No se encontró un horario con ese ID.");
       }
-
       // Delete the register if it exists
       const resp = await mysql.executeQuery(
         "DELETE FROM users_time_slots_dates WHERE id_user_time_slot_date = ?",

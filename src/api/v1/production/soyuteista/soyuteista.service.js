@@ -142,6 +142,11 @@ const findDependencia = async (req, res = response) => {
   res.json(array2);
 };
 
+const currentVersion = "1.0.0";
+const latestVersion = async (req, res = response) => {
+  res.json({ latestVersion: currentVersion });
+};
+
 const createDependencia = (req, res = response) => {};
 
 const removeDependencia = (req, res = response) => {};
@@ -163,4 +168,5 @@ module.exports = {
   findDependencia,
   createDependencia,
   removeDependencia,
+  latestVersion
 };

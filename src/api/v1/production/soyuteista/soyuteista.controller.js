@@ -17,6 +17,7 @@ const {
   findDependencia,
   createDependencia,
   removeDependencia,
+  latestVersion
 } = require("./soyuteista.service");
 
 const { encrypt } = require("../bienestar/config");
@@ -88,6 +89,8 @@ soyuteista.delete("/convocatorias/:idConvocatoria", remove);
 soyuteista.delete("/bienestar/delete-appointments", deleteAppointments);
 
 soyuteista.delete("/dependencias/:idDependencia", removeDependencia);
+
+soyuteista.get("/get-latest-app-version", latestVersion);
 
 module.exports = {
   soyuteista,
