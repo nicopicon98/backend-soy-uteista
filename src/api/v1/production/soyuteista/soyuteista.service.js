@@ -89,7 +89,6 @@ const deleteAppointments = async (req, res = response) => {
 
 const enabledModulesEntrada = async (req, res = response) => {
   const resp = await con.executeQuery("SELECT * FROM modulos", []);
-
   res.json({ data: resp });
 };
 
