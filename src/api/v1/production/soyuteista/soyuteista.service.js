@@ -143,7 +143,7 @@ const findDependencia = async (req, res = response) => {
 
 
 const basicInfo = async (req, res = response) => {
-  const currentVersion = "20";
+  const currentVersion = "20.0.0";
   res.json({ latestVersion: currentVersion });
 };
 
