@@ -17,7 +17,7 @@ const {
   findDependencia,
   createDependencia,
   removeDependencia,
-  latestVersion,
+  basicInfo,
 } = require("./soyuteista.service");
 
 const { encrypt } = require("../bienestar/config");
