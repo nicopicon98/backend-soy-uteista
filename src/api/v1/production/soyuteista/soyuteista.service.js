@@ -168,5 +168,5 @@ module.exports = {
   findDependencia,
   createDependencia,
   removeDependencia,
-  latestVersion,
+  basicInfo,
 };
