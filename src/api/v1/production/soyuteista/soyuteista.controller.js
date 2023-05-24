@@ -17,20 +17,14 @@ const {
   findDependencia,
   createDependencia,
   removeDependencia,
-  latestVersion
+  latestVersion,
 } = require("./soyuteista.service");
 
 const { encrypt } = require("../bienestar/config");
 
 const KEY = "f910fd9b70mshc4e59787d044bc3p10ea5ejsnbd1f4b7fe6f7";
 soyuteista.use((req, res, next) => {
-  if (!req.query.email) {
-    return res.json({
-      result: 2,
-      data: {},
-      error: "'|'[-||(_+[] #/-//|3/2[-, desencriptelo mi papa!",
-    });
-  } else if (req.header("X-WebServiceUTSAPI-Key") != KEY) {
+  if (req.header("X-WebServiceUTSAPI-Key") != KEY) {
     return res.json({
       error: {
         code: "InvalidAuthenticationToken",
@@ -90,7 +84,7 @@ soyuteista.delete("/bienestar/delete-appointments", deleteAppointments);
 
 soyuteista.delete("/dependencias/:idDependencia", removeDependencia);
 
-soyuteista.get("/get-latest-app-version", latestVersion);
+soyuteista.post("/get-app-basic-info", basicInfo);
 
 module.exports = {
   soyuteista,
