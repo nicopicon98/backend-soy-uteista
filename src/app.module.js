@@ -21,7 +21,7 @@ const { soyUteistaVersion, soyuteista } = require('@api_soyuteista');
 app.use(cors())
    .use(express.json())
    .use(soyUteistaVersion(), soyuteista)
-   .use(decryptMiddleware)
+   // .use(decryptMiddleware)
    .use(morgan('dev'))
    .use(bienestarVersion(), bienestar)
    .use(express.static(path.join(__dirname, 'public')));
