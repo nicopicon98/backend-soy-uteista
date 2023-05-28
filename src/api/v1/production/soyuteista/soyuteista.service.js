@@ -141,11 +141,48 @@ const findDependencia = async (req, res = response) => {
   res.json(array2);
 };
 
+const versionChecker = (current_version, phone_version) => {
+  let a = current_version.split(".");
+  let b = phone_version.split(".");
+
+  for (let i = 0; i < a.length; i++) {
+    if (+a[i] > +b[i]) {
+      return 1;
+    } else if (+a[i] < +b[i]) {
+      return -1;
+    }
+  }
+
+  return 0;
+};
 
 const basicInfo = async (req, res = response) => {
-  const currentVersion = "22.0.0";
-  const {phone_version} = req.body;
-  res.json({ latestVersion: phone_version });
+  //params
+  const current_version = "22.0.0";
+  const { phone_version } = req.body;
+
+  //maintenance or not
+  const maintenance = {
+    is_under_maintenance: false,
+    image: null,
+    msg: "",
+  };
+  const update_img = "";
+  const update_msg =
+    "Para seguir gozando de tu app, esta debe ser actualizada, por favor da click abajo";
+  const checker = versionChecker(current_version, phone_version) === -1 ? 1 : 0;
+  const update_checker = {
+    is_update_required: checker ? 1 : 0,
+    image: checker ? update_img : "",
+    msg: checker ? update_msg : "",
+  };
+  const campaign = {
+    is_campaign_running: 0,
+    image: null,
+    msg: "",
+  };
+
+  res.json({ maintenance, update_checker, campaign });
 };
 
 const createDependencia = (req, res = response) => {};
