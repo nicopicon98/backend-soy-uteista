@@ -143,8 +143,9 @@ const findDependencia = async (req, res = response) => {
 
 
 const basicInfo = async (req, res = response) => {
-  const currentVersion = "20.0.0";
-  res.json({ latestVersion: currentVersion });
+  const currentVersion = "22.0.0";
+  const {phone_version} = req.body;
+  res.json({ latestVersion: phone_version });
 };
 
 const createDependencia = (req, res = response) => {};
