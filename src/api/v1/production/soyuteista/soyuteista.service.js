@@ -158,11 +158,11 @@ const versionChecker = (current_version, phone_version) => {
 };
 
 const basicInfo = async (req, res = response) => {
-  const current_version = "21.0.0";
+  const current_version = "22.0.0";
   const phone_version = req.body.phone_version || "0.0.0";
 
   const maintenance = {
-    is_under_maintenance: 0,
+    is_under_maintenance: 1,
     image: null,
     msg: "Actualmente nos encontramos mejorando para brindarte una mejor experiencia. Por favor, inténtalo más tarde.",
   };
