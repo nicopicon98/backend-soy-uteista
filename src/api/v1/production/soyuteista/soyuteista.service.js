@@ -164,7 +164,7 @@ const basicInfo = async (req, res = response) => {
   const maintenance = {
     is_under_maintenance: 1,
     image: null,
-    msg: "Una actualizacion es necesaria",
+    msg: "Actualmente nos encontramos mejorando para brindarte una mejor experiencia. Por favor, inténtalo más tarde.",
   };
 
   const update_img = "";
