@@ -158,7 +158,7 @@ const versionChecker = (current_version, phone_version) => {
 };
 
 const basicInfo = async (req, res = response) => {
-  const current_version = "22.0.0";
+  const current_version = "19.0.0";
   const phone_version = req.body.phone_version || "0.0.0";
 
   const maintenance = {
