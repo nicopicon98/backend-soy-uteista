@@ -158,7 +158,7 @@ const versionChecker = (current_version, phone_version) => {
 };
 
 const basicInfo = async (req, res = response) => {
-  const current_version = "19.0.0";
+  const current_version = "21.0.0";
   const phone_version = req.body.phone_version || "0.0.0";
 
   const maintenance = {
@@ -169,7 +169,7 @@ const basicInfo = async (req, res = response) => {
 
   const update_img = "";
   const update_msg =
-    "Para seguir gozando de tu app, esta debe ser actualizada, por favor da click abajo";
+    "Para seguir gozando de tu app SoyUteista, esta debe ser actualizada, por favor da click abajo";
 
   const checker = versionChecker(current_version, phone_version) > 0 ? 1 : 0;
 
