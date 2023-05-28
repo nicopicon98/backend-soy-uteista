@@ -169,7 +169,7 @@ const basicInfo = async (req, res = response) => {
 
   const update_img = "";
   const update_msg =
-    "Para seguir gozando de tu app SoyUteista, esta debe ser actualizada, por favor da click abajo";
+    "Para seguir gozando de tu app SoyUteista, esta debe ser actualizada, por favor da click en el enlace debajo";
 
   const checker = versionChecker(current_version, phone_version) > 0 ? 1 : 0;
 
