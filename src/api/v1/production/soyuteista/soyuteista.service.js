@@ -162,9 +162,9 @@ const basicInfo = async (req, res = response) => {
   const phone_version = req.body.phone_version || "0.0.0";
 
   const maintenance = {
-    is_under_maintenance: false,
+    is_under_maintenance: 1,
     image: null,
-    msg: "",
+    msg: "Una actualizacion es necesaria",
   };
 
   const update_img = "";
