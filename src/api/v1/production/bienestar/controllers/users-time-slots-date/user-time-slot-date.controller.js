@@ -51,7 +51,7 @@ class UserTimeSlotsDateController {
     
         const usersTimeSlotsDatesByCampus = await UserTimeSlotsDateService.getUpcomingByCampus(id_campus_formatted);
     
-        res.status(200).json({ data: timeSlotsByCampus });
+        res.status(200).json({ data: usersTimeSlotsDatesByCampus });
       } catch (error) {
         res.status(500).json({ error: error.message });
       }
