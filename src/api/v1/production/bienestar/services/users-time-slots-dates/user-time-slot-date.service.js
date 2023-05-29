@@ -26,12 +26,10 @@ class UserTimeSlotsDateService {
     return await UserTimeSlotsDateRepository.delete(id_user_time_slot_date);
   }
 
-  static async getUpcomingByCampus(id_campus) {
-    const result = await UserTimeSlotsDateRepository.getUpcomingByCampus(id_campus);
-    console.log(result, "y esta es la rta");
+  static formatter(result) {
     let formattedResult = [];
     let currentDate = null;
-  
+
     for (let row of result) {
       if (currentDate !== row.date) {
         currentDate = row.date;
@@ -57,10 +55,17 @@ class UserTimeSlotsDateService {
         });
       }
     }
-  
+
     return formattedResult;
   }
-  
+
+  static async getUpcomingByCampus(id_campus) {
+    const result = await UserTimeSlotsDateRepository.getUpcomingByCampus(
+      id_campus
+    );
+    console.log("this is the result before being formatted")
+    return UserTimeSlotsDateService.formatter(result);
+  }
 }
 
 module.exports = UserTimeSlotsDateService;
