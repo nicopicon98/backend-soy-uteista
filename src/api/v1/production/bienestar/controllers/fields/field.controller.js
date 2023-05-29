@@ -39,9 +39,9 @@ class FieldController {
     try {
       const { id_campus } = req.body;
 
-      const id_campus_formatted = this.isNumber(id_campus)
+      const id_campus_formatted = FieldController.isNumber(id_campus)
         ? id_campus
-        : this.campusMapping[id_campus] || "1";
+        : FieldController.campusMapping[id_campus] || "1";
 
       const fields = await FieldService.getAllByCampus(id_campus_formatted);
 
