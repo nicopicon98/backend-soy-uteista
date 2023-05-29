@@ -33,7 +33,7 @@ userTimeSlotsDateRouter.post(
   USERS_TIME_SLOTS_DATES_ROUTES.GET_ALL_UPCOMING_BY_CAMPUS,
   insertUserTimeSlotsDateValidationRules(),
   validationMiddleware,
-  // UserTimeSlotsDateController.
+  UserTimeSlotsDateController.getUpcomingByCampus
 );
 
 userTimeSlotsDateRouter.post(
