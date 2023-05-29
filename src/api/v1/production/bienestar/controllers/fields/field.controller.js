@@ -1,6 +1,6 @@
 const { send } = require("@api_bienestar/config");
 const FieldService = require("../../services/fields");
-const { HTTP_HANDLING_MSGS } = require("../../utilities");
+const { HTTP_HANDLING_MSGS, CampusFormatter } = require("../../utilities");
 
 class FieldController {
   /**
@@ -21,27 +21,13 @@ class FieldController {
     }
   }
 
-  static campusMapping = {
-    "SEDE PRINCIPAL": "1",
-    "SEDE BARRANCABERMEJA": "2",
-    "SEDE SAN JOSE DE CÚCUTA": "3",
-    "SEDE PIEDECUESTA": "4",
-    "SEDE SAN GIL": "5",
-    "SEDE VÉLEZ": "6",
-    "EDUCACIÓN VIRTUAL": "7",
-  };
-
-  static isNumber(str) {
-    return !isNaN(+str);
-  }
-
   static async getAllByCampus(req, res) {
     try {
       const { id_campus } = req.body;
 
-      const id_campus_formatted = FieldController.isNumber(id_campus)
+      const id_campus_formatted = CampusFormatter.isNumber(id_campus)
         ? id_campus
-        : FieldController.campusMapping[id_campus] || "1";
+        : CampusFormatter.campusMapping[id_campus] || "1";
 
       const fields = await FieldService.getAllByCampus(id_campus_formatted);
 

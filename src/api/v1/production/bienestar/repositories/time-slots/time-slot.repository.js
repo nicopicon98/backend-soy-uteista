@@ -15,6 +15,17 @@ class TimeSlotRepository {
       [id_professional]
     );
   }
+
+  async getUpcomingTimeSlotsByCampus(id_campus) {
+    return await mysql.executeQuery(
+      `SELECT users_time_slots_dates.id_user_time_slot_date, users_time_slots_dates.date, users_time_slots_dates.id_time_slot, users.id_user, users.id_campus_field 
+        FROM users_time_slots_dates 
+        JOIN users ON users_time_slots_dates.id_user = users.id_user 
+        WHERE users.id_campus_field = ? AND users_time_slots_dates.date > CURDATE()`,
+      [id_campus]
+    );
+  }
+  
 }
 
 module.exports = new TimeSlotRepository();
