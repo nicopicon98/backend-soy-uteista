@@ -42,7 +42,16 @@ const insertUserTimeSlotsDateValidationRules = () => {
   ];
 };
 
+const getAllUpcomingUserTimeSlotsDateByCampusValidationRules = () => {
+  return [
+    body("id_campus")
+      .notEmpty()
+      .withMessage("El campo id_campus es obligatorio")
+  ];
+};
+
 module.exports = {
   insertUserTimeSlotsDateValidationRules,
   getAllUserTimeSlotsDateByProfessionalValidationRules,
+  getAllUpcomingUserTimeSlotsDateByCampusValidationRules
 };
