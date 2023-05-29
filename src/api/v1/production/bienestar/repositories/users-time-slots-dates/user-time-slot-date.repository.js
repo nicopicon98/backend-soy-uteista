@@ -99,7 +99,7 @@ class UserTimeSlotsDateRepository {
     console.log(id_campus, "atacando en el respositorio");
     try {
       const query = `
-      SELECT
+      SELECT DISTINCT
       utd.id_user_time_slot_date,
       utd.date,
       utd.id_time_slot,
@@ -117,7 +117,7 @@ class UserTimeSlotsDateRepository {
       cf.id_campus_field = ?
       AND utd.date >= CURDATE()
   ORDER BY
-      utd.date ASC;
+      utd.date ASC, utd.id_time_slot ASC;  
         `;
       const result = await mysql.executeQuery(query, [id_campus]);
       console.log(result, "y esta es la rta")
