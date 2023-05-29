@@ -21,13 +21,33 @@ class FieldController {
     }
   }
 
+  static campusMapping = {
+    "SEDE PRINCIPAL": "1",
+    "SEDE BARRANCABERMEJA": "2",
+    "SEDE SAN JOSE DE CÚCUTA": "3",
+    "SEDE PIEDECUESTA": "4",
+    "SEDE SAN GIL": "5",
+    "SEDE VÉLEZ": "6",
+    "EDUCACIÓN VIRTUAL": "7",
+  };
+
+  static isNumber(str) {
+    return !isNaN(+str);
+  }
+
   static async getAllByCampus(req, res) {
-    const { id_campus } = req.body;
     try {
-      const fields = await FieldService.getAllByCampus(id_campus);
-      send({ data: fields, status: 200 }, res);
+      const { id_campus } = req.body;
+
+      const id_campus_formatted = this.isNumber(id_campus)
+        ? id_campus
+        : this.campusMapping[id_campus] || "1";
+
+      const fields = await FieldService.getAllByCampus(id_campus_formatted);
+
+      res.status(200).json({ data: fields });
     } catch (error) {
-      send({ error: [error.message], status: 500 }, res);
+      res.status(500).json({ error: error.message });
     }
   }
 
