@@ -28,42 +28,42 @@ class UserTimeSlotsDateService {
 
   static async getUpcomingByCampus(id_campus) {
     const result = await UserTimeSlotsDateRepository.getUpcomingByCampus(id_campus);
-
+  
     let formattedResult = [];
     let currentDate = null;
-    let currentUser = null;
     let currentTimeSlots = [];
-
+  
     for (let row of result) {
-      if (currentDate !== row.date || currentUser !== row.id_user) {
-        if (currentDate && currentUser) {
+      if (currentDate !== row.date) {
+        if (currentDate) {
           formattedResult.push({
             date: currentDate,
-            user_time_slot: currentTimeSlots
+            user_time_slot: currentTimeSlots,
           });
         }
         currentDate = row.date;
-        currentUser = row.id_user;
-        currentTimeSlots = [{
-          id_user: row.id_user,
-          time_slots: []
-        }];
+        currentTimeSlots = [];
       }
-
-      currentTimeSlots[0].time_slots.push({
-        id_time_slot: row.id_time_slot,
-        id_user_time_slot_date: row.id_user_time_slot_date
+  
+      currentTimeSlots.push({
+        id_user: row.id_user,
+        time_slots: [
+          {
+            id_time_slot: row.id_time_slot,
+            id_user_time_slot_date: row.id_user_time_slot_date,
+          },
+        ],
       });
     }
-
+  
     // Add last date if exists
-    if (currentDate && currentUser) {
+    if (currentDate) {
       formattedResult.push({
         date: currentDate,
-        user_time_slot: currentTimeSlots
+        user_time_slot: currentTimeSlots,
       });
     }
-
+  
     return formattedResult;
   }
 }

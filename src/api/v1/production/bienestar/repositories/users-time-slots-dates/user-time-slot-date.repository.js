@@ -98,19 +98,25 @@ class UserTimeSlotsDateRepository {
   static async getUpcomingByCampus(id_campus) {
     try {
         const query = `
-            SELECT 
-                users_time_slots_dates.id_user_time_slot_date, 
-                users_time_slots_dates.date, 
-                users_time_slots_dates.id_time_slot, 
-                users.id_user, 
-                users.id_campus_field 
-            FROM 
-                users_time_slots_dates 
-                JOIN users ON users_time_slots_dates.id_user = users.id_user 
-            WHERE 
-                users.id_campus_field = ? AND users_time_slots_dates.date >= CURDATE()
-            ORDER BY
-                users_time_slots_dates.date ASC;
+        SELECT 
+        utd.id_user_time_slot_date,
+        utd.date,
+        utd.id_time_slot,
+        u.id_user,
+        cf.id_campus
+    FROM
+        users_time_slots_dates utd
+    JOIN
+        users u ON utd.id_user = u.id_user
+    JOIN
+        campuses_fields cf ON u.id_campus_field = cf.id_campus_field
+    JOIN
+        campuses c ON cf.id_campus = c.id_campus
+    WHERE
+        c.id_campus = 1
+        AND utd.date >= CURDATE()
+    ORDER BY
+        utd.date ASC, utd.id_time_slot ASC; 
         `;
         const result = await mysql.executeQuery(query, [id_campus]);
         return result;
