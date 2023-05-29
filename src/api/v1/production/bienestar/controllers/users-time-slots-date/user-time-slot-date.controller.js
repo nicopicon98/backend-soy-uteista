@@ -36,26 +36,29 @@ class UserTimeSlotsDateController {
     }
   }
 
-    /**
+  /**
    * Gets time slots by campus.
    * @param {Object} req - The request object.
    * @param {Object} res - The response object.
    */
-    static async getUpcomingByCampus(req, res) {
-      try {
-        const { id_campus } = req.body;
-    
-        const id_campus_formatted = CampusFormatter.isNumber(id_campus)
-          ? id_campus
-          : CampusFormatter.campusMapping[id_campus] || "1";
-    
-        const usersTimeSlotsDatesByCampus = await UserTimeSlotsDateService.getUpcomingByCampus(id_campus_formatted);
-    
-        res.status(200).json({ data: usersTimeSlotsDatesByCampus });
-      } catch (error) {
-        res.status(500).json({ error: error.message });
-      }
+  static async getUpcomingByCampus(req, res) {
+    try {
+      const { id_campus } = req.body;
+
+      const id_campus_formatted = CampusFormatter.isNumber(id_campus)
+        ? id_campus
+        : CampusFormatter.campusMapping[id_campus] || "1";
+
+      const usersTimeSlotsDatesByCampus =
+        await UserTimeSlotsDateService.getUpcomingByCampus(id_campus_formatted);
+
+      // If successful, send data with status code 200
+      send({ data: usersTimeSlotsDatesByCampus, status: 200 }, res);
+    } catch (error) {
+      // If error, send error message with status code 500
+      send({ error: [error.message], status: 500 }, res);
     }
+  }
 
   static async delete(req, res) {
     try {
