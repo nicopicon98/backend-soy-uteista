@@ -28,25 +28,21 @@ class UserTimeSlotsDateService {
 
   static async getUpcomingByCampus(id_campus) {
     const result = await UserTimeSlotsDateRepository.getUpcomingByCampus(id_campus);
-    console.log(id_campus, "atacando en service")
   
     let formattedResult = [];
     let currentDate = null;
-    let currentTimeSlots = [];
   
     for (let row of result) {
       if (currentDate !== row.date) {
-        if (currentDate) {
-          formattedResult.push({
-            date: currentDate,
-            user_time_slot: currentTimeSlots,
-          });
-        }
         currentDate = row.date;
-        currentTimeSlots = [];
+        formattedResult.push({
+          date: currentDate,
+          user_time_slot: [],
+        });
       }
   
-      currentTimeSlots.push({
+      const userTimeSlot = formattedResult.find((item) => item.date === currentDate);
+      userTimeSlot.user_time_slot.push({
         id_user: row.id_user,
         time_slots: [
           {
@@ -54,14 +50,6 @@ class UserTimeSlotsDateService {
             id_user_time_slot_date: row.id_user_time_slot_date,
           },
         ],
-      });
-    }
-  
-    // Add last date if exists
-    if (currentDate) {
-      formattedResult.push({
-        date: currentDate,
-        user_time_slot: currentTimeSlots,
       });
     }
   
