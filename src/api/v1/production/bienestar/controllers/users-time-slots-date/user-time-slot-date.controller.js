@@ -44,7 +44,7 @@ class UserTimeSlotsDateController {
   static async getUpcomingByCampus(req, res) {
     try {
       const { id_campus } = req.body;
-
+      console.log(id_campus, "atacando en controller")
       const id_campus_formatted = CampusFormatter.isNumber(id_campus)
         ? id_campus
         : CampusFormatter.campusMapping[id_campus] || "1";

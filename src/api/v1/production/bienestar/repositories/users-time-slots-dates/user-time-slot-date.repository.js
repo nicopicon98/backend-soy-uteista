@@ -96,8 +96,9 @@ class UserTimeSlotsDateRepository {
   }
 
   static async getUpcomingByCampus(id_campus) {
+    console.log(id_campus, "atacando en el respositorio");
     try {
-        const query = `
+      const query = `
         SELECT 
         utd.id_user_time_slot_date,
         utd.date,
@@ -118,14 +119,14 @@ class UserTimeSlotsDateRepository {
     ORDER BY
         utd.date ASC, utd.id_time_slot ASC; 
         `;
-        const result = await mysql.executeQuery(query, [id_campus]);
-        return result;
+      const result = await mysql.executeQuery(query, [id_campus]);
+      console.log(result, "y esta es la rta")
+      return result;
     } catch (error) {
-        console.log(error, "error");
-        throw new Error("Error consultando las fechas: " + error.message);
+      console.log(error, "error");
+      throw new Error("Error consultando las fechas: " + error.message);
     }
-}
-
+  }
 }
 
 module.exports = UserTimeSlotsDateRepository;

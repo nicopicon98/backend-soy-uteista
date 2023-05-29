@@ -28,6 +28,7 @@ class UserTimeSlotsDateService {
 
   static async getUpcomingByCampus(id_campus) {
     const result = await UserTimeSlotsDateRepository.getUpcomingByCampus(id_campus);
+    console.log(id_campus, "atacando en service")
   
     let formattedResult = [];
     let currentDate = null;
