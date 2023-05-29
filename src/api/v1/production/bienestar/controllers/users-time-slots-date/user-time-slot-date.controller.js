@@ -43,14 +43,14 @@ class UserTimeSlotsDateController {
    */
   static async getUpcomingByCampus(req, res) {
     try {
-      const { id_campus } = req.body;
-      console.log(id_campus, "atacando en controller")
-      const id_campus_formatted = CampusFormatter.isNumber(id_campus)
-        ? id_campus
-        : CampusFormatter.campusMapping[id_campus] || "1";
+      const { id_campus_field } = req.body;
+      console.log(id_campus_field, "atacando en controller")
+      const id_campus_field_formatted = CampusFormatter.isNumber(id_campus_field)
+        ? id_campus_field
+        : CampusFormatter.campusMapping[id_campus_field_field] || "1";
 
       const usersTimeSlotsDatesByCampus =
-        await UserTimeSlotsDateService.getUpcomingByCampus(id_campus_formatted);
+        await UserTimeSlotsDateService.getUpcomingByCampus(id_campus_field_formatted);
 
       // If successful, send data with status code 200
       send({ data: usersTimeSlotsDatesByCampus, status: 200 }, res);
