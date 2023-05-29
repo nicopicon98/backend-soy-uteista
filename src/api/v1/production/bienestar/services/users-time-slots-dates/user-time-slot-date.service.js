@@ -28,7 +28,7 @@ class UserTimeSlotsDateService {
 
   static async getUpcomingByCampus(id_campus) {
     const result = await UserTimeSlotsDateRepository.getUpcomingByCampus(id_campus);
-  
+    console.log(result, "y esta es la rta")
     let formattedResult = [];
     let currentDate = null;
   
@@ -52,7 +52,6 @@ class UserTimeSlotsDateService {
         ],
       });
     }
-  
     return formattedResult;
   }
 }

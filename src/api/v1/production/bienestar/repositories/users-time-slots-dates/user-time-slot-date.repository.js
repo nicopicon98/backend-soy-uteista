@@ -120,7 +120,6 @@ class UserTimeSlotsDateRepository {
       utd.date ASC, utd.id_time_slot ASC;  
         `;
       const result = await mysql.executeQuery(query, [id_campus]);
-      console.log(result, "y esta es la rta")
       return result;
     } catch (error) {
       console.log(error, "error");

@@ -51,6 +51,7 @@ class UserTimeSlotsDateController {
 
       const usersTimeSlotsDatesByCampus =
         await UserTimeSlotsDateService.getUpcomingByCampus(id_campus_field_formatted);
+        console.log(usersTimeSlotsDatesByCampus, "este es el valor formateado y asi se fue para rta")
 
       // If successful, send data with status code 200
       send({ data: usersTimeSlotsDatesByCampus, status: 200 }, res);
