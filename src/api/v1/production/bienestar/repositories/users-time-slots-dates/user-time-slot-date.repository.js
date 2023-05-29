@@ -114,7 +114,7 @@ class UserTimeSlotsDateRepository {
     JOIN
         campuses c ON cf.id_campus = c.id_campus
     WHERE
-        c.id_campus = 1
+        c.id_campus = ?
         AND utd.date >= CURDATE()
     ORDER BY
         utd.date ASC, utd.id_time_slot ASC; 
