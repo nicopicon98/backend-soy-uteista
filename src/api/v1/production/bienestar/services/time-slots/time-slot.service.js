@@ -31,10 +31,6 @@ class TimeSlotService {
 
     return Object.values(groupedTimeSlots);
   }
-
-  async getUpcomingTimeSlotsByCampus(id_campus) {
-    return await TimeSlotRepository.getUpcomingTimeSlotsByCampus(id_campus);
-  }
 }
 
 module.exports = new TimeSlotService();

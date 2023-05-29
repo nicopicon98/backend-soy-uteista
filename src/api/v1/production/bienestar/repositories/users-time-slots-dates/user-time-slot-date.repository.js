@@ -94,6 +94,32 @@ class UserTimeSlotsDateRepository {
       }
     }
   }
+
+  static async getUpcomingByCampus(id_campus) {
+    try {
+        const query = `
+            SELECT 
+                users_time_slots_dates.id_user_time_slot_date, 
+                users_time_slots_dates.date, 
+                users_time_slots_dates.id_time_slot, 
+                users.id_user, 
+                users.id_campus_field 
+            FROM 
+                users_time_slots_dates 
+                JOIN users ON users_time_slots_dates.id_user = users.id_user 
+            WHERE 
+                users.id_campus_field = ? AND users_time_slots_dates.date >= CURDATE()
+            ORDER BY
+                users_time_slots_dates.date ASC;
+        `;
+        const result = await mysql.executeQuery(query, [id_campus]);
+        return result;
+    } catch (error) {
+        console.log(error, "error");
+        throw new Error("Error consultando las fechas: " + error.message);
+    }
+}
+
 }
 
 module.exports = UserTimeSlotsDateRepository;
