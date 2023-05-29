@@ -44,9 +44,9 @@ const insertUserTimeSlotsDateValidationRules = () => {
 
 const getAllUpcomingUserTimeSlotsDateByCampusValidationRules = () => {
   return [
-    body("id_campus")
+    body("id_campus_field")
       .notEmpty()
-      .withMessage("El campo id_campus es obligatorio")
+      .withMessage("El campo id_campus_field es obligatorio")
   ];
 };
 

@@ -99,25 +99,25 @@ class UserTimeSlotsDateRepository {
     console.log(id_campus, "atacando en el respositorio");
     try {
       const query = `
-        SELECT 
-        utd.id_user_time_slot_date,
-        utd.date,
-        utd.id_time_slot,
-        u.id_user,
-        cf.id_campus
-    FROM
-        users_time_slots_dates utd
-    JOIN
-        users u ON utd.id_user = u.id_user
-    JOIN
-        campuses_fields cf ON u.id_campus_field = cf.id_campus_field
-    JOIN
-        campuses c ON cf.id_campus = c.id_campus
-    WHERE
-        c.id_campus = ?
-        AND utd.date >= CURDATE()
-    ORDER BY
-        utd.date ASC, utd.id_time_slot ASC; 
+      SELECT
+      utd.id_user_time_slot_date,
+      utd.date,
+      utd.id_time_slot,
+      u.id_user,
+      cf.id_campus
+  FROM
+      users_time_slots_dates utd
+  JOIN
+      users u ON utd.id_user = u.id_user
+  JOIN
+      campuses_fields cf ON u.id_campus_field = cf.id_campus_field
+  JOIN
+      campuses c ON cf.id_campus = c.id_campus
+  WHERE
+      cf.id_campus_field = ?
+      AND utd.date >= CURDATE()
+  ORDER BY
+      utd.date ASC;
         `;
       const result = await mysql.executeQuery(query, [id_campus]);
       console.log(result, "y esta es la rta")
