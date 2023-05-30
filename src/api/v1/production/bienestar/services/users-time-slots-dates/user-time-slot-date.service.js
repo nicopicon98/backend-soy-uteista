@@ -27,41 +27,60 @@ class UserTimeSlotsDateService {
   }
 
   static formatter(result) {
-    const formattedResult = []; // Array to hold the final formatted result.
-
-    let currentObject = {}; // An object to hold the current entry.
+    let formattedResult = []; // Array to hold the final formatted result.
+    let currentDate = null; // Variable to track the current date being processed.
+    let currentUser = null; // Variable to track the current user being processed.
 
     // Loop over each row in the raw result.
-    for (const row of result) {
+    for (let row of result) {
+      // Convert the date to ISO string format.
       const rowDate = row.date.toISOString();
-      const userID = row.id_user;
 
-      // If the date or userID are different, or if the currentObject is empty,
-      // create a new entry in formattedResult
-      if (
-        !currentObject.date ||
-        currentObject.date !== rowDate ||
-        currentObject.user_time_slot[0].id_user !== userID
-      ) {
-        currentObject = {
-          date: rowDate,
+      // Check if the date or user ID has changed.
+      if (currentDate !== rowDate || currentUser !== row.id_user) {
+        // If the date or user ID has changed, update current date and current user.
+        currentDate = rowDate;
+        currentUser = row.id_user;
+
+        // Add a new entry to the formatted result for the new date and user.
+        formattedResult.push({
+          date: currentDate,
           user_time_slot: [
             {
-              id_user: userID,
-              time_slots: [],
+              id_user: row.id_user,
+              time_slots: [
+                {
+                  id_time_slot: row.id_time_slot,
+                  id_user_time_slot_date: row.id_user_time_slot_date,
+                },
+              ],
             },
           ],
-        };
+        });
+      } else {
+        // If the date and user ID are the same as the last entry, add to the existing entry.
 
-        // Add currentObject to formattedResult
-        formattedResult.push(currentObject);
+        const index = formattedResult.length - 1; // Index of the last entry in the formatted result.
+
+        if (currentUser === row.id_user) {
+          // If current user is the same, add the new time slot to the existing user's time slots.
+          formattedResult[index].user_time_slot[0].time_slots.push({
+            id_time_slot: row.id_time_slot,
+            id_user_time_slot_date: row.id_user_time_slot_date,
+          });
+        } else {
+          // If current user is different, add a new user_time_slot object to the current date.
+          formattedResult[index].user_time_slot.push({
+            id_user: row.id_user,
+            time_slots: [
+              {
+                id_time_slot: row.id_time_slot,
+                id_user_time_slot_date: row.id_user_time_slot_date,
+              },
+            ],
+          });
+        }
       }
-
-      // Add the time slot to the current user_time_slot
-      currentObject.user_time_slot[0].time_slots.push({
-        id_time_slot: row.id_time_slot,
-        id_user_time_slot_date: row.id_user_time_slot_date,
-      });
     }
 
     // Return the final formatted result.
