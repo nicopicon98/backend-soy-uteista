@@ -25,8 +25,6 @@ const getAllByCampusValidationRules = () => {
     body("id_campus")
       .notEmpty()
       .withMessage("El campo id_campus es obligatorio")
-      .isInt()
-      .withMessage("El campo id_campus debe ser un número entero"),
   ];
 };
 
