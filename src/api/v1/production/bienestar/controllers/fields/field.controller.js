@@ -4,16 +4,12 @@ const { HTTP_HANDLING_MSGS, CampusFormatter } = require("../../utilities");
 
 class FieldController {
   /**
-   * Get all fields
-   *
-   * @param {object} req - Request object
+   * @description Get all fields
+   * @param {object} req - Request object containing the user id
    * @param {object} res - Response object
-   *
-   * @returns {object} - The list of fields
    */
   static async getAll(req, res) {
     try {
-      const { id_user } = req.body;
       const fields = await FieldService.getAll();
       send({ data: fields, status: 200 }, res);
     } catch (error) {
@@ -21,6 +17,11 @@ class FieldController {
     }
   }
 
+  /**
+   * @description Get all fields by campus
+   * @param {object} req - Request object containing the campus id
+   * @param {object} res - Response object
+   */
   static async getAllByCampus(req, res) {
     try {
       const { id_campus } = req.body;
@@ -31,20 +32,16 @@ class FieldController {
 
       const fields = await FieldService.getAllByCampus(id_campus_formatted);
 
-      res.status(200).json({ data: fields });
+      send({ data: fields, status: 200 }, res);
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      send({ error: [error.message], status: 500 }, res);
     }
   }
 
   /**
-   * Get all fields not in a campus
-   *
-   * @param {object} req - Request object
+   * @description Get all fields not in a campus
+   * @param {object} req - Request object containing the campus id
    * @param {object} res - Response object
-   * @param {number} req.body.id_campus - The ID of the campus
-   *
-   * @returns {object} - The list of fields not in the campus
    */
   static async getAllNotInCampus(req, res) {
     const { id_campus } = req.body;
@@ -58,13 +55,9 @@ class FieldController {
   }
 
   /**
-   * Insert a field
-   *
-   * @param {object} req - Request object
+   * @description Insert a field
+   * @param {object} req - Request object containing the name of the field
    * @param {object} res - Response object
-   * @param {string} req.body.name_field - The name of the field
-   *
-   * @returns {object} - The inserted field
    */
   static async insert(req, res) {
     const { name_field } = req.body;
@@ -84,13 +77,9 @@ class FieldController {
   }
 
   /**
-   * Delete a field
-   *
-   * @param {object} req - Request object
+   * @description Delete a field
+   * @param {object} req - Request object containing the field id
    * @param {object} res - Response object
-   * @param {number} req.params.id_field - The ID of the field
-   *
-   * @returns {object} - A message indicating the success or failure of the operation
    */
   static async delete(req, res) {
     const { id_field } = req.body;
