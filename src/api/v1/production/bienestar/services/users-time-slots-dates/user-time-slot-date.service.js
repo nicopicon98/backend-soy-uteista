@@ -33,6 +33,7 @@ class UserTimeSlotsDateService {
     let currentUser = null; // Holds the current user being processed.
     let currentObject = null; // An object to hold the current entry.
     let currentUserSlot = null; // An object to hold the current user_time_slot.
+    let currentNameUser = null;
 
     // Loop over each row in the raw result.
     for (const row of result) {
@@ -43,6 +44,7 @@ class UserTimeSlotsDateService {
       if (currentDate !== rowDate || currentUser !== userID) {
         currentDate = rowDate;
         currentUser = userID;
+        currentNameUser = row.name_user;
 
         // Find or create the object for this date.
         currentObject = formattedResult.find((o) => o.date === currentDate);
@@ -61,6 +63,7 @@ class UserTimeSlotsDateService {
         if (!currentUserSlot) {
           currentUserSlot = {
             id_user: currentUser,
+            name_user: currentNameUser,
             time_slots: [],
           };
           currentObject.user_time_slot.push(currentUserSlot);
