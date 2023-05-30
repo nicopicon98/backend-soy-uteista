@@ -104,6 +104,7 @@ class UserTimeSlotsDateRepository {
       utd.date,
       utd.id_time_slot,
       u.id_user,
+      u.name_user,
       cf.id_campus
   FROM
       users_time_slots_dates utd
