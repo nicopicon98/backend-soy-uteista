@@ -26,66 +26,56 @@ class UserTimeSlotsDateService {
     return await UserTimeSlotsDateRepository.delete(id_user_time_slot_date);
   }
 
-  static formatter(result) {
-    let formattedResult = []; // Array to hold the final formatted result.
-    let currentDate = null; // Variable to track the current date being processed.
-    let currentUser = null; // Variable to track the current user being processed.
+static formatter(result) {
+  const formattedResult = [];  // Array to hold the final formatted result.
 
-    // Loop over each row in the raw result.
-    for (let row of result) {
-      // Convert the date to ISO string format.
-      const rowDate = row.date.toISOString();
+  let currentDate = null;  // Holds the current date being processed.
+  let currentUser = null;  // Holds the current user being processed.
+  let currentObject = null;  // An object to hold the current entry.
+  let currentUserSlot = null;  // An object to hold the current user_time_slot.
 
-      // Check if the date or user ID has changed.
-      if (currentDate !== rowDate || currentUser !== row.id_user) {
-        // If the date or user ID has changed, update current date and current user.
-        currentDate = rowDate;
-        currentUser = row.id_user;
+  // Loop over each row in the raw result.
+  for (const row of result) {
+    const rowDate = row.date.toISOString();
+    const userID = row.id_user;
 
-        // Add a new entry to the formatted result for the new date and user.
-        formattedResult.push({
+    // If we've moved to a new date or user, we need to create new objects.
+    if (currentDate !== rowDate || currentUser !== userID) {
+      currentDate = rowDate;
+      currentUser = userID;
+      
+      // Find or create the object for this date.
+      currentObject = formattedResult.find(o => o.date === currentDate);
+      if (!currentObject) {
+        currentObject = {
           date: currentDate,
-          user_time_slot: [
-            {
-              id_user: row.id_user,
-              time_slots: [
-                {
-                  id_time_slot: row.id_time_slot,
-                  id_user_time_slot_date: row.id_user_time_slot_date,
-                },
-              ],
-            },
-          ],
-        });
-      } else {
-        // If the date and user ID are the same as the last entry, add to the existing entry.
+          user_time_slot: []
+        };
+        formattedResult.push(currentObject);
+      }
 
-        const index = formattedResult.length - 1; // Index of the last entry in the formatted result.
-
-        if (currentUser === row.id_user) {
-          // If current user is the same, add the new time slot to the existing user's time slots.
-          formattedResult[index].user_time_slot[0].time_slots.push({
-            id_time_slot: row.id_time_slot,
-            id_user_time_slot_date: row.id_user_time_slot_date,
-          });
-        } else {
-          // If current user is different, add a new user_time_slot object to the current date.
-          formattedResult[index].user_time_slot.push({
-            id_user: row.id_user,
-            time_slots: [
-              {
-                id_time_slot: row.id_time_slot,
-                id_user_time_slot_date: row.id_user_time_slot_date,
-              },
-            ],
-          });
-        }
+      // Find or create the user_time_slot for this user.
+      currentUserSlot = currentObject.user_time_slot.find(u => u.id_user === currentUser);
+      if (!currentUserSlot) {
+        currentUserSlot = {
+          id_user: currentUser,
+          time_slots: []
+        };
+        currentObject.user_time_slot.push(currentUserSlot);
       }
     }
 
-    // Return the final formatted result.
-    return formattedResult;
+    // Add the time slot to the current user_time_slot.
+    currentUserSlot.time_slots.push({
+      id_time_slot: row.id_time_slot,
+      id_user_time_slot_date: row.id_user_time_slot_date
+    });
   }
+
+  // Return the final formatted result.
+  return formattedResult;
+}
+
 
   static async getUpcomingByCampus(id_campus) {
     const result = await UserTimeSlotsDateRepository.getUpcomingByCampus(
