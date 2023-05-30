@@ -27,39 +27,47 @@ class UserTimeSlotsDateService {
   }
 
   static formatter(result) {
-    let formattedResult = [];
-    let currentDate = null;
-  
-    for (let row of result) {
+    const formattedResult = []; // Array to hold the final formatted result.
+
+    let currentObject = {}; // An object to hold the current entry.
+
+    // Loop over each row in the raw result.
+    for (const row of result) {
       const rowDate = row.date.toISOString();
-      if (currentDate !== rowDate) {
-        currentDate = rowDate;
-        formattedResult.push({
-          date: currentDate,
+      const userID = row.id_user;
+
+      // If the date or userID are different, or if the currentObject is empty,
+      // create a new entry in formattedResult
+      if (
+        !currentObject.date ||
+        currentObject.date !== rowDate ||
+        currentObject.user_time_slot[0].id_user !== userID
+      ) {
+        currentObject = {
+          date: rowDate,
           user_time_slot: [
             {
-              id_user: row.id_user,
-              time_slots: [
-                {
-                  id_time_slot: row.id_time_slot,
-                  id_user_time_slot_date: row.id_user_time_slot_date,
-                },
-              ],
+              id_user: userID,
+              time_slots: [],
             },
           ],
-        });
-      } else {
-        const index = formattedResult.length - 1;
-        formattedResult[index].user_time_slot[0].time_slots.push({
-          id_time_slot: row.id_time_slot,
-          id_user_time_slot_date: row.id_user_time_slot_date,
-        });
+        };
+
+        // Add currentObject to formattedResult
+        formattedResult.push(currentObject);
       }
+
+      // Add the time slot to the current user_time_slot
+      currentObject.user_time_slot[0].time_slots.push({
+        id_time_slot: row.id_time_slot,
+        id_user_time_slot_date: row.id_user_time_slot_date,
+      });
     }
-  
+
+    // Return the final formatted result.
     return formattedResult;
   }
-  
+
   static async getUpcomingByCampus(id_campus) {
     const result = await UserTimeSlotsDateRepository.getUpcomingByCampus(
       id_campus
