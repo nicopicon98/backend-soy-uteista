@@ -29,10 +29,11 @@ class UserTimeSlotsDateService {
   static formatter(result) {
     let formattedResult = [];
     let currentDate = null;
-
+  
     for (let row of result) {
-      if (currentDate !== row.date) {
-        currentDate = row.date;
+      const rowDate = row.date.toISOString();
+      if (currentDate !== rowDate) {
+        currentDate = rowDate;
         formattedResult.push({
           date: currentDate,
           user_time_slot: [
@@ -55,10 +56,10 @@ class UserTimeSlotsDateService {
         });
       }
     }
-
+  
     return formattedResult;
   }
-
+  
   static async getUpcomingByCampus(id_campus) {
     const result = await UserTimeSlotsDateRepository.getUpcomingByCampus(
       id_campus
