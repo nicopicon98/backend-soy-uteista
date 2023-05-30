@@ -63,7 +63,10 @@ class UserTimeSlotsDateService {
     const result = await UserTimeSlotsDateRepository.getUpcomingByCampus(
       id_campus
     );
-    console.log("this is the result before being formatted", result)
+    result.sort((a, b) => {
+      return new Date(a.date) - new Date(b.date);
+    });
+    console.log("this is the result before being formatted", result);
     return UserTimeSlotsDateService.formatter(result);
   }
 }
