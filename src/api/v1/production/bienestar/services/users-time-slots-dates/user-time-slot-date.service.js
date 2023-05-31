@@ -73,6 +73,7 @@ class UserTimeSlotsDateService {
       // Add the time slot to the current user_time_slot.
       currentUserSlot.time_slots.push({
         id_time_slot: row.id_time_slot,
+        name_time_slot: row.name_time_slot,
         id_user_time_slot_date: row.id_user_time_slot_date,
       });
     }
