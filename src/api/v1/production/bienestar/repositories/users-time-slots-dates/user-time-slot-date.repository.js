@@ -103,7 +103,7 @@ class UserTimeSlotsDateRepository {
       utd.id_user_time_slot_date,
       utd.date,
       utd.id_time_slot,
-      utd.name_time_slot,
+      ts.name_time_slot,
       u.id_user,
       u.name_user,
       cf.id_campus
@@ -115,6 +115,8 @@ class UserTimeSlotsDateRepository {
       campuses_fields cf ON u.id_campus_field = cf.id_campus_field
   JOIN
       campuses c ON cf.id_campus = c.id_campus
+  JOIN 
+      time_slots ts ON utd.id_time_slot = ts.id_time_slot
   WHERE
       cf.id_campus_field = ?
       AND utd.date >= CURDATE()
