@@ -103,6 +103,7 @@ class UserTimeSlotsDateRepository {
       utd.id_user_time_slot_date,
       utd.date,
       utd.id_time_slot,
+      utd.name_time_slot,
       u.id_user,
       u.name_user,
       cf.id_campus
