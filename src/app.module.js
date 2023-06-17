@@ -26,6 +26,11 @@ app.use(cors())
    .use(bienestarVersion(), bienestar)
    .use(express.static(path.join(__dirname, 'public')));
 
+// Enable CORS for a specific route
+app.options('/src/api/v1/production/bienestar/*', cors({
+   origin: 'http://bienestar.uts.edu.co'
+ }));
+
 // Start the server listening on port 9091
 app.listen(9091, () => {
    console.log('Servidor iniciado en el puerto 9091');
