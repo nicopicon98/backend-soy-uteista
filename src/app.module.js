@@ -17,8 +17,20 @@ const { decryptMiddleware } = require('@api_bienestar/middlewares/decrypt.middle
 const { bienestarVersion, bienestar } = require('@api_bienestar');
 const { soyUteistaVersion, soyuteista } = require('@api_soyuteista');
 
+// Configure CORS options
+const corsOptions = {
+   origin: function (origin, callback) {
+     if (origin === undefined || origin.startsWith('https://') || origin === 'http://172.16.6.186' || origin === 'http://bienestar.uts.edu.co') {
+       callback(null, true)
+     } else {
+       callback(new Error('Origen no permitido por CORS'))
+     }
+   },
+   credentials: true
+ };
+
 // Configure app middleware
-app.use(cors())
+app.use(cors(corsOptions))
    .use(express.json())
    .use(soyUteistaVersion(), soyuteista)
    .use(decryptMiddleware)
