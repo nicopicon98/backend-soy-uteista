@@ -21,7 +21,9 @@ const { soyUteistaVersion, soyuteista } = require('@api_soyuteista');
 // Configure CORS options
 const corsOptions = {
   origin: '*',
-  credentials: true
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  credentials: true,
+  allowedHeaders: ['Content-Type', 'Authorization']
 };
 
 // Configure app middleware
