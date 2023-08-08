@@ -98,29 +98,10 @@ const getScheduleByDocument = async (document) => {
     } else {
       newData = {};
     }
-
-    await conn.close();
-
-    const getDomain = obtainDomainName(email);
-    if (getDomain == "uts.edu.co") {
-      const resp = newData;
-      if (resp.ID != null) {
-        return { result: 1, data: resp, error: "" };
-      } else {
-        return { result: 1, data: {}, error: "" };
-      }
-    } else if (getDomain == "correo.uts.edu.co") {
-      return {
-        result: 0,
-        data: {},
-        error: ERROR_0,
-      };
+    if (resp.ID != null) {
+      return { result: 1, data: newData, error: "" };
     } else {
-      return {
-        result: 2,
-        data: {},
-        error: ERROR_2,
-      };
+      return { result: 1, data: {}, error: "" };
     }
   } catch (err) {
     console.error(err);
