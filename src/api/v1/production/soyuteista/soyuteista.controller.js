@@ -18,6 +18,7 @@ const {
   createDependencia,
   removeDependencia,
   basicInfo,
+  scheduleByDocument,
 } = require("./soyuteista.service");
 
 const { encrypt } = require("../bienestar/config");
@@ -85,6 +86,8 @@ soyuteista.delete("/bienestar/delete-appointments", deleteAppointments);
 soyuteista.delete("/dependencias/:idDependencia", removeDependencia);
 
 soyuteista.post("/get-app-basic-info", basicInfo);
+
+soyuteista.get("/schedule-by-document", scheduleByDocument);
 
 module.exports = {
   soyuteista,

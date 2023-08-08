@@ -192,6 +192,12 @@ const createDependencia = (req, res = response) => {};
 
 const removeDependencia = (req, res = response) => {};
 
+const scheduleByDocument = async (req, res = response) => {
+  const document = req.query.document;
+  const resp = await getScheduleByDocument(document);
+  res.json({ data: resp });
+};
+
 module.exports = {
   carnetEntrada,
   qualificationEntrada,
@@ -210,4 +216,5 @@ module.exports = {
   createDependencia,
   removeDependencia,
   basicInfo,
+  scheduleByDocument,
 };

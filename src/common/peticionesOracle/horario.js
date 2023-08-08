@@ -64,6 +64,29 @@ const horario = async (email) => {
   }
 };
 
+const getScheduleByDocument = async (document) => {
+  const conn = await run();
+  try {
+    const result = await conn.execute(
+      `SELECT * FROM table(RETURN_OBJECTS_APP_HORA_QR(:document))`,
+      { document },
+    );
+    return result.rows;
+  } catch (err) {
+    console.error(err);
+    throw err;
+  } finally {
+    if (conn) {
+      try {
+        await conn.close();
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  }
+};
+
 module.exports = {
   horario,
+  getScheduleByDocument 
 };
