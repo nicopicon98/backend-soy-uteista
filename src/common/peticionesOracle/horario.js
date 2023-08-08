@@ -68,7 +68,7 @@ const getScheduleByDocument = async (document) => {
   const conn = await run();
   try {
     const result = await conn.execute(
-      `SELECT * FROM table(RETURN_OBJECTS_APP_HORA_QR(:document))`,
+      `SELECT * FROM table(RETURN_OBJECTS_APP_HORA_QR(${document}))`,
       { document },
     );
     return result.rows;
