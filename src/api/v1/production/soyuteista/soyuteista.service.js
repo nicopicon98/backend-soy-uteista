@@ -1,6 +1,6 @@
 const { response } = require("express");
 const { carnet } = require("../../../../common/peticionesOracle/carnet");
-const { horario } = require("../../../../common/peticionesOracle/horario");
+const { horario, getScheduleByDocument } = require("../../../../common/peticionesOracle/horario");
 const { notas } = require("../../../../common/peticionesOracle/notas");
 const { mysql } = require("../../../../common/conexiones/conexionMysql");
 const {
