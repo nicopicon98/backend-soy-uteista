@@ -98,7 +98,7 @@ const getScheduleByDocument = async (document) => {
     } else {
       newData = {};
     }
-    if (resp.ID != null) {
+    if (newData.ID != null) {
       return { result: 1, data: newData, error: "" };
     } else {
       return { result: 1, data: {}, error: "" };
